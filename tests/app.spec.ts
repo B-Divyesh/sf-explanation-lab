@@ -121,14 +121,19 @@ test('app reloads with sample data while offline @claim:offline-reload', async (
   await context.setOffline(false);
 });
 
-test('an existing visitor gets the service worker update notice', async ({page}) => {
+test('an existing visitor keeps the service worker update notice through route renders', async ({page}) => {
   await page.goto('/demo');
   await page.evaluate(async () => {
     await navigator.serviceWorker.ready;
     if (!navigator.serviceWorker.controller) await new Promise<void>((resolve) => navigator.serviceWorker.addEventListener('controllerchange', () => resolve(), {once: true}));
   });
   await page.reload();
+  await expect(page.getByRole('heading', {level: 1, name: 'Practice with sample explanations'})).toBeVisible();
   await page.evaluate(() => navigator.serviceWorker.dispatchEvent(new MessageEvent('message', {data: {type: 'UPDATE_READY'}})));
+  await expect(page.getByRole('status')).toContainText('An update is ready. Reload to use it.');
+  await page.getByRole('link', {name: 'Start another explanation'}).click();
+  await expect(page.getByRole('heading', {level: 1, name: 'Start a four-part explanation'})).toBeVisible();
+  await page.waitForTimeout(4_100);
   await expect(page.getByRole('status')).toContainText('An update is ready. Reload to use it.');
 });
 

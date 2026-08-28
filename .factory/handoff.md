@@ -2,11 +2,12 @@
 
 ## Repair summary
 
-- Repaired the direct `/demo` accessibility race from candidate `9a553d0d42cea1d9f2ea25594161ca91902c09d2`.
-- Root cause: the initial render awaited IndexedDB demo seeding before it wrote the route `<main>` and `<h1>`. A fast route inspector could therefore see zero headings.
-- The app now writes a route-specific loading shell synchronously for every storage-backed route (`/demo`, `/practice`, and `/library`). That shell has exactly one plain-language `<h1>`, and it is replaced by the completed route with exactly one `<h1>`.
-- `index.html` now has a single heading-bearing fallback while JavaScript starts. Rendered main landmarks are programmatically focusable so the skip link moves focus to main.
-- Added regression coverage for direct `/demo` loads at `domcontentloaded`, completed route renders, route-focus/live-region behavior, keyboard skip-link navigation, and the service-worker update message.
+- Repaired the service-worker update notice failure from candidate `c916b118e4ee7b413e059652488a24f23fb36942`.
+- Root cause: every asynchronous route render replaced all of `#app`. The `UPDATE_READY` listener could write the notice into the temporary `/demo` shell, then IndexedDB completion removed that live region before Playwright or a user could observe it.
+- The shared toast live region now lives outside the replaceable route container. The listener keeps update readiness visible until reload, and short-lived messages restore the update notice when they finish.
+- Bumped the service-worker cache to `explanation-lab-shell-v2`, which installs the repaired worker for existing PWA clients and retires the prior shell cache.
+- Strengthened focused coverage: after a synthetic `UPDATE_READY`, the desktop and mobile tests complete a client-side route render, wait past the normal four-second toast lifetime, and still find the exact update message in a `role=status` element.
+- Preserved the previous one-`<h1>` repair and its direct-load, route-focus, keyboard, and accessibility coverage.
 
 ## What was built
 
@@ -40,17 +41,15 @@ Final local results on 2026-08-28:
 
 - Exact clean verification command `npm ci && npm run build && npm test`: passed; 25 tests passed and one expected skip because the 390px-only check runs only in the mobile project.
 - `npm run build`: passed; output written to `dist/` with `dist/index.html` at its root.
-- Production bundle: 10.41 KB JavaScript gzip and 4.59 KB CSS gzip.
+- Production bundle: 10.45 KB JavaScript gzip and 4.59 KB CSS gzip.
 - Mobile hero: 27 KB WebP; wide hero: 59 KB WebP.
 - `npm audit`: 0 vulnerabilities during `npm ci`.
 - Route/accessibility regression: each of `/`, `/demo`, `/practice`, `/library`, `/privacy`, `/terms`, and the 404 route has one `<h1>` both at `domcontentloaded` and after any route data renders. Axe through Playwright found no serious or critical violations on either desktop Chromium or the 390px mobile project.
 - Keyboard regression: Tab exposes the skip link, Enter moves focus to the main landmark, and keyboard activation of Demo moves focus to its final `<h1>`.
-- Offline/update regression: Playwright loaded `/demo`, waited for the service worker, disabled the network, reloaded, and found the full sample workspace; a controlled page also displayed the “An update is ready” toast when it received `UPDATE_READY`.
+- Offline/update regression: Playwright loaded `/demo`, waited for the service worker, disabled the network, reloaded, and found the full sample workspace. The update test passed on desktop and mobile after a route render and after waiting 4.1 seconds beyond the normal toast lifetime.
 - Privacy regression: the full sample edit and audio-recording flow observed no cross-origin requests.
-- Local production identity check, `/opt/fleet/lib/verify-url.sh http://127.0.0.1:4173/demo`: HTTP 200 in 540 ms; title `Demo — Explanation Lab`; `lang=en`; one h1; main landmark; 0 missing image alts; 0 unlabeled buttons; and 0 console errors. Evidence: `/tmp/explanation-lab-verify-local.ZdaGf2` in the repair container.
-- Lighthouse 12.8.2 report: Performance 100, Accessibility 100, Best Practices 100, SEO 100; FCP 1.0 s, LCP 1.6 s, CLS 0, total blocking time 0 ms. The Chromium process exited after report generation in this container, but the complete JSON report was written to `/tmp/explanation-lab-lh.p4skyc/report`.
-- Deployment: `/opt/fleet/lib/deploy-static.sh explanation-lab dist` deployed the committed static `dist/` to `https://explanation-lab.sociobot.in` using the configured Azure Static Web App.
-- Live identity check, `/opt/fleet/lib/verify-url.sh https://explanation-lab.sociobot.in/demo`: HTTP 200 in 611 ms; title `Demo — Explanation Lab`; `lang=en`; one h1; main landmark; 0 missing image alts; 0 unlabeled buttons; and 0 console errors. Evidence: `/tmp/explanation-lab-verify-live.w1TFHB` in the repair container.
+- Local production identity check, `/opt/fleet/lib/verify-url.sh http://127.0.0.1:4173/demo /tmp/explanation-lab-repair2-local.zvHWFD`: HTTP 200 in 540 ms; title `Demo — Explanation Lab`; `lang=en`; one h1; main landmark; 0 missing image alts; 0 unlabeled buttons; and 0 console errors.
+- Lighthouse 12.8.2 report: Performance 100, Accessibility 100, Best Practices 100, SEO 100; FCP 0.9 s, LCP 1.1 s, CLS 0, total blocking time 0 ms. Report: `/tmp/explanation-lab-repair2-lighthouse.0UqztZ/report.json` in the repair container.
 
 Claim definitions and their exact commands are in `.factory/claims.json`. Demo behavior is documented in `.factory/demo.md`.
 

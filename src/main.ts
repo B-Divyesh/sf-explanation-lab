@@ -21,6 +21,9 @@ let recorderStream: MediaStream | undefined;
 let audioChunks: Blob[] = [];
 let recordingFor: {demo: boolean; id: string; step: StepKey} | undefined;
 const objectUrls: string[] = [];
+const UPDATE_READY_MESSAGE = 'An update is ready. Reload to use it.';
+let updateReady = false;
+let toastTimeout: number | undefined;
 
 const pageDetails: Record<string, {title: string; description: string}> = {
   '/': {title: 'Explanation Lab — Practice explaining hard ideas', description: 'Practice a mechanism, boundary, example, and counterexample. Your work stays in this browser.'},
@@ -81,7 +84,7 @@ function footer(): string {
 }
 
 function shell(content: string, demo = false): string {
-  return `${header(demo)}${content}${footer()}<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>`;
+  return `${header(demo)}${content}${footer()}`;
 }
 
 function loadingPage(path: string): string {
@@ -267,12 +270,20 @@ async function render(focus = false): Promise<void> {
   }
 }
 
-function showToast(message: string): void {
+function showToast(message: string, persistent = false): void {
   const toast = document.querySelector<HTMLElement>('#toast');
   if (!toast) return;
+  if (toastTimeout !== undefined) window.clearTimeout(toastTimeout);
   toast.textContent = message;
   toast.hidden = false;
-  window.setTimeout(() => { toast.hidden = true; }, 4000);
+  toastTimeout = undefined;
+  if (!persistent) {
+    toastTimeout = window.setTimeout(() => {
+      if (updateReady) toast.textContent = UPDATE_READY_MESSAGE;
+      else toast.hidden = true;
+      toastTimeout = undefined;
+    }, 4000);
+  }
 }
 
 function navigate(href: string): void {
@@ -469,7 +480,10 @@ if ('serviceWorker' in navigator) {
     void navigator.serviceWorker.register('/sw.js').catch(() => undefined);
   });
   navigator.serviceWorker.addEventListener('message', (event) => {
-    if (event.data?.type === 'UPDATE_READY' && hadServiceWorker) showToast('An update is ready. Reload to use it.');
+    if (event.data?.type === 'UPDATE_READY' && hadServiceWorker) {
+      updateReady = true;
+      showToast(UPDATE_READY_MESSAGE, true);
+    }
   });
 }
 
