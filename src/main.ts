@@ -20,6 +20,7 @@ let recorder: MediaRecorder | undefined;
 let recorderStream: MediaStream | undefined;
 let audioChunks: Blob[] = [];
 let recordingFor: {demo: boolean; id: string; step: StepKey} | undefined;
+let recordingRequest = 0;
 const objectUrls: string[] = [];
 const UPDATE_READY_MESSAGE = 'An update is ready. Reload to use it.';
 let updateReady = false;
@@ -41,7 +42,9 @@ function escapeHtml(value: string): string {
 
 function dateLabel(value?: string): string {
   if (!value) return 'Not scheduled';
-  return new Intl.DateTimeFormat(undefined, {day: 'numeric', month: 'short', year: 'numeric'}).format(new Date(value));
+  const date = new Date(value);
+  if (!Number.isFinite(date.getTime())) return 'Invalid date';
+  return new Intl.DateTimeFormat(undefined, {day: 'numeric', month: 'short', year: 'numeric'}).format(date);
 }
 
 function isDue(item: Explanation): boolean {
@@ -80,7 +83,7 @@ function header(demo: boolean): string {
 }
 
 function footer(): string {
-  return `<footer class="site-footer"><p><strong>Explanation Lab</strong> makes you test an idea four ways.</p><div><a class="route-link" href="/privacy">Privacy</a><a class="route-link" href="/terms">Terms</a><a href="https://sociobot.in" rel="external">Built by Param Factory <span class="sr-only">(external site)</span></a></div><p class="build">v1.0 · Generated illustration disclosed in the visual notes</p></footer>`;
+  return `<footer class="site-footer"><p><strong>Explanation Lab</strong> makes you test an idea four ways.</p><div><a class="route-link" href="/privacy">Privacy</a><a class="route-link" href="/terms">Terms</a><a href="https://sociobot.in" rel="external">Built by Param Factory <span class="sr-only">(external site)</span></a></div><p class="build">v1.0 · build repair-4 · Generated illustration disclosed in the visual notes</p></footer>`;
 }
 
 function shell(content: string, demo = false): string {
@@ -232,6 +235,7 @@ function notFound(): string {
 }
 
 async function render(focus = false): Promise<void> {
+  cancelRecording();
   objectUrls.splice(0).forEach((url) => URL.revokeObjectURL(url));
   const path = pagePath();
   applyMeta(path);
@@ -287,6 +291,7 @@ function showToast(message: string, persistent = false): void {
 }
 
 function navigate(href: string): void {
+  cancelRecording();
   history.pushState({}, '', href);
   activeStep = 'mechanism';
   void render(true);
@@ -343,7 +348,13 @@ async function startRecording(demo: boolean, id: string, step: StepKey): Promise
     return;
   }
   try {
-    recorderStream = await navigator.mediaDevices.getUserMedia({audio: true});
+    const request = ++recordingRequest;
+    const stream = await navigator.mediaDevices.getUserMedia({audio: true});
+    if (request !== recordingRequest) {
+      stream.getTracks().forEach((track) => track.stop());
+      return;
+    }
+    recorderStream = stream;
     recorder = new MediaRecorder(recorderStream);
     audioChunks = [];
     recordingFor = {demo, id, step};
@@ -358,18 +369,37 @@ async function startRecording(demo: boolean, id: string, step: StepKey): Promise
   }
 }
 
+function cancelRecording(): void {
+  recordingRequest += 1;
+  if (recorder) {
+    recorder.ondataavailable = null;
+    recorder.onstop = null;
+    if (recorder.state !== 'inactive') {
+      try { recorder.stop(); } catch { /* The tracks are stopped below. */ }
+    }
+  }
+  recorderStream?.getTracks().forEach((track) => track.stop());
+  recorder = undefined;
+  recorderStream = undefined;
+  recordingFor = undefined;
+  audioChunks = [];
+}
+
 async function keepRecording(): Promise<void> {
   recorderStream?.getTracks().forEach((track) => track.stop());
   if (!recordingFor) return;
+  const request = recordingRequest;
   const {demo, id, step} = recordingFor;
+  const mimeType = recorder?.mimeType || 'audio/webm';
+  const chunks = audioChunks;
+  recorder = undefined; recorderStream = undefined; recordingFor = undefined; audioChunks = [];
   const item = await getExplanation(demo, id);
-  if (item && audioChunks.length) {
-    const mimeType = recorder?.mimeType || 'audio/webm';
-    item.responses[step].audio = {blob: new Blob(audioChunks, {type: mimeType}), mimeType, createdAt: new Date().toISOString()};
+  if (item && chunks.length) {
+    item.responses[step].audio = {blob: new Blob(chunks, {type: mimeType}), mimeType, createdAt: new Date().toISOString()};
     item.updatedAt = new Date().toISOString();
     await saveExplanation(demo, item);
   }
-  recorder = undefined; recorderStream = undefined; recordingFor = undefined; audioChunks = [];
+  if (request !== recordingRequest) return;
   await render();
   showToast('Audio note saved in this browser.');
 }
@@ -404,9 +434,18 @@ function attachForms(): void {
     const file = importInput.files?.[0];
     if (!file) return;
     const status = document.querySelector<HTMLElement>('#import-status');
-    void file.text().then(parseImport).then((items) => importExplanations(false, items).then(() => items.length)).then((count) => {
-      if (status) status.textContent = `Imported ${count} explanation${count === 1 ? '' : 's'}.`;
-      void render();
+    void file.text().then(parseImport).then(async (items) => {
+      const existingIds = new Set((await listExplanations(false)).map((item) => item.id));
+      const collisionCount = items.filter((item) => existingIds.has(item.id)).length;
+      const replace = collisionCount === 0 || confirm(`${collisionCount} imported explanation${collisionCount === 1 ? '' : 's'} match existing work. Replace ${collisionCount === 1 ? 'it' : 'them'}? Choose Cancel to skip matching explanations.`);
+      const selected = replace ? items : items.filter((item) => !existingIds.has(item.id));
+      await importExplanations(false, selected);
+      return {imported: selected.length, replaced: replace ? collisionCount : 0, skipped: replace ? 0 : collisionCount};
+    }).then(async ({imported, replaced, skipped}) => {
+      const result = `Imported ${imported} explanation${imported === 1 ? '' : 's'}.${replaced ? ` Replaced ${replaced} matching explanation${replaced === 1 ? '' : 's'}.` : ''}${skipped ? ` Skipped ${skipped} matching explanation${skipped === 1 ? '' : 's'}.` : ''}`;
+      if (status) status.textContent = result;
+      await render();
+      showToast(result);
     }).catch((error: unknown) => {
       if (status) status.textContent = error instanceof Error ? error.message : 'The file could not be imported.';
     });
@@ -471,6 +510,8 @@ document.addEventListener('click', (event) => {
 });
 
 window.addEventListener('popstate', () => { activeStep = 'mechanism'; void render(true); });
+window.addEventListener('pagehide', cancelRecording);
+document.addEventListener('visibilitychange', () => { if (document.hidden) cancelRecording(); });
 window.addEventListener('online', () => showToast('You are back online.'));
 window.addEventListener('offline', () => showToast('You are offline. Saved work is still available.'));
 

@@ -14,39 +14,67 @@
     "sandbox": "fresh browser context; create a demo explanation; assert it is absent from the real library"
   },
   {
+    "id": "demo-reset-exit",
+    "claim": "Reset demo and Start for real clear only demo data",
+    "where": "demo banner, privacy page, README, demo documentation",
+    "test": "npm test -- --grep @claim:demo-reset-exit",
+    "sandbox": "fresh browser context entered at /demo; create real and demo records; reset and exit; assert samples reseed and real work survives"
+  },
+  {
     "id": "four-part-revisit",
     "claim": "Completed explanations return after seven days",
     "where": "landing how-it-works and completion action",
     "test": "npm test -- --grep @claim:four-part-revisit",
-    "sandbox": "fresh browser context; answer all four prompts; finish; assert 4/4 and the exact seven-day date"
+    "sandbox": "fresh browser context entered at /demo; create a sample explanation; answer all four prompts; finish; assert 4/4 and the exact seven-day date"
   },
   {
     "id": "json-export",
     "claim": "Export a JSON backup",
     "where": "landing limits, library data tools, privacy page, README",
     "test": "npm test -- --grep @claim:json-export",
-    "sandbox": "fresh browser context; create a real draft; download JSON; parse and assert its topic"
+    "sandbox": "fresh browser context entered at /demo; choose Start for real; create a real draft; download JSON; parse and assert its topic"
   },
   {
     "id": "json-import",
     "claim": "Import an Explanation Lab JSON backup",
     "where": "library data tools, README",
     "test": "npm test -- --grep @claim:json-import",
-    "sandbox": "fresh browser context; attach a valid JSON backup; assert its explanation appears in the library"
+    "sandbox": "fresh browser context entered at /demo; choose Start for real; attach a valid JSON backup; assert its explanation appears in the library"
+  },
+  {
+    "id": "audio-backup",
+    "claim": "JSON exports include text and local audio notes",
+    "where": "library data tools, README",
+    "test": "npm test -- --grep @claim:audio-backup",
+    "sandbox": "fresh browser context entered at /demo; record an audio note in real work; export and inspect its data URL; clear storage; import and assert the audio control returns"
   },
   {
     "id": "local-private",
-    "claim": "Explanations and audio stay in this browser",
+    "claim": "The app does not send explanations or audio to a server",
     "where": "landing facts, privacy page, README",
     "test": "npm test -- --grep @claim:local-private",
-    "sandbox": "fresh browser context; edit and save sample data while recording all requests; assert no cross-origin requests"
+    "sandbox": "fresh browser context entered at /demo; edit text and record audio while recording all requests; assert no cross-origin requests"
+  },
+  {
+    "id": "manual-no-sync",
+    "claim": "The app does not grade or generate explanations or sync devices",
+    "where": "landing limits, terms, README",
+    "test": "npm test -- --grep @claim:manual-no-sync",
+    "sandbox": "fresh browser context entered at /demo; inspect the stated limits and assert the flow makes no cross-origin request"
+  },
+  {
+    "id": "no-tracking",
+    "claim": "The app uses no analytics, advertising, or third-party scripts",
+    "where": "privacy page, product privacy contract",
+    "test": "npm test -- --grep @claim:no-tracking",
+    "sandbox": "fresh browser context entered at /demo; visit the privacy page while recording requests; assert every request is same-origin"
   },
   {
     "id": "free-no-account",
     "claim": "Free, with no account",
     "where": "landing facts, README",
     "test": "npm test -- --grep @claim:free-no-account",
-    "sandbox": "fresh browser context; open the real practice form directly; assert no sign-in or payment step"
+    "sandbox": "fresh browser context entered at /demo; choose Start for real; assert the editable practice form opens without sign-in or payment"
   },
   {
     "id": "offline-reload",
@@ -61,5 +89,12 @@
     "where": "factory product contract",
     "test": "npm test -- --grep @claim:mobile-ready --project mobile",
     "sandbox": "390x844 browser viewport; assert primary action and workbench fit without horizontal overflow"
+  },
+  {
+    "id": "site-data-clear",
+    "claim": "Clearing this site's browser data removes saved work",
+    "where": "privacy page, README",
+    "test": "npm test -- --grep @claim:site-data-clear",
+    "sandbox": "fresh browser context entered at /demo; create real work; delete the real IndexedDB database; reload and assert the record is gone"
   }
 ]

@@ -1,5 +1,25 @@
-import {expect, test} from '@playwright/test';
+import {expect, test, type Page} from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import {readFileSync} from 'node:fs';
+
+function backupItem(id: string, topic: string, overrides: Record<string, unknown> = {}) {
+  const now = new Date().toISOString();
+  return {
+    id, topic, createdAt: now, updatedAt: now, status: 'draft',
+    responses: {mechanism: {text: 'A saved explanation.'}, boundary: {text: ''}, example: {text: ''}, counterexample: {text: ''}},
+    ...overrides
+  };
+}
+
+function backupFile(explanations: unknown[]) {
+  return {product: 'explanation-lab', version: 1, exportedAt: new Date().toISOString(), explanations};
+}
+
+async function enterRealWorkspace(page: Page) {
+  await page.goto('/demo');
+  await page.getByRole('button', {name: 'Start for real'}).click();
+  await expect(page).toHaveURL(/\/practice$/);
+}
 
 test('landing page states the job and opens a seeded demo @claim:one-click-demo', async ({page}) => {
   await page.goto('/');
@@ -22,7 +42,8 @@ test('demo work never appears in the real library @claim:demo-isolation', async 
 });
 
 test('a learner can complete all four prompts and get a seven-day revisit @claim:four-part-revisit', async ({page}) => {
-  await page.goto('/practice');
+  await page.goto('/demo');
+  await page.getByRole('link', {name: 'Start another explanation'}).click();
   await page.getByLabel('What do you want to explain?').fill('Why recursion needs a base case');
   await page.getByRole('button', {name: 'Open the four prompts'}).click();
   const answers = [
@@ -41,7 +62,7 @@ test('a learner can complete all four prompts and get a seven-day revisit @claim
     }
   }
   await page.getByRole('button', {name: 'Finish and revisit in 7 days'}).click();
-  await expect(page).toHaveURL(/\/library$/);
+  await expect(page).toHaveURL(/\/demo$/);
   const row = page.locator('.explanation-row').filter({hasText: 'Why recursion needs a base case'});
   await expect(row).toContainText('4/4 prompts answered');
   const expected = new Intl.DateTimeFormat('en-US', {day: 'numeric', month: 'short', year: 'numeric'}).format(new Date(Date.now() + 7 * 86_400_000));
@@ -49,7 +70,7 @@ test('a learner can complete all four prompts and get a seven-day revisit @claim
 });
 
 test('exports local work as a readable JSON backup @claim:json-export', async ({page}) => {
-  await page.goto('/practice');
+  await enterRealWorkspace(page);
   await page.getByLabel('What do you want to explain?').fill('How a queue preserves arrival order');
   await page.getByRole('button', {name: 'Open the four prompts'}).click();
   await page.getByLabel('Your explanation').fill('New items enter at the back. Removals happen at the front.');
@@ -86,13 +107,13 @@ test('demo sends no cross-origin requests @claim:local-private', async ({page}) 
 });
 
 test('a visitor can begin without signing in or paying @claim:free-no-account', async ({page}) => {
-  await page.goto('/');
-  await page.getByRole('link', {name: 'Start a blank explanation'}).click();
+  await enterRealWorkspace(page);
   await expect(page.getByLabel('What do you want to explain?')).toBeEditable();
   await expect(page.getByText(/sign in|log in|payment|card number/i)).toHaveCount(0);
 });
 
 test('imports a valid Explanation Lab JSON backup @claim:json-import', async ({page}) => {
+  await enterRealWorkspace(page);
   await page.goto('/library');
   const now = new Date().toISOString();
   const backup = {
@@ -185,4 +206,197 @@ test('the 390px layout keeps primary controls inside the viewport @claim:mobile-
   await page.goto('/demo?id=sample-doppler');
   await expect(page.getByLabel('Your explanation')).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(1);
+});
+
+test('route navigation immediately stops an active microphone track', async ({page}) => {
+  await page.addInitScript(() => {
+    const original = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
+    navigator.mediaDevices.getUserMedia = async (...constraints) => {
+      const stream = await original(...constraints);
+      (globalThis as typeof globalThis & {qaAudioTrack?: MediaStreamTrack}).qaAudioTrack = stream.getAudioTracks()[0];
+      return stream;
+    };
+  });
+  await page.goto('/demo?id=sample-doppler');
+  await page.getByRole('button', {name: 'Record an audio note'}).click();
+  await expect(page.getByRole('button', {name: 'Stop and keep audio'})).toBeVisible();
+  expect(await page.evaluate(() => (globalThis as typeof globalThis & {qaAudioTrack?: MediaStreamTrack}).qaAudioTrack?.readyState)).toBe('live');
+  await page.getByRole('link', {name: 'Library'}).click();
+  await expect(page).toHaveURL(/\/library$/);
+  expect(await page.evaluate(() => (globalThis as typeof globalThis & {qaAudioTrack?: MediaStreamTrack}).qaAudioTrack?.readyState)).toBe('ended');
+  await expect(page.getByRole('button', {name: /Stop and keep audio/})).toHaveCount(0);
+});
+
+test('an invalid imported date changes no records and never locks the library', async ({page}) => {
+  await enterRealWorkspace(page);
+  await page.goto('/library');
+  const invalid = backupFile([
+    backupItem('would-be-valid', 'A valid sibling must stay out'),
+    backupItem('bad-date', 'An invalid date must stay out', {updatedAt: 'not-a-date'})
+  ]);
+  await page.locator('#import-file').setInputFiles({name: 'invalid-date.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(invalid))});
+  await expect(page.getByRole('status')).toContainText('invalid practice date');
+  await expect(page.getByText('A valid sibling must stay out')).toHaveCount(0);
+  await page.reload();
+  await expect(page.getByRole('heading', {level: 1, name: 'Your explanations'})).toBeVisible();
+  await expect(page.getByText('Invalid time value')).toHaveCount(0);
+});
+
+test('duplicate import IDs require an explicit skip or replace decision', async ({page}) => {
+  await enterRealWorkspace(page);
+  await page.goto('/library');
+  const upload = (name: string, topic: string) => page.locator('#import-file').setInputFiles({
+    name, mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(backupFile([backupItem('collision', topic)])))
+  });
+  await upload('original.json', 'Original imported topic');
+  await expect(page.getByRole('link', {name: 'Original imported topic'})).toBeVisible();
+
+  page.once('dialog', async (dialog) => {
+    expect(dialog.message()).toContain('match existing work');
+    await dialog.dismiss();
+  });
+  await upload('skip.json', 'Skipped replacement topic');
+  await expect(page.locator('#toast')).toContainText('Skipped 1 matching explanation');
+  await expect(page.getByRole('link', {name: 'Original imported topic'})).toBeVisible();
+  await expect(page.getByText('Skipped replacement topic')).toHaveCount(0);
+
+  page.once('dialog', async (dialog) => dialog.accept());
+  await upload('replace.json', 'Confirmed replacement topic');
+  await expect(page.locator('#toast')).toContainText('Replaced 1 matching explanation');
+  await expect(page.getByRole('link', {name: 'Confirmed replacement topic'})).toBeVisible();
+  await expect(page.getByText('Original imported topic')).toHaveCount(0);
+});
+
+test('text resized to 200 percent reflows on every reported mobile route', async ({page}, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile', 'Mobile-only reflow check');
+  for (const route of ['/demo', '/practice', '/privacy']) {
+    await page.goto(route);
+    await page.evaluate(() => { document.documentElement.style.fontSize = '32px'; });
+    await expect(page.locator('h1')).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth), route).toBeLessThanOrEqual(1);
+  }
+});
+
+test('repeated mobile navigation and footer targets are at least 44 CSS pixels', async ({page}, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile', 'Mobile-only target-size check');
+  await page.goto('/');
+  const targets = [page.locator('.wordmark'), page.getByRole('navigation').getByRole('link', {name: 'Demo'}), ...await page.locator('.site-footer a').all()];
+  for (const target of targets) {
+    const box = await target.boundingBox();
+    expect(box?.width).toBeGreaterThanOrEqual(44);
+    expect(box?.height).toBeGreaterThanOrEqual(44);
+  }
+});
+
+test('the focus outline has at least 3 to 1 contrast on product surfaces', async ({page}) => {
+  await page.goto('/demo');
+  const result = await page.evaluate(() => {
+    const root = getComputedStyle(document.documentElement);
+    const colors = ['--paper', '--yellow', '--blue'].map((token) => root.getPropertyValue(token).trim());
+    const focus = root.getPropertyValue('--focus').trim();
+    const luminance = (hex: string) => {
+      const channels = hex.match(/[\da-f]{2}/gi)!.map((part) => Number.parseInt(part, 16) / 255).map((part) => part <= .04045 ? part / 12.92 : ((part + .055) / 1.055) ** 2.4);
+      return .2126 * channels[0] + .7152 * channels[1] + .0722 * channels[2];
+    };
+    return colors.map((color) => (Math.max(luminance(focus), luminance(color)) + .05) / (Math.min(luminance(focus), luminance(color)) + .05));
+  });
+  result.forEach((contrast) => expect(contrast).toBeGreaterThanOrEqual(3));
+  await page.getByRole('button', {name: 'Reset demo'}).focus();
+  await expect(page.getByRole('button', {name: 'Reset demo'})).toHaveCSS('outline-style', 'solid');
+});
+
+test('static host policy serves real 404s and separates stable and hashed cache rules', async ({page}) => {
+  await page.goto('/missing-page');
+  await expect(page.getByRole('heading', {level: 1, name: 'This page is outside the boundary'})).toBeVisible();
+  const config = JSON.parse(readFileSync('public/staticwebapp.config.json', 'utf8'));
+  expect(config.responseOverrides['404'].rewrite).toBe('/404.html');
+  expect(config.routes).toContainEqual({route: '/build/*', headers: {'Cache-Control': 'public, max-age=31536000, immutable'}});
+  expect(config.routes).toContainEqual({route: '/assets/*', headers: {'Cache-Control': 'public, max-age=0, must-revalidate'}});
+});
+
+test('the footer exposes the release build identity', async ({page}) => {
+  await page.goto('/');
+  await expect(page.locator('.build')).toContainText('build repair-4');
+});
+
+test('audio notes survive JSON export and import @claim:audio-backup', async ({page}) => {
+  await enterRealWorkspace(page);
+  await page.getByLabel('What do you want to explain?').fill('How sound waves carry energy');
+  await page.getByRole('button', {name: 'Open the four prompts'}).click();
+  await page.getByRole('button', {name: 'Record an audio note'}).click();
+  await page.waitForTimeout(200);
+  await page.getByRole('button', {name: 'Stop and keep audio'}).click();
+  await expect(page.locator('audio')).toBeVisible();
+  await page.goto('/library');
+  const downloadPromise = page.waitForEvent('download');
+  await page.getByRole('button', {name: 'Export JSON'}).click();
+  const download = await downloadPromise;
+  const stream = await download.createReadStream();
+  const chunks: Buffer[] = [];
+  for await (const chunk of stream) chunks.push(Buffer.from(chunk));
+  const bytes = Buffer.concat(chunks);
+  const exported = JSON.parse(bytes.toString('utf8'));
+  const saved = exported.explanations.find((item: {topic: string}) => item.topic === 'How sound waves carry energy');
+  expect(saved.responses.mechanism.audio.dataUrl).toMatch(/^data:audio\/.+;base64,/);
+  await page.evaluate(() => new Promise<void>((resolve, reject) => {
+    const request = indexedDB.deleteDatabase('explanation-lab');
+    request.onsuccess = () => resolve(); request.onerror = () => reject(request.error);
+  }));
+  await page.reload();
+  await page.locator('#import-file').setInputFiles({name: 'audio-backup.json', mimeType: 'application/json', buffer: bytes});
+  await page.getByRole('link', {name: 'How sound waves carry energy'}).click();
+  await expect(page.locator('audio')).toBeVisible();
+});
+
+test('reset and exit clear only the demo workspace @claim:demo-reset-exit', async ({page}) => {
+  await enterRealWorkspace(page);
+  await page.getByLabel('What do you want to explain?').fill('A real explanation that must survive');
+  await page.getByRole('button', {name: 'Open the four prompts'}).click();
+  await page.getByLabel('Your explanation').fill('This record belongs to the real workspace.');
+  await page.getByRole('button', {name: 'Save this response'}).click();
+  await page.goto('/demo?new=1');
+  await page.getByLabel('What do you want to explain?').fill('Temporary demo explanation');
+  await page.getByRole('button', {name: 'Open the four prompts'}).click();
+  await page.getByRole('button', {name: 'Reset demo'}).click();
+  await expect(page.getByText('Temporary demo explanation')).toHaveCount(0);
+  await expect(page.getByRole('link', {name: 'Why a passing siren changes pitch'})).toBeVisible();
+  await page.getByRole('button', {name: 'Start for real'}).click();
+  await page.goto('/library');
+  await expect(page.getByRole('link', {name: 'A real explanation that must survive'})).toBeVisible();
+  await page.goto('/demo');
+  await expect(page.getByRole('link', {name: 'Why a passing siren changes pitch'})).toBeVisible();
+});
+
+test('the product neither grades nor generates explanations nor syncs devices @claim:manual-no-sync', async ({page}) => {
+  const crossOrigin: string[] = [];
+  page.on('request', (request) => { if (new URL(request.url()).origin !== 'http://127.0.0.1:4173') crossOrigin.push(request.url()); });
+  await page.goto('/demo');
+  await page.goto('/');
+  await expect(page.getByText('Explanation Lab does not grade answers or generate explanations.')).toBeVisible();
+  await expect(page.getByText('It does not create an account or sync devices.')).toBeVisible();
+  expect(crossOrigin).toEqual([]);
+});
+
+test('the app loads no analytics advertising or third-party scripts @claim:no-tracking', async ({page}) => {
+  const crossOrigin: string[] = [];
+  page.on('request', (request) => { if (new URL(request.url()).origin !== 'http://127.0.0.1:4173') crossOrigin.push(request.url()); });
+  await page.goto('/demo');
+  await page.goto('/privacy');
+  await expect(page.getByText('It does not use analytics, advertising, or third-party scripts.')).toBeVisible();
+  expect(crossOrigin).toEqual([]);
+});
+
+test('clearing site data removes saved work @claim:site-data-clear', async ({page}) => {
+  await enterRealWorkspace(page);
+  await page.getByLabel('What do you want to explain?').fill('A record removed with site data');
+  await page.getByRole('button', {name: 'Open the four prompts'}).click();
+  await expect(page.getByRole('heading', {level: 1, name: 'A record removed with site data'})).toBeVisible();
+  await page.goto('/library');
+  await expect(page.getByRole('link', {name: 'A record removed with site data'})).toBeVisible();
+  await page.evaluate(() => new Promise<void>((resolve, reject) => {
+    const request = indexedDB.deleteDatabase('explanation-lab');
+    request.onsuccess = () => resolve(); request.onerror = () => reject(request.error);
+  }));
+  await page.reload();
+  await expect(page.getByText('A record removed with site data')).toHaveCount(0);
 });

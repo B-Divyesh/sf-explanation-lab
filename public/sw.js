@@ -1,4 +1,4 @@
-const CACHE = 'explanation-lab-shell-v2';
+const CACHE = 'explanation-lab-shell-v3';
 const SHELL = [
   '/', '/index.html', '/offline.html', '/manifest.webmanifest', '/favicon.svg',
   '/assets/hero-640.webp', '/assets/hero-1024.webp', '/assets/social-card.webp',
@@ -27,7 +27,7 @@ self.addEventListener('fetch', (event) => {
     }).catch(async () => (await caches.match('/index.html')) || caches.match('/offline.html')));
     return;
   }
-  if (url.pathname.startsWith('/assets/') || url.pathname.endsWith('.svg')) {
+  if (url.pathname.startsWith('/assets/') || url.pathname.startsWith('/build/') || url.pathname.endsWith('.svg')) {
     event.respondWith(caches.match(event.request).then((cached) => cached || fetch(event.request).then((response) => {
       const copy = response.clone();
       caches.open(CACHE).then((cache) => cache.put(event.request, copy));

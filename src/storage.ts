@@ -135,35 +135,67 @@ export function parseImport(text: string): Explanation[] {
   if (!file || typeof file !== 'object' || !('product' in file) || file.product !== 'explanation-lab' || !('explanations' in file) || !Array.isArray(file.explanations)) {
     throw new Error('This is not an Explanation Lab export. Choose a JSON file exported by this app.');
   }
-  return file.explanations.map((raw: unknown) => {
-    if (!raw || typeof raw !== 'object' || !('id' in raw) || !validString(raw.id) || !('topic' in raw) || !validString(raw.topic) || !('responses' in raw) || !raw.responses || typeof raw.responses !== 'object') {
+  if (file.explanations.length > 10_000) throw new Error('This backup contains too many explanations to import safely.');
+  const ids = new Set<string>();
+  return file.explanations.map((raw: unknown, index: number) => {
+    if (!raw || typeof raw !== 'object' || !('id' in raw) || !validString(raw.id) || !raw.id.trim() || raw.id.length > 200 || !('topic' in raw) || !validString(raw.topic) || raw.topic.trim().length < 3 || raw.topic.length > 100 || !('responses' in raw) || !raw.responses || typeof raw.responses !== 'object') {
       throw new Error('One explanation is incomplete. Export the file again and retry.');
     }
+    if (ids.has(raw.id)) throw new Error(`The backup contains the ID “${raw.id}” more than once. Remove the duplicate and retry.`);
+    ids.add(raw.id);
     const source = raw as Record<string, unknown>;
     const sourceResponses = raw.responses as Record<string, unknown>;
     const responses = Object.fromEntries(STEP_KEYS.map((key) => {
       const part = sourceResponses[key];
-      if (!part || typeof part !== 'object' || !('text' in part) || !validString(part.text)) throw new Error(`The ${key} response is missing.`);
+      if (!part || typeof part !== 'object' || !('text' in part) || !validString(part.text) || part.text.length > 6000) throw new Error(`The ${key} response is missing or too long.`);
       const audioValue = 'audio' in part ? part.audio : undefined;
       let audio: AudioNote | undefined;
-      if (audioValue && typeof audioValue === 'object' && 'dataUrl' in audioValue && validString(audioValue.dataUrl) && 'mimeType' in audioValue && validString(audioValue.mimeType) && 'createdAt' in audioValue && validString(audioValue.createdAt)) {
-        audio = dataUrlToAudio(audioValue.dataUrl, audioValue.mimeType, audioValue.createdAt);
+      if (audioValue !== undefined) {
+        if (!audioValue || typeof audioValue !== 'object' || !('dataUrl' in audioValue) || !validString(audioValue.dataUrl) || !('mimeType' in audioValue) || !validString(audioValue.mimeType) || !audioValue.mimeType.startsWith('audio/') || !('createdAt' in audioValue) || !validDate(audioValue.createdAt)) {
+          throw new Error(`The ${key} audio note is invalid.`);
+        }
+        const prefix = `data:${audioValue.mimeType};base64,`;
+        if (!audioValue.dataUrl.startsWith(prefix)) throw new Error(`The ${key} audio note has an invalid format.`);
+        try {
+          audio = dataUrlToAudio(audioValue.dataUrl, audioValue.mimeType, audioValue.createdAt);
+        } catch {
+          throw new Error(`The ${key} audio note could not be read.`);
+        }
       }
       return [key, {text: part.text, ...(audio ? {audio} : {})}];
     })) as Record<StepKey, ResponsePart>;
-    const now = new Date().toISOString();
+    if (!validDate(source.createdAt) || !validDate(source.updatedAt)) throw new Error(`Explanation ${index + 1} has an invalid practice date.`);
+    if (!validOptionalDate(source.completedAt) || !validOptionalDate(source.revisitAt) || !validOptionalDate(source.lastRevisitedAt)) throw new Error(`Explanation ${index + 1} has an invalid completion or revisit date.`);
+    if (source.status !== 'draft' && source.status !== 'complete') throw new Error(`Explanation ${index + 1} has an invalid status.`);
     return {
-      id: raw.id, topic: raw.topic, responses,
-      createdAt: validString(source.createdAt) ? source.createdAt : now,
-      updatedAt: validString(source.updatedAt) ? source.updatedAt : now,
-      completedAt: validString(source.completedAt) ? source.completedAt : undefined,
-      revisitAt: validString(source.revisitAt) ? source.revisitAt : undefined,
-      lastRevisitedAt: validString(source.lastRevisitedAt) ? source.lastRevisitedAt : undefined,
-      status: source.status === 'complete' ? 'complete' : 'draft'
+      id: raw.id, topic: raw.topic.trim(), responses,
+      createdAt: source.createdAt,
+      updatedAt: source.updatedAt,
+      completedAt: source.completedAt,
+      revisitAt: source.revisitAt,
+      lastRevisitedAt: source.lastRevisitedAt,
+      status: source.status
     } satisfies Explanation;
   });
 }
 
 export async function importExplanations(demo: boolean, explanations: Explanation[]): Promise<void> {
-  await Promise.all(explanations.map((item) => saveExplanation(demo, item)));
+  if (!explanations.length) return;
+  const db = await openDatabase(demo);
+  await new Promise<void>((resolve, reject) => {
+    const transaction = db.transaction(STORE, 'readwrite');
+    const store = transaction.objectStore(STORE);
+    explanations.forEach((item) => store.put(item));
+    transaction.oncomplete = () => { db.close(); resolve(); };
+    transaction.onerror = () => { db.close(); reject(transaction.error ?? new Error('The import could not be saved. No work was changed.')); };
+    transaction.onabort = () => { db.close(); reject(transaction.error ?? new Error('The import could not be saved. No work was changed.')); };
+  });
+}
+
+function validDate(value: unknown): value is string {
+  return validString(value) && value.trim() !== '' && Number.isFinite(Date.parse(value));
+}
+
+function validOptionalDate(value: unknown): value is string | undefined {
+  return value === undefined || validDate(value);
 }

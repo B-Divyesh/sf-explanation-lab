@@ -47,7 +47,7 @@ Audited 2026-08-28. Counts treat hyphenated terms and number ranges as one word.
 | Explanation Lab makes you test an idea four ways. | 9 | Pass |
 | Terms | 1 | Pass |
 | Built by Param Factory | 4 | Pass |
-| Generated illustration disclosed in the visual notes | 7 | Pass |
+| v1.0 · build repair-4 · Generated illustration disclosed in the visual notes | 11 | Pass |
 
 No line exceeds 22 words. No line contains a banned marketing word.
 

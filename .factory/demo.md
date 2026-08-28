@@ -23,4 +23,4 @@ Demo records use the IndexedDB database `demo:explanation-lab`. Real records use
 
 “Reset demo” clears the demo database and restores the three bundled samples. “Start for real” clears the demo database and opens a blank real practice form. Neither action changes real data.
 
-The test `@claim:demo-isolation` creates a demo explanation and confirms that it does not appear in the real library.
+The tests `@claim:demo-isolation` and `@claim:demo-reset-exit` prove namespace separation, reset, reseeding, exit, and preservation of real work.

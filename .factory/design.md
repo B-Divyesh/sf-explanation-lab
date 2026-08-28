@@ -20,6 +20,7 @@ The treatment is intentionally single-mode. The warm paper field and carbon ink 
 | Success | `--green` | `#146B43` | saved and completed states |
 | Warning tint | `--yellow` | `#FFD84D` | labels and focus support on light surfaces |
 | Danger | `--red` | `#A52822` | destructive actions and errors |
+| Focus | `--focus` | `#151515` | 3:1 or better focus outline against paper, yellow, and cobalt |
 
 Carbon ink on paper is above 14:1. Muted ink on paper is above 6:1. White on cobalt is above 7:1. Status never depends on color alone.
 
@@ -45,7 +46,7 @@ System fonts keep the first load small, work offline, and avoid third-party requ
 - Buttons are rectangular tools with a visible physical press of 2px.
 - Save feedback appears beside the action and in a polite live region.
 - Keyboard users follow source order: prompt, response, recording, next action. The writing field receives focus when a step opens.
-- Destructive actions name their target and require confirmation. Imports validate before replacing data.
+- Destructive actions name their target and require confirmation. Imports validate atomically, then ask whether matching IDs should be replaced or skipped.
 
 ## Motion
 

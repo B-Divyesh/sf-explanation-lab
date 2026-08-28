@@ -15,7 +15,7 @@ One-click sandbox: <https://explanation-lab.sociobot.in/demo>
 Requirements: Node.js 20 or newer.
 
 ```sh
-npm install
+npm ci
 npm run dev
 ```
 
@@ -25,12 +25,15 @@ Open the local URL printed by Vite. `/demo` loads isolated sample data.
 
 ```sh
 npm test
+npm run test:a11y
+npm run typecheck
+npm run lint
 npm run build
 ```
 
 The exact deployment build command is `npm run build`. It writes the static site to `dist/`, with `dist/index.html` at its root.
 
-The Playwright suite checks the full four-prompt flow, demo isolation, local audio, JSON import and export, offline reload, the 390px layout, and serious accessibility issues. Chromium for Playwright is required; the work order pins Playwright 1.58.2.
+The Playwright suite checks the full four-prompt flow, demo isolation, local audio, JSON import and export, offline reload, 200% text reflow, keyboard use, the 390px layout, and serious accessibility issues. Chromium for Playwright is required; the work order pins Playwright 1.58.2.
 
 ## Data and privacy
 
@@ -39,6 +42,7 @@ The Playwright suite checks the full four-prompt flow, demo isolation, local aud
 - Resetting or leaving the demo clears only demo data.
 - The app makes no cross-origin runtime requests.
 - Clearing this site's browser data removes saved work.
+- Imports are validated before one atomic write. Matching IDs ask whether to replace or skip the saved explanation.
 
 Read the in-app `/privacy` and `/terms` pages for user-facing details.
 
