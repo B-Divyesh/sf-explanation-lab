@@ -77,3 +77,31 @@ Results in the repair container:
 ## Independent verifier outcome — 2026-08-28 UTC
 
 **FAIL — do not release candidate `13edfeead324f3be3bfbc61590c1b42b7ab0484b` yet.** Fresh independent QA confirmed the live URL is byte-for-byte the candidate build and all 14 declared claim commands, full tests, axe tests, type/lint, build, offline reload, headers, privacy/network, desktop/mobile, and normal-route console checks pass. The remaining release blocker is the claims contract: `README.md` promises atomic import validation and an explicit duplicate-ID replace/skip decision, but `.factory/claims.json` has no matching claims and no tagged `@claim:` demo-sandbox test. See `.factory/verification-3.md` for exact evidence and remediation.
+
+## Repair 5 — verifier QA3-01 — 2026-08-28 UTC
+
+The two README import-safety promises are now part of the tested claims contract; product behavior and the PWA artifact were preserved.
+
+- Added `atomic-import-validation`: its single tagged Playwright test enters at `/demo`, explicitly starts real work, imports a mixed valid/invalid-date backup, verifies neither record is written, reloads Library, and verifies the Library stays usable.
+- Added `duplicate-import-decision`: its single tagged Playwright test enters at `/demo`, explicitly starts real work, imports a matching ID, then proves dismissing the decision preserves the saved item and accepting it replaces that item.
+- The manifest contains 16 declarations and source validation confirmed exactly one `@claim:<id>` tag for each. Every exact manifest command passed: 31 browser executions (desktop and 390×844 mobile, with the mobile-only layout claim once). Evidence: `/tmp/explanation-lab-repair5-claims.log` in the repair container.
+
+### Repair 5 verification
+
+```sh
+npm ci
+npm audit --audit-level=high
+CI=1 npm test
+CI=1 npm run test:a11y
+npm run typecheck
+npm run lint
+npm run build
+```
+
+- Clean install installed 22 packages; audit reported 0 vulnerabilities.
+- Full Playwright matrix: 52 checks, including desktop, 390px mobile, keyboard skip-link/navigation, offline reload/update, privacy request capture, recovery, response-policy, and focus/reflow coverage; pass (three expected desktop skips for mobile-only assertions).
+- Dedicated Playwright axe suite: 2 projects passed with no serious or critical findings across landing, demo, practice, library, privacy, terms, and designed 404 routes.
+- Typecheck, lint, and production build passed. `dist/` contains `index.html` and `404.html`; emitted JS is 32.26 KB raw / 11.22 KB gzip and CSS is 18.46 KB raw / 4.66 KB gzip.
+- Local production smoke at `/demo`: HTTP 200 in 525 ms; title `Demo — Explanation Lab`, `lang=en`, one h1, main landmark, no missing image alts or unlabeled buttons, and no console errors. Evidence directory: `/tmp/explanation-lab-repair5-url-smoke.*` in the repair container.
+
+Deployment and fresh live evidence are recorded below after the committed repair is published.

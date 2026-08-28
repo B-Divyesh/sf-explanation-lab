@@ -227,7 +227,7 @@ test('route navigation immediately stops an active microphone track', async ({pa
   await expect(page.getByRole('button', {name: /Stop and keep audio/})).toHaveCount(0);
 });
 
-test('an invalid imported date changes no records and never locks the library', async ({page}) => {
+test('an invalid imported date changes no records and never locks the library @claim:atomic-import-validation', async ({page}) => {
   await enterRealWorkspace(page);
   await page.goto('/library');
   const invalid = backupFile([
@@ -242,7 +242,7 @@ test('an invalid imported date changes no records and never locks the library', 
   await expect(page.getByText('Invalid time value')).toHaveCount(0);
 });
 
-test('duplicate import IDs require an explicit skip or replace decision', async ({page}) => {
+test('duplicate import IDs require an explicit skip or replace decision @claim:duplicate-import-decision', async ({page}) => {
   await enterRealWorkspace(page);
   await page.goto('/library');
   const upload = (name: string, topic: string) => page.locator('#import-file').setInputFiles({

@@ -42,6 +42,20 @@
     "sandbox": "fresh browser context entered at /demo; choose Start for real; attach a valid JSON backup; assert its explanation appears in the library"
   },
   {
+    "id": "atomic-import-validation",
+    "claim": "Invalid imports make no changes to saved explanations",
+    "where": "README data and privacy",
+    "test": "npm test -- --grep @claim:atomic-import-validation",
+    "sandbox": "fresh browser context entered at /demo; choose Start for real; attach a backup containing one valid record and one invalid date; assert neither record is saved and the library remains usable after reload"
+  },
+  {
+    "id": "duplicate-import-decision",
+    "claim": "Matching imported IDs ask whether to replace or skip saved explanations",
+    "where": "README data and privacy",
+    "test": "npm test -- --grep @claim:duplicate-import-decision",
+    "sandbox": "fresh browser context entered at /demo; choose Start for real; import a matching ID; dismiss and accept the explicit decision; assert skip preserves it and replace changes it"
+  },
+  {
     "id": "audio-backup",
     "claim": "JSON exports include text and local audio notes",
     "where": "library data tools, README",
