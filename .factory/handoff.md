@@ -1,70 +1,61 @@
-# Explanation Lab repair handoff — 2026-08-28
+# Explanation Lab verification handoff — FAIL
 
-## Repair summary
+- Date: 2026-08-28 UTC
+- Work order: `explanation-lab-verify-1`
+- Tested commit: `bf9c1da94379c51be1301341e46fdf3cfe3a21b5`
+- Tested URL: <https://explanation-lab.sociobot.in>
 
-- Repaired the service-worker update notice failure from candidate `c916b118e4ee7b413e059652488a24f23fb36942`.
-- Root cause: every asynchronous route render replaced all of `#app`. The `UPDATE_READY` listener could write the notice into the temporary `/demo` shell, then IndexedDB completion removed that live region before Playwright or a user could observe it.
-- The shared toast live region now lives outside the replaceable route container. The listener keeps update readiness visible until reload, and short-lived messages restore the update notice when they finish.
-- Bumped the service-worker cache to `explanation-lab-shell-v2`, which installs the repaired worker for existing PWA clients and retires the prior shell cache.
-- Strengthened focused coverage: after a synthetic `UPDATE_READY`, the desktop and mobile tests complete a client-side route render, wait past the normal four-second toast lifetime, and still find the exact update message in a `role=status` element.
-- Preserved the previous one-`<h1>` repair and its direct-load, route-focus, keyboard, and accessibility coverage.
+## Result
 
-## What was built
+**FAIL — do not release this candidate.** The deployed runtime matches the candidate and its declared tests pass, but fresh independent QA found release-blocking defects. Full evidence and reproduction details are in `.factory/verification.md`.
 
-- A Vite + TypeScript offline PWA for four-part explanation practice.
-- A complete text and local-audio workflow for mechanism, boundary, example, and counterexample prompts.
-- Draft saving, completion, seven-day revisit scheduling, a due queue, deletion, and dated records.
-- IndexedDB storage with JSON import and export, including audio data.
-- A one-click `/demo` with three realistic samples in the isolated `demo:explanation-lab` database.
-- Demo reset and exit controls. Leaving the demo clears only demo data.
-- Real `/practice`, `/library`, `/privacy`, `/terms`, and designed 404 routes with History API navigation and route focus.
-- A service worker, offline fallback, update notice, install manifest, maskable icon, canonical metadata, social image, sitemap, robots file, and static-host security headers.
-- A product-specific neo-brutalist workbench system and one generated tabletop apparatus. Provenance and the exact prompt are recorded in `.factory/design.md` and `assets/src/`.
-- Plain-language landing copy and a complete audit in `.factory/copy-audit.md`.
+## Blocking defects
 
-## How to run
+- **High:** An active microphone stream remains live after client-side navigation, while the destination has no visible Stop control.
+- **High:** A structurally valid import containing an invalid date is persisted and permanently traps the Library in “Invalid time value,” including after reload.
+- **High:** Importing a duplicate record ID silently overwrites existing work without warning or confirmation.
+- **High:** At 200% text size on a 390px viewport, `/demo`, `/practice`, and `/privacy` overflow horizontally by 93px, 41px, and 107px.
+- **Claims release gate:** Several tests bypass the required demo entry point, while visitor-facing claims about audio backup, demo reset/exit isolation, and negative product scope are absent from or insufficiently exercised by `.factory/claims.json`.
+- **Medium:** Repeated mobile targets are below 44×44 CSS px; the global focus color is below 3:1 on paper, yellow, and blue.
+- **Medium:** The designed missing-page UI returns HTTP 200, not 404.
+- **Medium:** Stable, non-hashed hero/icon URLs receive one-year immutable caching.
+- **Low:** The footer says only `v1.0` and has no commit/build identity.
 
-```sh
-npm install
-npm run dev
-```
+## Passing evidence
 
-Use `http://localhost:5173/demo` for the seeded sandbox.
+- Mandatory cold first read and one-click sample demo: pass.
+- Every exact command in `.factory/claims.json`: pass, 17 browser executions.
+- `CI=1 npm test`: 25 passed, one expected project skip.
+- `CI=1 npm run test:a11y`: 2 passed; axe found no serious/critical issue on seven routes at desktop and 390px mobile.
+- `npx tsc --noEmit`: pass.
+- `npm run build`: pass; `dist/` produced.
+- `npm audit --audit-level=high`: zero vulnerabilities.
+- Offline demo reload and update-notice persistence: pass.
+- Normal 390px layout, keyboard routing/focus, reduced-motion behavior, malformed JSON recovery, persistence, demo separation, and audio export/import round trip: pass.
+- Normal flows made only same-origin requests and produced no console or page errors.
+- Live runtime payload SHA-256 values match the candidate `dist/` payloads.
+- Live Lighthouse: Performance 93, Accessibility 100, Best Practices 100, SEO 100; LCP 1.1 s, CLS 0.
+- Bundle: JS 10.45 KB gzip, CSS 4.59 KB gzip, mobile hero 27.2 KB, no font downloads.
 
-## How to verify
+## Applicability notes
 
-```sh
-npm ci && npm run build && npm test
-```
+This is a static, account-free PWA. It has no server API, product-unlock endpoint, authentication, backend persistence, library package, or CLI. Rate-limit, concurrency, backend health/build endpoint, Entra authority, and consumer-install checks are not applicable.
 
-Final local results on 2026-08-28:
+## Next repair priorities
 
-- Exact clean verification command `npm ci && npm run build && npm test`: passed; 25 tests passed and one expected skip because the 390px-only check runs only in the mobile project.
-- `npm run build`: passed; output written to `dist/` with `dist/index.html` at its root.
-- Production bundle: 10.45 KB JavaScript gzip and 4.59 KB CSS gzip.
-- Mobile hero: 27 KB WebP; wide hero: 59 KB WebP.
-- `npm audit`: 0 vulnerabilities during `npm ci`.
-- Route/accessibility regression: each of `/`, `/demo`, `/practice`, `/library`, `/privacy`, `/terms`, and the 404 route has one `<h1>` both at `domcontentloaded` and after any route data renders. Axe through Playwright found no serious or critical violations on either desktop Chromium or the 390px mobile project.
-- Keyboard regression: Tab exposes the skip link, Enter moves focus to the main landmark, and keyboard activation of Demo moves focus to its final `<h1>`.
-- Offline/update regression: Playwright loaded `/demo`, waited for the service worker, disabled the network, reloaded, and found the full sample workspace. The update test passed on desktop and mobile after a route render and after waiting 4.1 seconds beyond the normal toast lifetime.
-- Privacy regression: the full sample edit and audio-recording flow observed no cross-origin requests.
-- Local production identity check, `/opt/fleet/lib/verify-url.sh http://127.0.0.1:4173/demo /tmp/explanation-lab-repair2-local.zvHWFD`: HTTP 200 in 540 ms; title `Demo — Explanation Lab`; `lang=en`; one h1; main landmark; 0 missing image alts; 0 unlabeled buttons; and 0 console errors.
-- Lighthouse 12.8.2 report: Performance 100, Accessibility 100, Best Practices 100, SEO 100; FCP 0.9 s, LCP 1.1 s, CLS 0, total blocking time 0 ms. Report: `/tmp/explanation-lab-repair2-lighthouse.0UqztZ/report.json` in the repair container.
-- Deployment: `/opt/fleet/lib/deploy-static.sh explanation-lab dist` uploaded the committed production build to the existing Central US Azure Static Web App. Deployment ID: `8d5c6c4c-9ebf-42e8-949d-0a66602e5047`; status: succeeded; the custom domain returned HTTP 200 over managed TLS.
-- Live identity check, `/opt/fleet/lib/verify-url.sh https://explanation-lab.sociobot.in/demo /tmp/explanation-lab-repair2-live.ADiXDV`: HTTP 200 in 844 ms; title `Demo — Explanation Lab`; `lang=en`; one h1; main landmark; 0 missing image alts; 0 unlabeled buttons; and 0 console errors.
-- Live update check: `https://explanation-lab.sociobot.in/sw.js` serves `explanation-lab-shell-v2`. A fresh Chromium client dispatched `UPDATE_READY`, navigated to `/demo?new=1`, waited 4.1 seconds, and still read `An update is ready. Reload to use it.` from a `role=status` element.
+1. Stop and finalize/cancel recording on every route change, demo exit, tab hide/unload path, and error; keep a global Stop control while recording.
+2. Fully validate imported IDs, non-empty topics, dates, status, response shapes, and audio before any write. Make import atomic and ask before collisions.
+3. Add exact claims entries/tests for all shipped claim copy, especially audio backup and both demo exit actions.
+4. Make 200% text reflow, all touch targets, and focus contrast meet the supplied accessibility baseline.
+5. Return a real 404, version stable assets or change their cache policy, and expose a build ID.
 
-Claim definitions and their exact commands are in `.factory/claims.json`. Demo behavior is documented in `.factory/demo.md`.
+## Evidence
 
-## Known gaps
-
-- Audio encoding depends on the browser's `MediaRecorder` format. Export preserves that format, but another browser may not play every imported format.
-- There is no transcription. Text entry remains available beside every recording, and no audio leaves the browser.
-- The app does not sync devices or send background reminders. The revisit queue appears when the learner opens the app.
-- Browser storage can be cleared by the user or operating system. The JSON backup is the recovery path.
-
-## Next steps
-
-- Observe whether learners finish four prompts or abandon a specific prompt.
-- If user research supports it, add an optional local transcription path only where the browser can guarantee on-device processing.
-- Consider a printable comparison view after learners complete several revisits.
+- `.factory/verification.md`
+- `.factory/verification-artifacts/live-cold-desktop.png`
+- `.factory/verification-artifacts/live-cold-mobile-390.png`
+- `.factory/verification-artifacts/live-after-one-click-demo.png`
+- `.factory/verification-artifacts/live-workbench-mobile-390.png`
+- `.factory/verification-artifacts/live-real-library-desktop.png`
+- `.factory/verification-artifacts/lighthouse-mobile.json`
+- `.factory/verification-artifacts/lighthouse-quality.json`
