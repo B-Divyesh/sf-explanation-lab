@@ -31,9 +31,14 @@ test('a learner can complete all four prompts and get a seven-day revisit @claim
     'Factorial of three calls factorial of two, then one. One returns, and the earlier calls multiply the results.',
     'If factorial calls itself with the same number, it never reaches one. The mechanism fails to stop.'
   ];
+  const promptTitles = ['Explain the mechanism', 'Draw the boundary', 'Give an example', 'Find a counterexample'];
   for (let index = 0; index < answers.length; index += 1) {
+    await expect(page.getByRole('heading', {level: 2, name: promptTitles[index]})).toBeVisible();
     await page.getByLabel('Your explanation').fill(answers[index]);
-    if (index < answers.length - 1) await page.getByRole('button', {name: 'Save and open next prompt'}).click();
+    if (index < answers.length - 1) {
+      await page.getByRole('button', {name: 'Save and open next prompt'}).click();
+      await expect(page.getByRole('heading', {level: 2, name: promptTitles[index + 1]})).toBeVisible();
+    }
   }
   await page.getByRole('button', {name: 'Finish and revisit in 7 days'}).click();
   await expect(page).toHaveURL(/\/library$/);
