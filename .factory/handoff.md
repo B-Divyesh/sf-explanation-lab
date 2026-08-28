@@ -49,6 +49,8 @@ Final local results on 2026-08-28:
 - Privacy regression: the full sample edit and audio-recording flow observed no cross-origin requests.
 - Local production identity check, `/opt/fleet/lib/verify-url.sh http://127.0.0.1:4173/demo`: HTTP 200 in 540 ms; title `Demo — Explanation Lab`; `lang=en`; one h1; main landmark; 0 missing image alts; 0 unlabeled buttons; and 0 console errors. Evidence: `/tmp/explanation-lab-verify-local.ZdaGf2` in the repair container.
 - Lighthouse 12.8.2 report: Performance 100, Accessibility 100, Best Practices 100, SEO 100; FCP 1.0 s, LCP 1.6 s, CLS 0, total blocking time 0 ms. The Chromium process exited after report generation in this container, but the complete JSON report was written to `/tmp/explanation-lab-lh.p4skyc/report`.
+- Deployment: `/opt/fleet/lib/deploy-static.sh explanation-lab dist` deployed the committed static `dist/` to `https://explanation-lab.sociobot.in` using the configured Azure Static Web App.
+- Live identity check, `/opt/fleet/lib/verify-url.sh https://explanation-lab.sociobot.in/demo`: HTTP 200 in 611 ms; title `Demo — Explanation Lab`; `lang=en`; one h1; main landmark; 0 missing image alts; 0 unlabeled buttons; and 0 console errors. Evidence: `/tmp/explanation-lab-verify-live.w1TFHB` in the repair container.
 
 Claim definitions and their exact commands are in `.factory/claims.json`. Demo behavior is documented in `.factory/demo.md`.
 
