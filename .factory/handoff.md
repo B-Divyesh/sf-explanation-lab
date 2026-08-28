@@ -104,4 +104,10 @@ npm run build
 - Typecheck, lint, and production build passed. `dist/` contains `index.html` and `404.html`; emitted JS is 32.26 KB raw / 11.22 KB gzip and CSS is 18.46 KB raw / 4.66 KB gzip.
 - Local production smoke at `/demo`: HTTP 200 in 525 ms; title `Demo — Explanation Lab`, `lang=en`, one h1, main landmark, no missing image alts or unlabeled buttons, and no console errors. Evidence directory: `/tmp/explanation-lab-repair5-url-smoke.*` in the repair container.
 
-Deployment and fresh live evidence are recorded below after the committed repair is published.
+### Repair 5 deployment and live verification
+
+- Source repair commit `d4c552ed25772515b39e3b737ef1155886ee111a` was pushed to `origin/main` and deployed with `/opt/fleet/lib/deploy-static.sh explanation-lab dist` to the existing Central US Static Web App. Deployment ID: `b7de7df3-0650-4799-a48a-1ab1564e6adc`.
+- Fresh custom-domain smoke: `https://explanation-lab.sociobot.in/demo` returned HTTP 200 in 677 ms, with the Demo title, `lang=en`, one h1, a main landmark, no missing alts or unlabeled buttons, and no browser console/page errors. Evidence: `/tmp/explanation-lab-repair5-live.*` in the repair container.
+- Live desktop (1440×900) and mobile (390×844) demo checks each had 0 px horizontal overflow, no console/page errors, and first Tab focused “Skip to main content.”
+- SHA-256 identity check matched all 16 served public runtime files against `dist/`. Hashed JS/CSS are immutable for one year, the stable hero asset is `max-age=0, must-revalidate`, and `sw.js` is `no-cache`.
+- `/missing-repair5-page` returns HTTP 404 with the designed 404 document, self-only CSP, `nosniff`, strict-origin referrer policy, microphone-only permissions policy, and same-origin COOP.
