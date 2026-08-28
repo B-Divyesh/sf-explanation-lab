@@ -121,11 +121,49 @@ test('app reloads with sample data while offline @claim:offline-reload', async (
   await context.setOffline(false);
 });
 
+test('an existing visitor gets the service worker update notice', async ({page}) => {
+  await page.goto('/demo');
+  await page.evaluate(async () => {
+    await navigator.serviceWorker.ready;
+    if (!navigator.serviceWorker.controller) await new Promise<void>((resolve) => navigator.serviceWorker.addEventListener('controllerchange', () => resolve(), {once: true}));
+  });
+  await page.reload();
+  await page.evaluate(() => navigator.serviceWorker.dispatchEvent(new MessageEvent('message', {data: {type: 'UPDATE_READY'}})));
+  await expect(page.getByRole('status')).toContainText('An update is ready. Reload to use it.');
+});
+
+test('the demo has one heading before storage resolves and route navigation focuses its final heading', async ({page}) => {
+  await page.goto('/demo', {waitUntil: 'domcontentloaded'});
+  expect(await page.locator('h1').count()).toBe(1);
+  await expect(page.getByRole('heading', {level: 1, name: 'Practice with sample explanations'})).toBeVisible();
+
+  await page.getByRole('link', {name: 'Start another explanation'}).click();
+  await expect(page).toHaveURL(/\/demo\?new=1$/);
+  const heading = page.getByRole('heading', {level: 1, name: 'Start a four-part explanation'});
+  await expect(heading).toBeFocused();
+  await expect(page.locator('#route-status')).toHaveText('Start a four-part explanation');
+  expect(await page.locator('h1').count()).toBe(1);
+});
+
+test('keyboard users can skip to the main landmark and open the demo', async ({page}) => {
+  await page.goto('/');
+  await page.keyboard.press('Tab');
+  await expect(page.getByRole('link', {name: 'Skip to main content'})).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(page.locator('main')).toBeFocused();
+
+  await page.getByRole('link', {name: 'Demo'}).focus();
+  await page.keyboard.press('Enter');
+  await expect(page.getByRole('heading', {level: 1, name: 'Practice with sample explanations'})).toBeFocused();
+});
+
 test('main routes have no serious accessibility violations @a11y', async ({page}, testInfo) => {
   for (const route of ['/', '/demo', '/practice', '/library', '/privacy', '/terms', '/missing-page']) {
-    await page.goto(route);
+    await page.goto(route, {waitUntil: 'domcontentloaded'});
     const headings = await page.locator('h1').count();
-    expect(headings, `${route} has one h1`).toBe(1);
+    expect(headings, `${route} has one h1 before asynchronous storage resolves`).toBe(1);
+    await page.waitForFunction(() => !document.querySelector('main[aria-busy="true"]'));
+    expect(await page.locator('h1').count(), `${route} has one h1 after route data renders`).toBe(1);
     const results = await new AxeBuilder({page}).analyze();
     const serious = results.violations.filter((violation) => ['serious', 'critical'].includes(violation.impact ?? ''));
     expect(serious, `${route}: ${serious.map((item) => `${item.id}: ${item.help}`).join(', ')}`).toEqual([]);

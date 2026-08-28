@@ -84,6 +84,15 @@ function shell(content: string, demo = false): string {
   return `${header(demo)}${content}${footer()}<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>`;
 }
 
+function loadingPage(path: string): string {
+  const demo = path === '/demo';
+  const title = path === '/demo' ? 'Practice with sample explanations'
+    : path === '/library' ? 'Your explanations'
+      : 'Start a four-part explanation';
+  const detail = demo ? 'Preparing the isolated sample workspace.' : 'Opening your local workspace.';
+  return shell(`<main id="main" class="page-main" aria-busy="true"><section class="start-sheet"><p class="eyebrow">Opening workspace</p><h1 id="page-title" tabindex="-1">${title}</h1><p class="lede">${detail}</p></section></main>`, demo);
+}
+
 function landing(): string {
   return shell(`<main id="main">
     <section class="hero section-shell" aria-labelledby="page-title">
@@ -224,6 +233,10 @@ async function render(focus = false): Promise<void> {
   const path = pagePath();
   applyMeta(path);
   const params = new URLSearchParams(location.search);
+  // IndexedDB can resolve after DOMContentLoaded. Render a complete route
+  // landmark and its single heading before awaiting storage so a direct URL
+  // never exposes an empty application to keyboard or assistive-tech users.
+  if (path === '/demo' || path === '/library' || path === '/practice') app.innerHTML = loadingPage(path);
   try {
     if (path === '/') app.innerHTML = landing();
     else if (path === '/privacy' || path === '/terms') app.innerHTML = legalPage(path.slice(1) as 'privacy' | 'terms');
@@ -244,6 +257,7 @@ async function render(focus = false): Promise<void> {
   } catch (error) {
     app.innerHTML = shell(`<main id="main" class="page-main"><section class="error-panel"><p class="eyebrow">Storage error</p><h1 id="page-title" tabindex="-1">Your browser could not open the workbench</h1><p>${escapeHtml(error instanceof Error ? error.message : 'Local storage is unavailable.')}</p><button class="button button-primary" data-action="retry">Try again</button></section></main>`, path === '/demo');
   }
+  document.querySelector<HTMLElement>('#main')?.setAttribute('tabindex', '-1');
   attachForms();
   if (focus) {
     const heading = document.querySelector<HTMLElement>('h1');
