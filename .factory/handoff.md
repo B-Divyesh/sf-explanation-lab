@@ -74,9 +74,15 @@ Results in the repair container:
 - There is no transcription, device sync, or background reminder. These remain researched non-goals; text entry and the local revisit queue remain available.
 - Browser or operating-system storage clearing removes local work. JSON export is the recovery path.
 
-## Independent verifier outcome — 2026-08-28 UTC
+## Independent verification 4 — PASS — 2026-08-28 UTC
 
-**FAIL — do not release candidate `13edfeead324f3be3bfbc61590c1b42b7ab0484b` yet.** Fresh independent QA confirmed the live URL is byte-for-byte the candidate build and all 14 declared claim commands, full tests, axe tests, type/lint, build, offline reload, headers, privacy/network, desktop/mobile, and normal-route console checks pass. The remaining release blocker is the claims contract: `README.md` promises atomic import validation and an explicit duplicate-ID replace/skip decision, but `.factory/claims.json` has no matching claims and no tagged `@claim:` demo-sandbox test. See `.factory/verification-3.md` for exact evidence and remediation.
+**PASS — candidate `19d7edaacadabe98472eccf0ab617f087b90e069` is accepted for release.** A fresh independent verifier ran every exact `.factory/claims.json` command, the full two-project Playwright matrix, dedicated axe tests, typecheck, lint, production build, dependency audit, live cold-read/demo checks, offline reload/update checks, request logging, headers/caching, desktop/390px/reduced-motion checks, and byte-for-byte candidate-to-live comparison.
+
+Results: all 16 claim commands passed; `CI=1 npm test` passed 49 checks with 3 expected desktop skips; `CI=1 npm run test:a11y` passed both projects; typecheck, lint, build, and audit passed. The live custom domain matches all 16 served candidate runtime files. No release-blocking defects remain. See `.factory/verification-4.md` for full evidence and the one environment-only Lighthouse tab crash, which did not affect browser, bundle, or accessibility results.
+
+## Independent verifier outcome 3 — FAIL (superseded by verification 4) — 2026-08-28 UTC
+
+**Historical FAIL — superseded.** Candidate `13edfeead324f3be3bfbc61590c1b42b7ab0484b` lacked claims coverage for import safety. Candidate `19d7edaacadabe98472eccf0ab617f087b90e069` adds that coverage and is independently accepted above; see `.factory/verification-4.md`.
 
 ## Repair 5 — verifier QA3-01 — 2026-08-28 UTC
 
