@@ -1,0 +1,65 @@
+[
+  {
+    "id": "one-click-demo",
+    "claim": "Try it with sample data in one click",
+    "where": "landing primary action",
+    "test": "npm test -- --grep @claim:one-click-demo",
+    "sandbox": "fresh browser context; click the landing action; assert seeded due and draft explanations"
+  },
+  {
+    "id": "demo-isolation",
+    "claim": "Demo data is not saved to your real work",
+    "where": "persistent demo banner",
+    "test": "npm test -- --grep @claim:demo-isolation",
+    "sandbox": "fresh browser context; create a demo explanation; assert it is absent from the real library"
+  },
+  {
+    "id": "four-part-revisit",
+    "claim": "Completed explanations return after seven days",
+    "where": "landing how-it-works and completion action",
+    "test": "npm test -- --grep @claim:four-part-revisit",
+    "sandbox": "fresh browser context; answer all four prompts; finish; assert 4/4 and the exact seven-day date"
+  },
+  {
+    "id": "json-export",
+    "claim": "Export a JSON backup",
+    "where": "landing limits, library data tools, privacy page, README",
+    "test": "npm test -- --grep @claim:json-export",
+    "sandbox": "fresh browser context; create a real draft; download JSON; parse and assert its topic"
+  },
+  {
+    "id": "json-import",
+    "claim": "Import an Explanation Lab JSON backup",
+    "where": "library data tools, README",
+    "test": "npm test -- --grep @claim:json-import",
+    "sandbox": "fresh browser context; attach a valid JSON backup; assert its explanation appears in the library"
+  },
+  {
+    "id": "local-private",
+    "claim": "Explanations and audio stay in this browser",
+    "where": "landing facts, privacy page, README",
+    "test": "npm test -- --grep @claim:local-private",
+    "sandbox": "fresh browser context; edit and save sample data while recording all requests; assert no cross-origin requests"
+  },
+  {
+    "id": "free-no-account",
+    "claim": "Free, with no account",
+    "where": "landing facts, README",
+    "test": "npm test -- --grep @claim:free-no-account",
+    "sandbox": "fresh browser context; open the real practice form directly; assert no sign-in or payment step"
+  },
+  {
+    "id": "offline-reload",
+    "claim": "Works offline after the first visit",
+    "where": "landing facts, README",
+    "test": "npm test -- --grep @claim:offline-reload",
+    "sandbox": "fresh browser context; load demo; wait for service worker; set context offline; reload and assert sample data"
+  },
+  {
+    "id": "mobile-ready",
+    "claim": "Works on a 390px phone layout",
+    "where": "factory product contract",
+    "test": "npm test -- --grep @claim:mobile-ready --project mobile",
+    "sandbox": "390x844 browser viewport; assert primary action and workbench fit without horizontal overflow"
+  }
+]
