@@ -50,6 +50,9 @@ Final local results on 2026-08-28:
 - Privacy regression: the full sample edit and audio-recording flow observed no cross-origin requests.
 - Local production identity check, `/opt/fleet/lib/verify-url.sh http://127.0.0.1:4173/demo /tmp/explanation-lab-repair2-local.zvHWFD`: HTTP 200 in 540 ms; title `Demo — Explanation Lab`; `lang=en`; one h1; main landmark; 0 missing image alts; 0 unlabeled buttons; and 0 console errors.
 - Lighthouse 12.8.2 report: Performance 100, Accessibility 100, Best Practices 100, SEO 100; FCP 0.9 s, LCP 1.1 s, CLS 0, total blocking time 0 ms. Report: `/tmp/explanation-lab-repair2-lighthouse.0UqztZ/report.json` in the repair container.
+- Deployment: `/opt/fleet/lib/deploy-static.sh explanation-lab dist` uploaded the committed production build to the existing Central US Azure Static Web App. Deployment ID: `8d5c6c4c-9ebf-42e8-949d-0a66602e5047`; status: succeeded; the custom domain returned HTTP 200 over managed TLS.
+- Live identity check, `/opt/fleet/lib/verify-url.sh https://explanation-lab.sociobot.in/demo /tmp/explanation-lab-repair2-live.ADiXDV`: HTTP 200 in 844 ms; title `Demo — Explanation Lab`; `lang=en`; one h1; main landmark; 0 missing image alts; 0 unlabeled buttons; and 0 console errors.
+- Live update check: `https://explanation-lab.sociobot.in/sw.js` serves `explanation-lab-shell-v2`. A fresh Chromium client dispatched `UPDATE_READY`, navigated to `/demo?new=1`, waited 4.1 seconds, and still read `An update is ready. Reload to use it.` from a `role=status` element.
 
 Claim definitions and their exact commands are in `.factory/claims.json`. Demo behavior is documented in `.factory/demo.md`.
 
