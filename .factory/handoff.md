@@ -56,7 +56,17 @@ Results in the repair container:
 
 ## Deployment
 
-Deployment and live custom-domain evidence will be appended after the committed build is uploaded with the work order's static deployment command.
+- Source commits: `bcb07e6` (product repair) and `0646896836ad1408971fb48a53515808a084ceb6` (production 404 response-policy correction), both pushed to `origin/main`.
+- Exact work-order build `npm ci && npm test && npm run build`: pass from final commit; 49 passed, 3 expected mobile-only skips; `dist/` produced.
+- Static deploy: `/opt/fleet/lib/deploy-static.sh explanation-lab dist` succeeded in the existing Central US Static Web App. Final deployment ID: `b333ed95-2917-49c9-a416-b83c082d6c8e`.
+- Custom domain: <https://explanation-lab.sociobot.in> returned HTTP 200 over managed TLS.
+- Final live smoke: `/opt/fleet/lib/verify-url.sh https://explanation-lab.sociobot.in/demo /tmp/explanation-lab-repair4-final-live.zdMoiq` returned HTTP 200 in 589 ms, title `Demo — Explanation Lab`, `lang=en`, one h1, a main landmark, zero missing alts, zero unlabeled buttons, and zero console errors.
+- Response policy: `/`, `/demo`, `/practice`, `/library`, `/privacy`, and `/terms` return 200. `/repair-4-missing-page` returns HTTP 404 with the designed boundary page and security headers.
+- Cache policy: stable `/assets/hero-640.webp` returns `public, max-age=0, must-revalidate`; hashed `/build/main-BcWLVhzu.js` returns `public, max-age=31536000, immutable`; `/sw.js` returns `no-cache` and contains `explanation-lab-shell-v3`.
+- Runtime identity: SHA-256 checks matched all 16 public files in `dist/` against the custom domain. `staticwebapp.config.json` is consumed by the host and verified through the observed status/header rules.
+- Live browser: desktop and 390 px demo routes have the expected title/h1/build identity, zero overflow, zero console/page errors, zero cross-origin requests, and no serious/critical axe findings. At 200% text the 390 px demo still has 0 px overflow.
+- Live defect checks: route navigation changed the captured microphone track to `ended`; the invalid-date backup stayed out of IndexedDB while the Library remained usable; and offline reload retained the seeded demo.
+- Live Lighthouse 12.8.2: Performance 100, Accessibility 100, Best Practices 100, SEO 100; FCP 0.9 s, LCP 1.1 s, CLS 0, TBT 0 ms, 44 KiB transfer, zero third parties. Report: `/tmp/explanation-lab-repair4-live-lighthouse.json`.
 
 ## Known gaps
 
