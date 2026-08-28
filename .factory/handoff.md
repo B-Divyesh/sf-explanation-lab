@@ -13,7 +13,7 @@ All release-blocking and supporting product-QA findings in verifier report commi
 - **QA2-05, claims contract:** every existing claim test now enters through `/demo`. Added declared, uniquely tagged tests for audio export/import, demo reset and exit isolation, manual/no-sync limits, no tracking or third-party scripts, and site-data clearing. Each of 14 claim commands passes from a fresh browser context.
 - **QA2-06, target size:** wordmark, mobile navigation, and footer links now measure at least 44×44 CSS px. A mobile browser regression measures the repeated targets.
 - **QA2-07, focus contrast:** the focus outline is carbon `#151515`, with contrast ratios 16.05:1 on paper, 13.20:1 on yellow, and 3.03:1 on cobalt. A light outer ring preserves visibility on the carbon footer.
-- **QA2-08, real 404:** the production build includes `404.html`; Azure Static Web Apps `responseOverrides.404` rewrites missing paths there while keeping a 404 response. The designed client route remains intact.
+- **QA2-08, real 404:** the production build includes `404.html`. Azure Static Web Apps explicitly rewrites only the five non-root product routes to the SPA, so unknown paths reach `responseOverrides.404` and keep a 404 response. The designed client route remains intact.
 - **QA2-09, cache policy:** hashed JS/CSS now build under `/build/*` and receive one-year immutable caching. Stable `/assets/*` use `max-age=0, must-revalidate`. The service-worker cache is versioned as `explanation-lab-shell-v3` and caches both asset classes.
 - **QA2-10, build identity:** every footer now exposes `v1.0 · build repair-4`.
 

@@ -309,7 +309,11 @@ test('static host policy serves real 404s and separates stable and hashed cache 
   await page.goto('/missing-page');
   await expect(page.getByRole('heading', {level: 1, name: 'This page is outside the boundary'})).toBeVisible();
   const config = JSON.parse(readFileSync('public/staticwebapp.config.json', 'utf8'));
+  expect(config.navigationFallback).toBeUndefined();
   expect(config.responseOverrides['404'].rewrite).toBe('/404.html');
+  for (const route of ['/demo', '/practice', '/library', '/privacy', '/terms']) {
+    expect(config.routes).toContainEqual({route, rewrite: '/index.html'});
+  }
   expect(config.routes).toContainEqual({route: '/build/*', headers: {'Cache-Control': 'public, max-age=31536000, immutable'}});
   expect(config.routes).toContainEqual({route: '/assets/*', headers: {'Cache-Control': 'public, max-age=0, must-revalidate'}});
 });
