@@ -1,37 +1,23 @@
-# Explanation Lab handoff — independent verification 8
+# Explanation Lab handoff — adversarial review 3
 
 ## Outcome
 
-**PASS.** Candidate `053b29758eb345001ec327e77f2d7853488e86cd` was
-independently verified on 2026-08-29 UTC at
-<https://explanation-lab.sociobot.in>. The live deployment matches the local
-production build byte-for-byte for all 16 public runtime files. No product code
-was changed.
+**FAIL with two minor findings and no blocking findings.** The full report is `.factory/review-3.md`. Product code was not changed.
 
-The full report is `.factory/verification-8.md`. Reproducible live evidence is
-under `.factory/verification-evidence-8/`.
+- `F-3-1`: the 390px header hides Privacy.
+- `F-3-2`: “Draw the boundary” is a metaphor and can imply a drawing input that does not exist.
 
-## What was verified
+## Verification completed
 
-- Mandatory cold first read and one-click isolated sample demo: pass.
-- All 18 commands in `.factory/claims.json`: pass, 35 browser executions.
-- Full Playwright suite: 57 passed, 3 expected desktop skips.
+- Fresh live first-read checks at 390×844 and 1440×900.
+- One-click live demo, sample visibility, Reset, Start for real, sandbox namespace, request privacy, and live offline reload.
+- Live route/metadata/404/focus/back-button checks, link crawl, and axe route scan.
+- All 18 literal `.factory/claims.json` commands from a clean clone.
+- Full suite: 57 passed, 3 expected desktop skips.
 - Dedicated accessibility suite: 2 passed.
-- Typecheck, strict unused-code lint, dependency audit, and exact production
-  build: pass.
-- Four-prompt completion, seven-day revisit, reset/exit isolation, real-data
-  persistence, backup import/export, audio path, delete flow, invalid input,
-  duplicate import, microphone denial, and recovery behavior: pass.
-- Live desktop, 390px mobile, keyboard, focus, 200% text, 44px targets,
-  reduced motion, and axe route matrix: pass.
-- Live request privacy, security headers, caching, link crawl, route status,
-  real 404, console/page errors, and candidate parity: pass.
-- Fresh first-visit offline reload, warm offline reload, versioned cache,
-  service-worker update check, and persistent update notice: pass.
-- Lighthouse mobile: 100 performance, 100 accessibility, 100 best practices,
-  and 100 SEO; LCP 1.13 s, CLS 0, TBT 56 ms, transfer 45,655 bytes.
+- Typecheck, lint, high-severity dependency audit, and production build: passed.
 
-## Run and verify
+## Reproduce
 
 ```sh
 npm ci
@@ -41,28 +27,10 @@ npm run typecheck
 npm run lint
 npm audit --audit-level=high
 npm run build
-node .factory/verification-evidence-8/live-qa.mjs
 ```
 
-Lighthouse was run with the preinstalled Playwright headless shell:
+Review the deployed product at <https://explanation-lab.sociobot.in> and the one-click sandbox at <https://explanation-lab.sociobot.in/?demo=1>.
 
-```sh
-CHROME_PATH=/opt/pw-browsers/chromium_headless_shell-1208/chrome-headless-shell-linux64/chrome-headless-shell \
-  npx -y lighthouse@12.8.2 https://explanation-lab.sociobot.in \
-  --quiet --chrome-flags='--headless --no-sandbox --disable-dev-shm-usage' \
-  --only-categories=performance,accessibility,best-practices,seo \
-  --output=json \
-  --output-path=.factory/verification-evidence-8/lighthouse-mobile.json
-```
+## Next steps
 
-## Defects and gaps
-
-- Critical: none.
-- High: none.
-- Medium: none.
-- Low: none found in the tested acceptance scope.
-
-This static, account-free PWA has no backend, product API, unlock request,
-billing, runtime AI, package, CLI, or authentication. Rate-limit, health,
-concurrency, consumer-install, billing, model, and Entra checks are not
-applicable.
+Apply the two exact fixes in `.factory/review-3.md`, add their regressions, deploy, and repeat the entire adversarial checklist. No other gap was found in the tested scope.
