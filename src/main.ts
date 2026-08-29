@@ -96,7 +96,7 @@ function header(demo: boolean): string {
 }
 
 function footer(): string {
-  return `<footer class="site-footer"><p><strong>Explanation Lab</strong> uses four prompts for each explanation.</p><div><a class="route-link" href="/privacy">Privacy</a><a class="route-link" href="/terms">Terms</a><a class="route-link" href="/visual-notes">Visual notes</a><a href="https://sociobot.in" rel="external">Built by Param Factory <span class="sr-only">(external site)</span></a></div><p class="build">v1.0 · build polish-1</p></footer>`;
+  return `<footer class="site-footer"><p><strong>Explanation Lab</strong> uses four prompts for each explanation.</p><div><a class="route-link" href="/privacy">Privacy</a><a class="route-link" href="/terms">Terms</a><a class="route-link" href="/visual-notes">Visual notes</a><a href="https://sociobot.in" rel="external">Built by Param Factory <span class="sr-only">(external site)</span></a></div><p class="build">v1.0 · build polish-2</p></footer>`;
 }
 
 function shell(content: string, demo = false): string {
@@ -149,9 +149,9 @@ function landing(): string {
     <section class="how section-shell" aria-labelledby="how-title">
       <p class="section-kicker">How it works</p><h2 id="how-title">Three steps to practise and revisit</h2>
       <ol class="how-list">
-        <li><b>1</b><div><h3>Name one hard idea</h3><p>Pick something you almost understand. A narrow topic gives you a sharper test.</p></div></li>
-        <li><b>2</b><div><h3>Answer all four prompts</h3><p>Write, record, or use both. Your wording matters more than polish.</p></div></li>
-        <li><b>3</b><div><h3>Return after seven days</h3><p>Completed work enters a revisit queue. Read your old answer, then sharpen the weakest part.</p></div></li>
+        <li><b>1</b><div><h3>Name one hard idea</h3><p>Pick something you almost understand. Choose a narrow topic so you can check one idea at a time.</p></div></li>
+        <li><b>2</b><div><h3>Answer all four prompts</h3><p>Write, record, or use both. Use your own words; completing all four answers matters more than writing style.</p></div></li>
+        <li><b>3</b><div><h3>Return after seven days</h3><p>Completed work enters a revisit queue. Read your old answer, then improve the least complete part.</p></div></li>
       </ol>
     </section>
     <section class="limits section-shell" aria-labelledby="limits-title">

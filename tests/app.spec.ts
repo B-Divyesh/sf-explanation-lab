@@ -35,6 +35,20 @@ test('landing page states the job and opens a seeded demo @claim:one-click-demo'
   await expect(page.locator('.status-label', {hasText: 'Due now'})).toBeVisible();
 });
 
+test('plain-language copy gives concrete study and backup instructions', async ({page}) => {
+  await page.goto('/');
+  await expect(page.getByText('Choose a narrow topic so you can check one idea at a time.')).toBeVisible();
+  await expect(page.getByText('Use your own words; completing all four answers matters more than writing style.')).toBeVisible();
+  await expect(page.getByText('Read your old answer, then improve the least complete part.')).toBeVisible();
+  await expect(page.getByText(/sharper test|sharpen the weakest part|matters more than polish/)).toHaveCount(0);
+
+  const readme = readFileSync('README.md', 'utf8');
+  expect(readme).toContain('The app does not send your explanations or audio to another website.');
+  expect(readme).toContain('The app checks the whole backup before saving it, so an invalid file does not change saved explanations.');
+  expect(readme).toContain('If a backup includes an explanation already in your library, choose whether to replace it or keep the saved version.');
+  expect(readme).not.toMatch(/cross-origin runtime requests|atomic write|matching IDs/i);
+});
+
 test('sample practice presents four distinct prompts @claim:four-prompt-practice', async ({page}) => {
   await page.goto('/?demo=1&id=sample-doppler');
   const prompts = [
@@ -385,7 +399,7 @@ test('routes set titles, canonical metadata, focus, and working legal links', as
 
 test('the footer exposes the release build identity and linked visual disclosure', async ({page}) => {
   await page.goto('/');
-  await expect(page.locator('.build')).toContainText('build polish-1');
+  await expect(page.locator('.build')).toContainText('build polish-2');
   await page.getByRole('link', {name: 'Visual notes'}).click();
   await expect(page).toHaveTitle('Visual notes — Explanation Lab');
   await expect(page.getByRole('heading', {level: 1, name: 'How the Explanation Lab illustration was made'})).toBeFocused();

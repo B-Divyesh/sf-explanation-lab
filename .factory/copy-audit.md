@@ -32,13 +32,13 @@ Audited 2026-08-29. Counts treat hyphenated terms and number ranges as one word.
 | Three steps to practise and revisit | 6 | Pass |
 | Name one hard idea | 4 | Pass |
 | Pick something you almost understand. | 5 | Pass |
-| A narrow topic gives you a sharper test. | 8 | Pass |
+| Choose a narrow topic so you can check one idea at a time. | 13 | Pass |
 | Answer all four prompts | 4 | Pass |
 | Write, record, or use both. | 5 | Pass |
-| Your wording matters more than polish. | 6 | Pass |
+| Use your own words; completing all four answers matters more than writing style. | 13 | Pass |
 | Return after seven days | 4 | Pass |
 | Completed work enters a revisit queue. | 6 | Pass |
-| Read your old answer, then sharpen the weakest part. | 9 | Pass |
+| Read your old answer, then improve the least complete part. | 11 | Pass |
 | Limits | 1 | Pass |
 | What Explanation Lab does not do | 6 | Pass |
 | Explanation Lab does not grade answers or generate explanations. | 9 | Pass |
@@ -48,7 +48,7 @@ Audited 2026-08-29. Counts treat hyphenated terms and number ranges as one word.
 | Terms | 1 | Pass |
 | Visual notes | 2 | Pass |
 | Built by Param Factory | 4 | Pass |
-| v1.0 · build polish-1 | 4 | Pass |
+| v1.0 · build polish-2 | 4 | Pass |
 
 No line exceeds 22 words. No line contains a banned marketing word.
 
@@ -71,6 +71,6 @@ No line exceeds 22 words. No line contains a banned marketing word.
 
 ## Catalog description
 
-Practise hard ideas with four prompts and revisit your explanation after seven days.
+Practise hard ideas with four prompts, then revisit them after seven days.
 
-The description is 84 characters, starts with a verb, and contains no banned marketing term.
+The description is 74 characters, starts with a verb, and contains no banned marketing term.

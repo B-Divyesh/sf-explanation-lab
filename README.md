@@ -40,9 +40,10 @@ The Playwright suite checks the demo, backups, offline use, keyboard use, mobile
 - Real work stays in the browser database named `explanation-lab`.
 - Demo work stays in the separate browser database named `demo:explanation-lab`.
 - Resetting or leaving the demo clears only demo data.
-- The app makes no cross-origin runtime requests.
+- The app does not send your explanations or audio to another website.
 - Clearing this site's browser data removes saved work.
-- Imports are validated before one atomic write. Matching IDs ask whether to replace or skip the saved explanation.
+- The app checks the whole backup before saving it, so an invalid file does not change saved explanations.
+- If a backup includes an explanation already in your library, choose whether to replace it or keep the saved version.
 
 Read the in-app `/privacy` and `/terms` pages for user-facing details. The `/visual-notes` page records illustration provenance.
 
