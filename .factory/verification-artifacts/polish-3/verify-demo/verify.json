@@ -1,0 +1,14 @@
+{
+  "url": "https://explanation-lab.sociobot.in/?demo=1",
+  "loadMs": 622,
+  "errors": [],
+  "a11y": {
+    "title": "Demo — Explanation Lab",
+    "lang": "en",
+    "h1": 1,
+    "main": true,
+    "imgsMissingAlt": 0,
+    "buttonsUnlabeled": 0,
+    "textLength": 825
+  }
+}

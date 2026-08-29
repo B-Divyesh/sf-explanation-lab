@@ -73,4 +73,4 @@ No line exceeds 22 words. No line contains a banned marketing word.
 
 Practise hard ideas with four prompts and revisit them after seven days.
 
-The description is 73 characters, starts with a verb, and contains no banned marketing term.
+The description is 72 characters, starts with a verb, and contains no banned marketing term.

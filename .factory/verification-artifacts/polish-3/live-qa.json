@@ -1,0 +1,130 @@
+{
+  "base": "https://explanation-lab.sociobot.in",
+  "checkedAt": "2026-08-29T13:10:40.985Z",
+  "checks": {
+    "landing": {
+      "title": "Explanation Lab — Practice explaining hard ideas",
+      "h1": 1
+    },
+    "mobileHeader": {
+      "privacyBox": {
+        "x": 199,
+        "y": 112,
+        "width": 179,
+        "height": 44
+      },
+      "overflow": 0,
+      "titleAfterClick": "Privacy — Explanation Lab"
+    },
+    "demo": {
+      "databases": [
+        "demo:explanation-lab"
+      ],
+      "titleAfterExit": "Practice — Explanation Lab"
+    },
+    "workbench": {
+      "boundaryHeading": "State where the idea applies",
+      "overflowAt200": 0
+    },
+    "notFound": {
+      "status": 404,
+      "title": "Page not found — Explanation Lab"
+    },
+    "offline": {
+      "title": "Demo — Explanation Lab",
+      "sampleVisible": true
+    },
+    "privacy": {
+      "requestCount": 32,
+      "foreignRequests": []
+    },
+    "normalConsoleErrors": []
+  },
+  "routes": [
+    {
+      "path": "/",
+      "title": "Explanation Lab — Practice explaining hard ideas",
+      "h1": "Explain hard ideas in your own words",
+      "seriousAxe": 0
+    },
+    {
+      "path": "/?demo=1",
+      "title": "Demo — Explanation Lab",
+      "h1": "Practice with sample explanations",
+      "seriousAxe": 0
+    },
+    {
+      "path": "/demo",
+      "title": "Demo — Explanation Lab",
+      "h1": "Practice with sample explanations",
+      "seriousAxe": 0
+    },
+    {
+      "path": "/practice",
+      "title": "Practice — Explanation Lab",
+      "h1": "Start a four-part explanation",
+      "seriousAxe": 0
+    },
+    {
+      "path": "/library",
+      "title": "Your explanations — Explanation Lab",
+      "h1": "Your explanations",
+      "seriousAxe": 0
+    },
+    {
+      "path": "/privacy",
+      "title": "Privacy — Explanation Lab",
+      "h1": "Your explanations stay with you",
+      "seriousAxe": 0
+    },
+    {
+      "path": "/terms",
+      "title": "Terms — Explanation Lab",
+      "h1": "Terms for this free utility",
+      "seriousAxe": 0
+    },
+    {
+      "path": "/visual-notes",
+      "title": "Visual notes — Explanation Lab",
+      "h1": "How the Explanation Lab illustration was made",
+      "seriousAxe": 0
+    }
+  ],
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 ()"
+  ],
+  "requests": [
+    "https://explanation-lab.sociobot.in/",
+    "https://explanation-lab.sociobot.in/build/main-DDkPtQlX.js",
+    "https://explanation-lab.sociobot.in/build/main-BB4XZQFx.css",
+    "https://explanation-lab.sociobot.in/assets/hero-1024.webp",
+    "https://explanation-lab.sociobot.in/",
+    "https://explanation-lab.sociobot.in/build/main-DDkPtQlX.js",
+    "https://explanation-lab.sociobot.in/build/main-BB4XZQFx.css",
+    "https://explanation-lab.sociobot.in/assets/hero-1024.webp",
+    "https://explanation-lab.sociobot.in/?demo=1",
+    "https://explanation-lab.sociobot.in/build/main-DDkPtQlX.js",
+    "https://explanation-lab.sociobot.in/build/main-BB4XZQFx.css",
+    "https://explanation-lab.sociobot.in/demo",
+    "https://explanation-lab.sociobot.in/build/main-DDkPtQlX.js",
+    "https://explanation-lab.sociobot.in/build/main-BB4XZQFx.css",
+    "https://explanation-lab.sociobot.in/practice",
+    "https://explanation-lab.sociobot.in/build/main-DDkPtQlX.js",
+    "https://explanation-lab.sociobot.in/build/main-BB4XZQFx.css",
+    "https://explanation-lab.sociobot.in/library",
+    "https://explanation-lab.sociobot.in/build/main-DDkPtQlX.js",
+    "https://explanation-lab.sociobot.in/build/main-BB4XZQFx.css",
+    "https://explanation-lab.sociobot.in/privacy",
+    "https://explanation-lab.sociobot.in/build/main-DDkPtQlX.js",
+    "https://explanation-lab.sociobot.in/build/main-BB4XZQFx.css",
+    "https://explanation-lab.sociobot.in/terms",
+    "https://explanation-lab.sociobot.in/build/main-DDkPtQlX.js",
+    "https://explanation-lab.sociobot.in/build/main-BB4XZQFx.css",
+    "https://explanation-lab.sociobot.in/visual-notes",
+    "https://explanation-lab.sociobot.in/build/main-DDkPtQlX.js",
+    "https://explanation-lab.sociobot.in/build/main-BB4XZQFx.css",
+    "https://explanation-lab.sociobot.in/polish-3-missing",
+    "https://explanation-lab.sociobot.in/build/main-DDkPtQlX.js",
+    "https://explanation-lab.sociobot.in/build/main-BB4XZQFx.css"
+  ]
+}
