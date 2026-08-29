@@ -1,10 +1,10 @@
-# Explanation Lab polish 4 handoff
+# Explanation Lab independent verification 10 handoff
 
 ## Outcome
 
-**PASS.** The repair of reviewed candidate `4c2bc69b1b98aed5415dcc23b8cc747552473d92` is implemented in `15e28ce28b6bf760a447f6f5a1d02b79f97860ac` and deployed to <https://explanation-lab.sociobot.in> as Azure Static Web Apps deployment `65c32f8f-e92d-436d-8bde-06c4cd47bf11`.
+**PASS.** Candidate `5b885064362f00e9814118806a1201e845ea58d4` was independently verified on 2026-08-29 against <https://explanation-lab.sociobot.in>. No product code was changed. The live deployment matches all 16 candidate runtime files by SHA-256, every declared claim test passes, and no release defect was found.
 
-The landing now opens the populated passing-siren sample in one click. Demo mode persists across every product route until the visitor uses **Start for real**; reset and every real exit discard only the demo database. Privacy copy, README, demo documentation, claims, tests, titles, social metadata, manifest wording, and footer identity match the shipped behavior.
+The detailed evidence is in `.factory/verification-10.md`.
 
 ## How to run and verify
 
@@ -14,21 +14,29 @@ npm test
 npm run test:a11y
 npm run typecheck
 npm run lint
+npm audit --audit-level=high
 npm run build
 ```
 
-Use `/?demo=1&id=sample-doppler` for the direct isolated sample. The banner supplies **Reset demo** and **Start for real**. `/privacy`, `/terms`, and `/visual-notes` are real routes; unknown addresses return the designed HTTP 404 response.
+Use `/?demo=1&id=sample-doppler` for the direct populated sandbox. Reset demo and Start for real operate only on the separate `demo:explanation-lab` IndexedDB database.
 
-## Exact evidence
+## Exact verification summary
 
-- Fresh clone `/tmp/explanation-lab-polish4.X4RaPM` at `15e28ce28b6bf760a447f6f5a1d02b79f97860ac`: `npm ci` passed with 0 vulnerabilities.
-- All 18 literal `.factory/claims.json` commands passed (35 browser executions). Every claim has exactly one matching test tag (`CLAIM_TAG_COUNTS_OK 18`).
-- `CI=1 npm test`: 57 passed, 3 expected desktop-only skips. `CI=1 npm run test:a11y`: 2 passed. `npm run typecheck`, `npm run lint`, `npm audit --audit-level=high`, and `npm run build` all passed.
-- Build output is `dist/` with `index.html`; emitted JavaScript is 35.15 KB raw / 11.94 KB gzip and CSS is 19.06 KB raw / 4.76 KB gzip.
-- Cold live checks are in [live-qa.json](repair-evidence/polish-4/live-qa.json): populated one-click demo, all demo route boundaries, metadata, focusable route headings, HTTP 404, same-origin requests, zero valid-route console errors, zero serious/critical axe findings, 390px first viewport, and offline reload all passed.
-- Live sample screenshots: [desktop](repair-evidence/polish-4/live-demo-desktop.png) and [390px mobile](repair-evidence/polish-4/live-demo-mobile-390.png). The semantic/browser verifier output is [verify.json](repair-evidence/polish-4/verify-url/verify.json).
-- Live Lighthouse report: [lighthouse-live-mobile.json](repair-evidence/polish-4/lighthouse-live-mobile.json), scoring 99 Performance, 100 Accessibility, 100 Best Practices, and 100 SEO.
+- All 18 literal `.factory/claims.json` commands passed: 35 desktop/mobile executions, zero failures; every ID has one matching test tag.
+- Full suite: 57 passed and 3 intentional desktop-only skips. Separate axe suite: 2 passed. Typecheck, lint, audit, and build passed.
+- Production build: 35.15 KB raw / 11.94 KB gzip JS; 19.06 KB raw / 4.76 KB gzip CSS; 27,210-byte phone hero.
+- Fresh live normal, boundary, invalid-input, missing-prompt, import-error, microphone-denial, empty-state, and recovery flows passed at desktop and 390px.
+- Live axe on ten states found zero violations. Keyboard, visible focus, 44px targets, 200% text, reduced motion, route metadata, 404, and link checks passed.
+- Request capture during text and audio use was same-origin plus a local blob URL only. Browser security headers and cache policies match the repository configuration.
+- Service-worker control, update check, and offline direct-demo reload passed.
+- Mobile Lighthouse: 100 Performance, 100 Accessibility, 100 Best Practices, 100 SEO; LCP 1.2s, CLS 0, TBT 10ms, 54 KiB transfer. A 4× CPU-throttled interaction measured 56ms.
+- This static PWA has no API, unlock call, backend, billing, or sign-in. Rate-limit/429, concurrency/health, and Entra checks are not applicable.
 
-## Known gaps and next steps
+## Defects and next steps
 
-None. The product remains a local-first, offline PWA with no account, tracking, paid service, or runtime AI dependency.
+- Critical: none.
+- High: none.
+- Medium: none.
+- Low: none.
+- Known gaps: none.
+- Next step: factory deployment may continue from the verified candidate.
