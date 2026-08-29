@@ -1,0 +1,61 @@
+{
+  "base": "https://explanation-lab.sociobot.in",
+  "checks": {
+    "oneClickDemo": true,
+    "demoBoundaries": true,
+    "routesMetadataAnd404": true,
+    "mobileFirstViewport": true,
+    "offlineDemo": true
+  },
+  "routes": {
+    "/": {
+      "status": 200,
+      "title": "Explanation Lab — Practise explaining hard ideas",
+      "heading": "Explain hard ideas in your own words",
+      "seriousAxe": 0
+    },
+    "/?demo=1&id=sample-doppler": {
+      "status": 200,
+      "title": "Demo — Explanation Lab",
+      "heading": "Why a passing siren changes pitch",
+      "seriousAxe": 0
+    },
+    "/practice": {
+      "status": 200,
+      "title": "Practice — Explanation Lab",
+      "heading": "Start a four-part explanation",
+      "seriousAxe": 0
+    },
+    "/library": {
+      "status": 200,
+      "title": "Your explanations — Explanation Lab",
+      "heading": "Your explanations",
+      "seriousAxe": 0
+    },
+    "/privacy": {
+      "status": 200,
+      "title": "Privacy — Explanation Lab",
+      "heading": "How Explanation Lab stores your work",
+      "seriousAxe": 0
+    },
+    "/terms": {
+      "status": 200,
+      "title": "Terms — Explanation Lab",
+      "heading": "Terms for this free utility",
+      "seriousAxe": 0
+    },
+    "/visual-notes": {
+      "status": 200,
+      "title": "Visual notes — Explanation Lab",
+      "heading": "How the Explanation Lab illustration was made",
+      "seriousAxe": 0
+    }
+  },
+  "consoleErrors": [],
+  "requestOrigins": [
+    "https://explanation-lab.sociobot.in"
+  ],
+  "notFoundConsoleMessages": [
+    "console: Failed to load resource: the server responded with a status of 404 ()"
+  ]
+}
