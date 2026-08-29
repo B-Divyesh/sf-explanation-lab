@@ -1,0 +1,223 @@
+{
+  "base": "https://explanation-lab.sociobot.in",
+  "results": [
+    {
+      "name": "live demo, normal completion, and microphone cleanup",
+      "result": "PASS",
+      "evidence": {
+        "seededRecords": 3,
+        "completedPrompts": 4,
+        "revisit": "Sep 5, 2026",
+        "microphoneAfterNavigation": "ended"
+      }
+    },
+    {
+      "name": "live invalid input, import recovery, collision decisions, export, and delete",
+      "result": "PASS",
+      "evidence": {
+        "emptyRequired": "blocked and focused",
+        "topicLimit": 100,
+        "responseLimit": 6000,
+        "malformedMessage": "This file is not valid JSON. Choose an Explanation Lab JSON backup and try again.",
+        "malformedRecovery": true,
+        "atomicInvalidImport": true,
+        "duplicateSkipReplace": true,
+        "exportParsed": true,
+        "deleteCancelConfirm": true
+      }
+    },
+    {
+      "name": "microphone denial keeps text entry usable",
+      "result": "PASS",
+      "evidence": {
+        "message": "The microphone did not start. Allow microphone access or type your response.",
+        "textFallbackEditable": true
+      }
+    },
+    {
+      "name": "keyboard, mobile reflow, reduced motion, touch targets, and live axe",
+      "result": "PASS",
+      "evidence": {
+        "routes": [
+          {
+            "route": "/",
+            "status": 200,
+            "h1": 1,
+            "overflow": 0,
+            "seriousCritical": 0,
+            "title": "Explanation Lab — Practice explaining hard ideas"
+          },
+          {
+            "route": "/?demo=1",
+            "status": 200,
+            "h1": 1,
+            "overflow": 0,
+            "seriousCritical": 0,
+            "title": "Demo — Explanation Lab"
+          },
+          {
+            "route": "/demo",
+            "status": 200,
+            "h1": 1,
+            "overflow": 0,
+            "seriousCritical": 0,
+            "title": "Demo — Explanation Lab"
+          },
+          {
+            "route": "/practice",
+            "status": 200,
+            "h1": 1,
+            "overflow": 0,
+            "seriousCritical": 0,
+            "title": "Practice — Explanation Lab"
+          },
+          {
+            "route": "/library",
+            "status": 200,
+            "h1": 1,
+            "overflow": 0,
+            "seriousCritical": 0,
+            "title": "Your explanations — Explanation Lab"
+          },
+          {
+            "route": "/privacy",
+            "status": 200,
+            "h1": 1,
+            "overflow": 0,
+            "seriousCritical": 0,
+            "title": "Privacy — Explanation Lab"
+          },
+          {
+            "route": "/terms",
+            "status": 200,
+            "h1": 1,
+            "overflow": 0,
+            "seriousCritical": 0,
+            "title": "Terms — Explanation Lab"
+          },
+          {
+            "route": "/visual-notes",
+            "status": 200,
+            "h1": 1,
+            "overflow": 0,
+            "seriousCritical": 0,
+            "title": "Visual notes — Explanation Lab"
+          },
+          {
+            "route": "/verification-6-missing",
+            "status": 404,
+            "h1": 1,
+            "overflow": 0,
+            "seriousCritical": 0,
+            "title": "Page not found — Explanation Lab"
+          }
+        ],
+        "resizedRoutes": 4,
+        "motion": {
+          "matches": true,
+          "animationName": "none",
+          "transitionDuration": "1e-05s",
+          "scrollBehavior": "auto"
+        },
+        "touchTargets": [
+          {
+            "width": 44,
+            "height": 44
+          },
+          {
+            "width": 117,
+            "height": 44
+          },
+          {
+            "width": 358,
+            "height": 44
+          },
+          {
+            "width": 358,
+            "height": 44
+          },
+          {
+            "width": 358,
+            "height": 44
+          },
+          {
+            "width": 358,
+            "height": 44
+          }
+        ],
+        "keyboardSkipAndRouteFocus": true
+      }
+    },
+    {
+      "name": "service worker control, offline reload, and update notice",
+      "result": "PASS",
+      "evidence": {
+        "controlled": true,
+        "cache": "explanation-lab-shell-v4",
+        "offlineSampleReloaded": true,
+        "persistentUpdateNotice": true
+      }
+    },
+    {
+      "name": "all discoverable links respond",
+      "result": "PASS",
+      "evidence": [
+        {
+          "href": "https://explanation-lab.sociobot.in/#main",
+          "status": 200
+        },
+        {
+          "href": "https://explanation-lab.sociobot.in/",
+          "status": 200
+        },
+        {
+          "href": "https://explanation-lab.sociobot.in/?demo=1",
+          "status": 200
+        },
+        {
+          "href": "https://explanation-lab.sociobot.in/practice",
+          "status": 200
+        },
+        {
+          "href": "https://explanation-lab.sociobot.in/library",
+          "status": 200
+        },
+        {
+          "href": "https://explanation-lab.sociobot.in/privacy",
+          "status": 200
+        },
+        {
+          "href": "https://explanation-lab.sociobot.in/terms",
+          "status": 200
+        },
+        {
+          "href": "https://explanation-lab.sociobot.in/visual-notes",
+          "status": 200
+        },
+        {
+          "href": "https://sociobot.in/",
+          "status": 200
+        }
+      ]
+    }
+  ],
+  "requests": [
+    "https://explanation-lab.sociobot.in/",
+    "https://explanation-lab.sociobot.in/?demo=1",
+    "https://explanation-lab.sociobot.in/?demo=1&id=sample-doppler",
+    "https://explanation-lab.sociobot.in/assets/hero-1024.webp",
+    "https://explanation-lab.sociobot.in/assets/hero-640.webp",
+    "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+    "https://explanation-lab.sociobot.in/build/main-BfB4xhns.js",
+    "https://explanation-lab.sociobot.in/demo",
+    "https://explanation-lab.sociobot.in/library",
+    "https://explanation-lab.sociobot.in/practice",
+    "https://explanation-lab.sociobot.in/privacy",
+    "https://explanation-lab.sociobot.in/terms",
+    "https://explanation-lab.sociobot.in/verification-6-missing",
+    "https://explanation-lab.sociobot.in/visual-notes"
+  ],
+  "crossOriginRequests": [],
+  "consoleErrors": [],
+  "pageErrors": []
+}
