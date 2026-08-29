@@ -1,7 +1,7 @@
 {
   "name": "Explanation Lab",
   "short_name": "Explain Lab",
-  "description": "Practice explaining hard ideas with four focused prompts.",
+  "description": "Practise explaining hard ideas with four focused prompts.",
   "start_url": "/?source=installed-v2",
   "scope": "/",
   "display": "standalone",

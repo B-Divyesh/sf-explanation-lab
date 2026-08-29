@@ -8,7 +8,7 @@ The app is free and needs no account. Text and audio notes stay in this browser'
 
 Live site: <https://explanation-lab.sociobot.in>
 
-One-click sandbox: <https://explanation-lab.sociobot.in/?demo=1>
+Try the sample demo: <https://explanation-lab.sociobot.in/?demo=1>
 
 ## Run locally
 
@@ -39,7 +39,8 @@ The Playwright suite checks the demo, backups, offline use, keyboard use, mobile
 
 - Real work stays in the browser database named `explanation-lab`.
 - Demo work stays in the separate browser database named `demo:explanation-lab`.
-- Resetting or leaving the demo clears only demo data.
+- Product navigation stays in demo mode until you choose Start for real.
+- Resetting the demo removes only sample data. Start for real removes only sample data and opens real practice.
 - The app does not send your explanations or audio to another website.
 - Clearing this site's browser data removes saved work.
 - The app checks the whole backup before saving it, so an invalid file does not change saved explanations.

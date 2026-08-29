@@ -23,6 +23,9 @@ async function enterRealWorkspace(page: Page) {
 
 test('landing page states the job and opens a seeded demo @claim:one-click-demo', async ({page}) => {
   await page.goto('/');
+  await expect(page).toHaveTitle('Explanation Lab — Practise explaining hard ideas');
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', 'Practise a mechanism, boundary, example, and counterexample. Your work stays in this browser.');
+  await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', 'Explanation Lab — Practise explaining hard ideas');
   await expect(page.getByRole('heading', {level: 1, name: 'Explain hard ideas in your own words'})).toBeVisible();
   await expect(page.getByText('For STEM and programming learners who want to find gaps in their understanding.')).toBeVisible();
   await expect(page.getByRole('heading', {level: 2, name: 'Write a mechanism, boundary, example, and counterexample'})).toBeVisible();
@@ -30,10 +33,13 @@ test('landing page states the job and opens a seeded demo @claim:one-click-demo'
   await expect(page.getByText('State where the idea applies')).toBeVisible();
   await expect(page.getByText(/before those gaps find them|blank page with useful pressure|You do the thinking|Draw the boundary/)).toHaveCount(0);
   await page.getByRole('link', {name: 'Try it with sample data'}).click();
-  await expect(page).toHaveURL(/\?demo=1$/);
+  await expect(page).toHaveURL(/\?demo=1&id=sample-doppler$/);
   await expect(page.getByText('Demo — sample data, nothing is saved to your work')).toBeVisible();
-  await expect(page.getByRole('link', {name: 'Why a passing siren changes pitch'})).toBeVisible();
-  await expect(page.locator('.status-label', {hasText: 'Due now'})).toBeVisible();
+  await expect(page.getByRole('heading', {level: 1, name: 'Why a passing siren changes pitch'})).toBeVisible();
+  const sampleAnswer = page.getByLabel('Saved sample response');
+  await expect(sampleAnswer).toBeVisible();
+  await expect(sampleAnswer).toBeInViewport();
+  await expect(sampleAnswer).toContainText('The moving source emits each wave crest from a new position.');
 });
 
 test('plain-language copy gives concrete study and backup instructions', async ({page}) => {
@@ -45,9 +51,14 @@ test('plain-language copy gives concrete study and backup instructions', async (
 
   const readme = readFileSync('README.md', 'utf8');
   expect(readme).toContain('The app does not send your explanations or audio to another website.');
+  expect(readme).toContain('Try the sample demo:');
+  expect(readme).toContain('Product navigation stays in demo mode until you choose Start for real.');
   expect(readme).toContain('The app checks the whole backup before saving it, so an invalid file does not change saved explanations.');
   expect(readme).toContain('If a backup includes an explanation already in your library, choose whether to replace it or keep the saved version.');
   expect(readme).not.toMatch(/cross-origin runtime requests|atomic write|matching IDs/i);
+  expect(readme).not.toContain('One-click sandbox');
+  await page.goto('/privacy');
+  await expect(page.getByRole('heading', {level: 1, name: 'How Explanation Lab stores your work'})).toBeVisible();
 });
 
 test('sample practice presents four distinct prompts @claim:four-prompt-practice', async ({page}) => {
@@ -219,7 +230,7 @@ test('keyboard users can skip to the main landmark and open the demo', async ({p
 });
 
 test('main routes have no serious accessibility violations @a11y', async ({page}, testInfo) => {
-  for (const route of ['/', '/?demo=1', '/demo', '/practice', '/library', '/privacy', '/terms', '/visual-notes', '/missing-page']) {
+  for (const route of ['/', '/?demo=1', '/?demo=1&id=sample-doppler', '/demo', '/practice', '/library', '/privacy', '/privacy?demo=1', '/terms', '/terms?demo=1', '/visual-notes', '/visual-notes?demo=1', '/missing-page']) {
     await page.goto(route, {waitUntil: 'domcontentloaded'});
     const headings = await page.locator('h1').count();
     expect(headings, `${route} has one h1 before asynchronous storage resolves`).toBe(1);
@@ -229,7 +240,7 @@ test('main routes have no serious accessibility violations @a11y', async ({page}
     const serious = results.violations.filter((violation) => ['serious', 'critical'].includes(violation.impact ?? ''));
     expect(serious, `${route}: ${serious.map((item) => `${item.id}: ${item.help}`).join(', ')}`).toEqual([]);
   }
-  await testInfo.attach('accessibility-routes', {body: 'Checked /, /?demo=1, /demo, /practice, /library, /privacy, /terms, /visual-notes, and /missing-page with axe.', contentType: 'text/plain'});
+  await testInfo.attach('accessibility-routes', {body: 'Checked landing, populated demo, normal and demo legal routes, workspaces, and a missing page with axe.', contentType: 'text/plain'});
 });
 
 test('the 390px layout keeps primary controls inside the viewport @claim:mobile-ready', async ({page}, testInfo) => {
@@ -265,7 +276,8 @@ test('route navigation immediately stops an active microphone track', async ({pa
   await expect(page.getByRole('button', {name: 'Stop and keep audio'})).toBeVisible();
   expect(await page.evaluate(() => (globalThis as typeof globalThis & {qaAudioTrack?: MediaStreamTrack}).qaAudioTrack?.readyState)).toBe('live');
   await page.getByRole('link', {name: 'Library'}).click();
-  await expect(page).toHaveURL(/\/library$/);
+  await expect(page).toHaveURL(/\?demo=1$/);
+  await expect(page.getByLabel('Demo mode')).toBeVisible();
   expect(await page.evaluate(() => (globalThis as typeof globalThis & {qaAudioTrack?: MediaStreamTrack}).qaAudioTrack?.readyState)).toBe('ended');
   await expect(page.getByRole('button', {name: /Stop and keep audio/})).toHaveCount(0);
 });
@@ -414,7 +426,7 @@ test('routes set titles, canonical metadata, focus, and working legal links', as
 
 test('the footer exposes the release build identity and linked visual disclosure', async ({page}) => {
   await page.goto('/');
-  await expect(page.locator('.build')).toContainText('build polish-3');
+  await expect(page.locator('.build')).toContainText('build polish-4');
   await page.getByRole('link', {name: 'Visual notes'}).click();
   await expect(page).toHaveTitle('Visual notes — Explanation Lab');
   await expect(page.getByRole('heading', {level: 1, name: 'How the Explanation Lab illustration was made'})).toBeFocused();
@@ -449,23 +461,59 @@ test('audio notes survive JSON export and import @claim:audio-backup', async ({p
   await expect(page.locator('audio')).toBeVisible();
 });
 
-test('reset and exit clear only the demo workspace @claim:demo-reset-exit', async ({page}) => {
+test('demo navigation stays isolated and every exit clears only the demo workspace @claim:demo-reset-exit', async ({page}) => {
   await enterRealWorkspace(page);
   await page.getByLabel('What do you want to explain?').fill('A real explanation that must survive');
   await page.getByRole('button', {name: 'Open the four prompts'}).click();
   await page.getByLabel('Your explanation').fill('This record belongs to the real workspace.');
   await page.getByRole('button', {name: 'Save this response'}).click();
+
   await page.goto('/?demo=1&new=1');
   await page.getByLabel('What do you want to explain?').fill('Temporary demo explanation');
   await page.getByRole('button', {name: 'Open the four prompts'}).click();
+
+  await page.getByRole('navigation').getByRole('link', {name: 'Privacy'}).click();
+  await expect(page).toHaveURL(/\/privacy\?demo=1$/);
+  await expect(page.getByLabel('Demo mode')).toBeVisible();
+  await page.getByRole('link', {name: 'Terms', exact: true}).last().click();
+  await expect(page).toHaveURL(/\/terms\?demo=1$/);
+  await expect(page.getByLabel('Demo mode')).toBeVisible();
+  await page.goBack();
+  await expect(page).toHaveURL(/\/privacy\?demo=1$/);
+  await expect(page.getByLabel('Demo mode')).toBeVisible();
+  await page.goForward();
+  await expect(page).toHaveURL(/\/terms\?demo=1$/);
+  await page.getByRole('link', {name: 'Explanation Lab home'}).click();
+  await expect(page).toHaveURL(/\?demo=1$/);
+  await expect(page.getByLabel('Demo mode')).toBeVisible();
+  await expect(page.getByRole('link', {name: 'Temporary demo explanation'})).toBeVisible();
+  await page.getByRole('navigation').getByRole('link', {name: 'Practice'}).click();
+  await expect(page).toHaveURL(/\?demo=1&new=1$/);
+  await expect(page.getByLabel('Demo mode')).toBeVisible();
+  await page.getByRole('navigation').getByRole('link', {name: 'Library'}).click();
+  await expect(page).toHaveURL(/\?demo=1$/);
+  await expect(page.getByRole('link', {name: 'Temporary demo explanation'})).toBeVisible();
+
   await page.getByRole('button', {name: 'Reset demo'}).click();
   await expect(page.getByText('Temporary demo explanation')).toHaveCount(0);
   await expect(page.getByRole('link', {name: 'Why a passing siren changes pitch'})).toBeVisible();
+
+  await page.goto('/?demo=1&new=1');
+  await page.getByLabel('What do you want to explain?').fill('Direct-route demo explanation');
+  await page.getByRole('button', {name: 'Open the four prompts'}).click();
+  await page.goto('/library');
+  await expect(page.getByLabel('Demo mode')).toHaveCount(0);
+  await expect(page.getByText('Direct-route demo explanation')).toHaveCount(0);
+  await expect(page.getByRole('link', {name: 'A real explanation that must survive'})).toBeVisible();
+  await page.goto('/?demo=1');
+  await expect(page.locator('.explanation-row')).toHaveCount(3);
+  await expect(page.getByText('Direct-route demo explanation')).toHaveCount(0);
+
   await page.getByRole('button', {name: 'Start for real'}).click();
   await page.goto('/library');
   await expect(page.getByRole('link', {name: 'A real explanation that must survive'})).toBeVisible();
   await page.goto('/?demo=1');
-  await expect(page.getByRole('link', {name: 'Why a passing siren changes pitch'})).toBeVisible();
+  await expect(page.locator('.explanation-row')).toHaveCount(3);
 });
 
 test('the product neither grades nor generates explanations nor syncs devices @claim:manual-no-sync', async ({page}) => {

@@ -121,6 +121,9 @@ textarea::placeholder { color: #6e685d; }
 .progress-stamp { width: 145px; flex: 0 0 145px; padding: 12px; border: var(--line); background: var(--orange); box-shadow: 5px 5px var(--ink); transform: rotate(1deg); }
 .progress-stamp b { display: block; font: 2.2rem/1 "Arial Black", Arial, sans-serif; }
 .progress-stamp span { font-size: .75rem; }
+.demo-sample-answer { max-width: 760px; margin: -12px 0 32px; padding: 16px 20px; border: 3px solid var(--ink); background: var(--yellow); box-shadow: 6px 6px var(--ink); }
+.demo-sample-answer b { display: block; margin-bottom: 6px; font-family: "Arial Black", Arial, sans-serif; font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; }
+.demo-sample-answer p { display: -webkit-box; margin: 0; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
 .workbench { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 0; align-items: stretch; }
 .step-rail { display: grid; align-content: start; padding: 0; margin: 0; border: 3px solid var(--ink); border-right: 0; background: var(--ink); list-style: none; }
 .step-rail li { border-bottom: 2px solid var(--ink); }
@@ -242,6 +245,7 @@ textarea::placeholder { color: #6e685d; }
   .progress-stamp { width: fit-content; max-width: 100%; flex-basis: auto; }
   .progress-stamp b { font-size: 1.7rem; }
   .progress-stamp span { display: block; }
+  .demo-sample-answer { margin: -16px 0 24px; padding: 14px 16px; box-shadow: 5px 5px var(--ink); }
   .step-tab { min-height: 84px; padding: 10px 5px; align-items: center; text-align: center; }
   .step-tab b { font-size: .68rem; }
   .writing-sheet { padding: 28px 18px; box-shadow: 6px 6px var(--blue); }

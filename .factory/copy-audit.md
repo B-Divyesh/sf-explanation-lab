@@ -13,7 +13,7 @@ Audited 2026-08-29. Counts treat hyphenated terms and number ranges as one word.
 | Explain hard ideas in your own words | 7 | Pass |
 | For STEM and programming learners who want to find gaps in their understanding. | 13 | Pass |
 | Try it with sample data | 5 | Pass |
-| Opens a due explanation and two recent examples. | 8 | Pass |
+| Opens the due siren explanation with a saved sample answer. | 10 | Pass |
 | Start a blank explanation | 4 | Pass |
 | Choose a topic, then answer four prompts. | 7 | Pass |
 | Work stays in this browser | 5 | Pass |
@@ -48,7 +48,7 @@ Audited 2026-08-29. Counts treat hyphenated terms and number ranges as one word.
 | Terms | 1 | Pass |
 | Visual notes | 2 | Pass |
 | Built by Param Factory | 4 | Pass |
-| v1.0 · build polish-3 | 4 | Pass |
+| v1.0 · build polish-4 | 4 | Pass |
 
 No line exceeds 22 words. No line contains a banned marketing word.
 
@@ -71,6 +71,6 @@ No line exceeds 22 words. No line contains a banned marketing word.
 
 ## Catalog description
 
-Practise hard ideas with four prompts and revisit them after seven days.
+Practise hard ideas with four prompts, then revisit them after seven days.
 
-The description is 72 characters, starts with a verb, and contains no banned marketing term.
+The description is 74 characters, starts with a verb, and contains no banned marketing term.

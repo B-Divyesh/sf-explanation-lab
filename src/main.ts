@@ -23,11 +23,13 @@ let recordingFor: {demo: boolean; id: string; step: StepKey} | undefined;
 let recordingRequest = 0;
 const objectUrls: string[] = [];
 const UPDATE_READY_MESSAGE = 'An update is ready. Reload to use it.';
+const DEMO_SESSION_KEY = 'explanation-lab:demo-session';
+const DEMO_ACTIVE_KEY = 'explanation-lab:demo-active';
 let updateReady = false;
 let toastTimeout: number | undefined;
 
 const pageDetails: Record<string, {title: string; description: string}> = {
-  '/': {title: 'Explanation Lab — Practice explaining hard ideas', description: 'Practice a mechanism, boundary, example, and counterexample. Your work stays in this browser.'},
+  '/': {title: 'Explanation Lab — Practise explaining hard ideas', description: 'Practise a mechanism, boundary, example, and counterexample. Your work stays in this browser.'},
   '/demo': {title: 'Demo — Explanation Lab', description: 'Try Explanation Lab with isolated sample explanations.'},
   '/practice': {title: 'Practice — Explanation Lab', description: 'Write or record a four-part explanation.'},
   '/library': {title: 'Your explanations — Explanation Lab', description: 'Revisit, export, or import explanations saved in this browser.'},
@@ -81,26 +83,68 @@ function demoHref(parameters = ''): string {
   return `/?demo=1${parameters ? `&${parameters}` : ''}`;
 }
 
+function urlUsesDemo(url = new URL(location.href)): boolean {
+  return url.pathname.replace(/\/+$/, '') === '/demo' || url.searchParams.get('demo') === '1';
+}
+
+function demoLink(path: '/' | '/practice' | '/library' | '/privacy' | '/terms' | '/visual-notes'): string {
+  if (path === '/') return demoHref();
+  if (path === '/practice') return demoHref('new=1');
+  if (path === '/library') return demoHref();
+  return `${path}?demo=1`;
+}
+
+function productLink(path: '/' | '/practice' | '/library' | '/privacy' | '/terms' | '/visual-notes', demo: boolean): string {
+  return demo ? demoLink(path) : path;
+}
+
+function demoSessionIsActive(): boolean {
+  return sessionStorage.getItem(DEMO_SESSION_KEY) === '1' || localStorage.getItem(DEMO_ACTIVE_KEY) === '1';
+}
+
+async function prepareDemoWorkspace(demo: boolean): Promise<void> {
+  if (demo) {
+    // A fresh tab starts a new disposable sample workspace. Reloads and
+    // in-demo navigation preserve the same sample workspace until reset or exit.
+    const freshSession = sessionStorage.getItem(DEMO_SESSION_KEY) !== '1';
+    await seedDemo(freshSession);
+    sessionStorage.setItem(DEMO_SESSION_KEY, '1');
+    localStorage.setItem(DEMO_ACTIVE_KEY, '1');
+    return;
+  }
+  if (demoSessionIsActive()) {
+    await clearExplanations(true);
+    sessionStorage.removeItem(DEMO_SESSION_KEY);
+    localStorage.removeItem(DEMO_ACTIVE_KEY);
+  }
+}
+
+async function discardDemoWorkspace(): Promise<void> {
+  await clearExplanations(true);
+  sessionStorage.removeItem(DEMO_SESSION_KEY);
+  localStorage.removeItem(DEMO_ACTIVE_KEY);
+}
+
 function header(demo: boolean): string {
   return `
     ${demo ? `<aside class="demo-banner" aria-label="Demo mode"><strong>Demo — sample data, nothing is saved to your work</strong><span class="demo-actions"><button class="text-button" data-action="reset-demo">Reset demo</button><button class="text-button" data-action="leave-demo">Start for real</button></span></aside>` : ''}
     <header class="site-header">
-      <a class="wordmark route-link" href="/" aria-label="Explanation Lab home"><span aria-hidden="true" class="wordmark-grid"><i></i><i></i><i></i><i></i></span><span>Explanation<br>Lab</span></a>
+      <a class="wordmark route-link" href="${productLink('/', demo)}" aria-label="Explanation Lab home"><span aria-hidden="true" class="wordmark-grid"><i></i><i></i><i></i><i></i></span><span>Explanation<br>Lab</span></a>
       <nav aria-label="Main navigation">
-        <a class="route-link" href="/?demo=1">Demo</a>
-        <a class="route-link" href="/practice">Practice</a>
-        <a class="route-link" href="/library">Library</a>
-        <a class="route-link" href="/privacy">Privacy</a>
+        <a class="route-link" href="${demoHref()}">Demo</a>
+        <a class="route-link" href="${productLink('/practice', demo)}">Practice</a>
+        <a class="route-link" href="${productLink('/library', demo)}">Library</a>
+        <a class="route-link" href="${productLink('/privacy', demo)}">Privacy</a>
       </nav>
     </header>`;
 }
 
-function footer(): string {
-  return `<footer class="site-footer"><p><strong>Explanation Lab</strong> uses four prompts for each explanation.</p><div><a class="route-link" href="/privacy">Privacy</a><a class="route-link" href="/terms">Terms</a><a class="route-link" href="/visual-notes">Visual notes</a><a href="https://sociobot.in" rel="external">Built by Param Factory <span class="sr-only">(external site)</span></a></div><p class="build">v1.0 · build polish-3</p></footer>`;
+function footer(demo: boolean): string {
+  return `<footer class="site-footer"><p><strong>Explanation Lab</strong> uses four prompts for each explanation.</p><div><a class="route-link" href="${productLink('/privacy', demo)}">Privacy</a><a class="route-link" href="${productLink('/terms', demo)}">Terms</a><a class="route-link" href="${productLink('/visual-notes', demo)}">Visual notes</a><a href="https://sociobot.in" rel="external">Built by Param Factory <span class="sr-only">(external site)</span></a></div><p class="build">v1.0 · build polish-4</p></footer>`;
 }
 
 function shell(content: string, demo = false): string {
-  return `${header(demo)}${content}${footer()}`;
+  return `${header(demo)}${content}${footer(demo)}`;
 }
 
 function loadingPage(path: string): string {
@@ -120,7 +164,7 @@ function landing(): string {
         <h1 id="page-title" tabindex="-1">Explain hard ideas in your own words</h1>
         <p class="lede">For STEM and programming learners who want to find gaps in their understanding.</p>
         <div class="hero-actions">
-          <div><a class="button button-primary route-link" href="/?demo=1">Try it with sample data</a><small>Opens a due explanation and two recent examples.</small></div>
+          <div><a class="button button-primary route-link" href="/?demo=1&id=sample-doppler">Try it with sample data</a><small>Opens the due siren explanation with a saved sample answer.</small></div>
           <div><a class="button button-secondary route-link" href="/practice">Start a blank explanation</a><small>Choose a topic, then answer four prompts.</small></div>
         </div>
         <ul class="plain-facts" aria-label="Product facts">
@@ -188,6 +232,7 @@ function workbench(item: Explanation, demo: boolean): string {
   const route = demo ? demoHref() : '/practice';
   return shell(`<main id="main" class="workbench-main">
     <div class="workbench-top"><div><a class="back-link route-link" href="${demo ? demoHref() : '/library'}">← ${demo ? 'Sample overview' : 'Your explanations'}</a><p class="eyebrow">${item.status === 'complete' ? 'Completed explanation' : 'Draft explanation'}</p><h1 id="page-title" tabindex="-1">${escapeHtml(item.topic)}</h1></div><div class="progress-stamp"><b>${count}/4</b><span>prompts answered</span></div></div>
+    ${demo ? `<aside class="demo-sample-answer" aria-label="Saved sample response"><b>Saved sample response</b><p>${escapeHtml(part.text)}</p></aside>` : ''}
     <section class="workbench" aria-labelledby="prompt-title">
       ${stepNavigation(item)}
       <div class="writing-sheet">
@@ -221,7 +266,6 @@ function explanationRows(items: Explanation[], demo: boolean): string {
 }
 
 async function dashboard(demo: boolean): Promise<string> {
-  if (demo) await seedDemo();
   const items = await listExplanations(demo);
   const due = items.filter(isDue);
   const drafts = items.filter((item) => item.status === 'draft');
@@ -237,42 +281,43 @@ async function dashboard(demo: boolean): Promise<string> {
   </main>`, demo);
 }
 
-function legalPage(kind: 'privacy' | 'terms'): string {
+function legalPage(kind: 'privacy' | 'terms', demo: boolean): string {
   const privacy = kind === 'privacy';
-  return shell(`<main id="main" class="page-main legal-page"><article><p class="eyebrow">Plain-language ${kind}</p><h1 id="page-title" tabindex="-1">${privacy ? 'Your explanations stay with you' : 'Terms for this free utility'}</h1>
-    ${privacy ? `<h2>What the app stores</h2><p>Explanation Lab stores topics, written responses, audio notes, and practice dates in this browser.</p><p>The demo uses a separate browser database. Leaving or resetting the demo removes that sample workspace.</p><h2>What leaves your device</h2><p>The app does not send your explanations or audio to a server. It does not use analytics, advertising, or third-party scripts.</p><h2>Your choices</h2><p>Export a JSON copy from the Library page. You can also delete individual explanations there.</p><p>Clearing site data in your browser removes all saved work. We cannot recover it.</p>` : `<h2>Use</h2><p>Explanation Lab is free to use for personal learning and teaching. You are responsible for your own explanations and backups.</p><h2>No grading</h2><p>The prompts help you inspect your understanding. They do not certify accuracy, provide grades, or replace expert advice.</p><h2>Availability</h2><p>The app is provided as is, without warranties. Local browser limits or cleared site data can remove saved work.</p><h2>License</h2><p>The source code is available under the MIT License. These terms were last updated on 28 August 2026.</p>`}
-  </article></main>`);
+  return shell(`<main id="main" class="page-main legal-page"><article><p class="eyebrow">Plain-language ${kind}</p><h1 id="page-title" tabindex="-1">${privacy ? 'How Explanation Lab stores your work' : 'Terms for this free utility'}</h1>
+    ${privacy ? `<h2>What the app stores</h2><p>Explanation Lab stores topics, written responses, audio notes, and practice dates in this browser.</p><p>The demo uses a separate browser database. Product navigation stays in demo mode until you choose Start for real. Resetting the demo removes its sample workspace.</p><h2>What leaves your device</h2><p>The app does not send your explanations or audio to a server. It does not use analytics, advertising, or third-party scripts.</p><h2>Your choices</h2><p>Export a JSON copy from the Library page. You can also delete individual explanations there.</p><p>Clearing site data in your browser removes all saved work. We cannot recover it.</p>` : `<h2>Use</h2><p>Explanation Lab is free to use for personal learning and teaching. You are responsible for your own explanations and backups.</p><h2>No grading</h2><p>The prompts help you inspect your understanding. They do not certify accuracy, provide grades, or replace expert advice.</p><h2>Availability</h2><p>The app is provided as is, without warranties. Local browser limits or cleared site data can remove saved work.</p><h2>License</h2><p>The source code is available under the MIT License. These terms were last updated on 28 August 2026.</p>`}
+  </article></main>`, demo);
 }
 
-function visualNotesPage(): string {
+function visualNotesPage(demo: boolean): string {
   return shell(`<main id="main" class="page-main legal-page"><article><p class="eyebrow">Asset provenance</p><h1 id="page-title" tabindex="-1">How the Explanation Lab illustration was made</h1>
     <h2>Original illustration</h2><p>The tabletop explanation apparatus was generated for this product on 28 August 2026. It does not depict a real device or person.</p>
     <h2>Art direction</h2><p>The prompt specified cream graph paper, cobalt blocks, orange correction tabs, wooden ramps, steel balls, and hard studio light.</p>
     <h2>Production record</h2><p>The source image and exact prompt are stored with the project. The shipped WebP files are optimized crops of that source.</p>
-  </article></main>`);
+  </article></main>`, demo);
 }
 
-function notFound(): string {
-  return shell(`<main id="main" class="page-main not-found"><div class="error-code" aria-hidden="true">4<span>0</span>4</div><div><p class="eyebrow">Page not found</p><h1 id="page-title" tabindex="-1">We could not find this page</h1><p>The address does not match an Explanation Lab page.</p><a class="button button-primary route-link" href="/">Return home</a></div></main>`);
+function notFound(demo: boolean): string {
+  return shell(`<main id="main" class="page-main not-found"><div class="error-code" aria-hidden="true">4<span>0</span>4</div><div><p class="eyebrow">Page not found</p><h1 id="page-title" tabindex="-1">We could not find this page</h1><p>The address does not match an Explanation Lab page.</p><a class="button button-primary route-link" href="${productLink('/', demo)}">Return home</a></div></main>`, demo);
 }
 
 async function render(focus = false): Promise<void> {
   cancelRecording();
   objectUrls.splice(0).forEach((url) => URL.revokeObjectURL(url));
   const path = pagePath();
+  const demo = urlUsesDemo();
   applyMeta(path);
   const params = new URLSearchParams(location.search);
   // IndexedDB can resolve after DOMContentLoaded. Render a complete route
   // landmark and its single heading before awaiting storage so a direct URL
   // never exposes an empty application to keyboard or assistive-tech users.
-  if (path === '/demo' || path === '/library' || path === '/practice') app.innerHTML = loadingPage(path);
+  if (path === '/demo' || path === '/library' || path === '/practice') app.innerHTML = loadingPage(demo ? '/demo' : path);
   try {
+    await prepareDemoWorkspace(demo);
     if (path === '/') app.innerHTML = landing();
-    else if (path === '/privacy' || path === '/terms') app.innerHTML = legalPage(path.slice(1) as 'privacy' | 'terms');
-    else if (path === '/visual-notes') app.innerHTML = visualNotesPage();
-    else if (path === '/library') app.innerHTML = await dashboard(false);
+    else if (path === '/privacy' || path === '/terms') app.innerHTML = legalPage(path.slice(1) as 'privacy' | 'terms', demo);
+    else if (path === '/visual-notes') app.innerHTML = visualNotesPage(demo);
+    else if (path === '/library') app.innerHTML = await dashboard(demo);
     else if (path === '/demo') {
-      await seedDemo();
       const id = params.get('id');
       if (params.get('new') === '1') app.innerHTML = emptyPractice(true);
       else if (id) {
@@ -281,11 +326,11 @@ async function render(focus = false): Promise<void> {
       } else app.innerHTML = await dashboard(true);
     } else if (path === '/practice') {
       const id = params.get('id');
-      const item = id ? await getExplanation(false, id) : undefined;
-      app.innerHTML = item ? workbench(item, false) : emptyPractice();
-    } else app.innerHTML = notFound();
+      const item = id ? await getExplanation(demo, id) : undefined;
+      app.innerHTML = item ? workbench(item, demo) : emptyPractice(demo);
+    } else app.innerHTML = notFound(demo);
   } catch (error) {
-    app.innerHTML = shell(`<main id="main" class="page-main"><section class="error-panel"><p class="eyebrow">Storage error</p><h1 id="page-title" tabindex="-1">Your browser could not open the workbench</h1><p>${escapeHtml(error instanceof Error ? error.message : 'Local storage is unavailable.')}</p><button class="button button-primary" data-action="retry">Try again</button></section></main>`, path === '/demo');
+    app.innerHTML = shell(`<main id="main" class="page-main"><section class="error-panel"><p class="eyebrow">Storage error</p><h1 id="page-title" tabindex="-1">Your browser could not open the workbench</h1><p>${escapeHtml(error instanceof Error ? error.message : 'Local storage is unavailable.')}</p><button class="button button-primary" data-action="retry">Try again</button></section></main>`, demo);
   }
   document.querySelector<HTMLElement>('#main')?.setAttribute('tabindex', '-1');
   attachForms();
@@ -313,11 +358,13 @@ function showToast(message: string, persistent = false): void {
   }
 }
 
-function navigate(href: string): void {
+async function navigate(href: string): Promise<void> {
   cancelRecording();
+  const target = new URL(href, location.origin);
+  if (!urlUsesDemo(target) && demoSessionIsActive()) await discardDemoWorkspace();
   history.pushState({}, '', href);
   activeStep = 'mechanism';
-  void render(true);
+  await render(true);
 }
 
 async function saveCurrentResponse(item: Explanation, demo: boolean, moveNext = false): Promise<void> {
@@ -479,17 +526,17 @@ document.addEventListener('click', (event) => {
   const target = event.target as HTMLElement;
   const link = target.closest<HTMLAnchorElement>('a.route-link');
   if (link && link.origin === location.origin && !event.metaKey && !event.ctrlKey && !event.shiftKey) {
-    event.preventDefault(); navigate(`${link.pathname}${link.search}`); return;
+    event.preventDefault(); void navigate(`${link.pathname}${link.search}`); return;
   }
   const button = target.closest<HTMLElement>('[data-action]');
   if (!button) return;
   const action = button.dataset.action;
   if (action === 'retry') void render();
   if (action === 'leave-demo') {
-    void clearExplanations(true).finally(() => navigate('/practice'));
+    void discardDemoWorkspace().then(() => navigate('/practice'));
   }
   if (action === 'reset-demo') {
-    void seedDemo(true).then(() => { navigate(demoHref()); showToast('Sample data reset.'); });
+    void seedDemo(true).then(() => { void navigate(demoHref()).then(() => showToast('Sample data reset.')); });
   }
   if (action === 'step' && button.dataset.step) {
     activeStep = button.dataset.step as StepKey; void render();

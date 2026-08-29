@@ -1,10 +1,10 @@
 [
   {
     "id": "one-click-demo",
-    "claim": "Try it with sample data in one click",
+    "claim": "Try it with a populated sample explanation in one click",
     "where": "landing primary action",
     "test": "npm test -- --grep @claim:one-click-demo",
-    "sandbox": "fresh browser context; click the landing action; assert seeded due and draft explanations"
+    "sandbox": "fresh desktop and 390px browser contexts; click the landing action; assert a named due sample and its saved response intersect the initial viewport"
   },
   {
     "id": "demo-isolation",
@@ -15,10 +15,10 @@
   },
   {
     "id": "demo-reset-exit",
-    "claim": "Reset demo and Start for real clear only demo data",
+    "claim": "Demo navigation stays isolated until Start for real; reset and exit clear only demo data",
     "where": "demo banner, privacy page, README, demo documentation",
     "test": "npm test -- --grep @claim:demo-reset-exit",
-    "sandbox": "fresh browser context entered at /?demo=1; create real and demo records; reset and exit; assert samples reseed and real work survives"
+    "sandbox": "fresh browser context entered at /?demo=1; create real and demo records; exercise wordmark, header, footer, Back/Forward, direct routes, reset, and Start for real; assert demo routes retain the banner, exits reseed three samples, and real work survives"
   },
   {
     "id": "four-part-revisit",

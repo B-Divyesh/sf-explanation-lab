@@ -5,7 +5,7 @@
 - Production: `https://explanation-lab.sociobot.in/?demo=1`
 - Local: `http://127.0.0.1:4173/?demo=1`
 
-The landing page action “Try it with sample data” opens this query route in one click. `/demo` remains a compatible deep link.
+The landing page action “Try it with sample data” opens the due passing-siren sample at this query route in one click. `/demo` remains a compatible deep link.
 
 ## Sample data
 
@@ -21,6 +21,6 @@ Every sample is bundled in `src/storage.ts`, so it is available offline.
 
 Demo records use the IndexedDB database `demo:explanation-lab`. Real records use `explanation-lab`. Code selects one database for every read and write; it never combines them.
 
-“Reset demo” clears the demo database and restores the three bundled samples. “Start for real” clears the demo database and opens a blank real practice form. Neither action changes real data.
+While the demo banner is visible, the wordmark, header, footer, Back, and Forward keep product routes in demo mode. A direct non-demo route clears the sample workspace before it opens. “Reset demo” clears the demo database and restores the three bundled samples. “Start for real” clears the demo database and opens a blank real practice form. Neither action changes real data.
 
-The tests `@claim:demo-isolation` and `@claim:demo-reset-exit` prove namespace separation, reset, reseeding, exit, and preservation of real work.
+The tests `@claim:demo-isolation` and `@claim:demo-reset-exit` prove namespace separation, all product-route boundaries, reset, reseeding, exit, and preservation of real work.
