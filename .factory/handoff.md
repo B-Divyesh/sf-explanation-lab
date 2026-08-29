@@ -81,6 +81,9 @@ visible, malformed `{bad` receives the exact recovery instruction, the next
 valid backup appears in the library, and no cross-origin runtime request,
 console error, or page error occurs. Live headers confirm the self-only CSP,
 permissions policy, and immutable cache rule for the hashed JavaScript asset.
+The deployed `main-BfB4xhns.js` also exactly matches the local production build:
+both SHA-256 values are
+`80bd19c4fe5e4ad42adba4b53e08c47f68041079b97663deb71ab8f894ddc84f`.
 
 ## Known gaps / next steps
 
