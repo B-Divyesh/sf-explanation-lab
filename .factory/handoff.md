@@ -117,3 +117,21 @@ npm run build
 - Live desktop (1440×900) and mobile (390×844) demo checks each had 0 px horizontal overflow, no console/page errors, and first Tab focused “Skip to main content.”
 - SHA-256 identity check matched all 16 served public runtime files against `dist/`. Hashed JS/CSS are immutable for one year, the stable hero asset is `max-age=0, must-revalidate`, and `sw.js` is `no-cache`.
 - `/missing-repair5-page` returns HTTP 404 with the designed 404 document, self-only CSP, `nosniff`, strict-origin referrer policy, microphone-only permissions policy, and same-origin COOP.
+
+## Adversarial first-read review 1 — 2026-08-29 UTC
+
+### Outcome
+
+An independent live-site review is **FAIL**. Product code was not changed. The full report is `.factory/review-1.md`.
+
+### What was verified
+
+- Fresh desktop and 390 px mobile browser contexts: cold first-read, one-click demo, Reset demo, Start for real, real/demo isolation, request logging, route/metadata/404 crawl, link crawl, and visual review.
+- Fresh `npm ci`, all 16 exact `.factory/claims.json` commands, `CI=1 npm test`, `CI=1 npm run test:a11y`, `npm run typecheck`, `npm run lint`, and `npm run build` all passed. The build created `dist/index.html` and `dist/404.html`.
+- Historic QA-01 through QA-10 / QA2-01 through QA2-10 and QA3-01 were rechecked; none regressed.
+
+### Remaining work
+
+1. Add a declared and tagged demo test for the landing’s four-prompt core claim.
+2. Replace the mood/metaphor headings and the hero metaphor with direct copy.
+3. Add a reachable Visual notes provenance disclosure, or correct the footer statement.
