@@ -239,9 +239,10 @@ textarea::placeholder { color: #6e685d; }
   .page-main, .workbench-main { padding-block: 44px 72px; }
   .start-sheet { min-height: auto; padding: 28px 20px; box-shadow: 6px 6px var(--blue); }
   .topic-row { grid-template-columns: 1fr; }
-  .workbench-top { align-items: start; }
-  .progress-stamp { width: 100px; flex-basis: 100px; }
+  .workbench-top { align-items: stretch; flex-direction: column; }
+  .progress-stamp { width: fit-content; max-width: 100%; flex-basis: auto; }
   .progress-stamp b { font-size: 1.7rem; }
+  .progress-stamp span { display: block; }
   .step-tab { min-height: 84px; padding: 10px 5px; align-items: center; text-align: center; }
   .step-tab b { font-size: .68rem; }
   .writing-sheet { padding: 28px 18px; box-shadow: 6px 6px var(--blue); }

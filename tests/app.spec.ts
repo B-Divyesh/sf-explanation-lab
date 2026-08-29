@@ -301,13 +301,19 @@ test('duplicate import IDs require an explicit skip or replace decision @claim:d
   await expect(page.getByText('Original imported topic')).toHaveCount(0);
 });
 
-test('text resized to 200 percent reflows on every reported mobile route', async ({page}, testInfo) => {
+test('text resized to 200 percent reflows on every reported mobile route and the populated workbench', async ({page}, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile', 'Mobile-only reflow check');
-  for (const route of ['/?demo=1', '/practice', '/privacy', '/visual-notes']) {
+  for (const route of ['/?demo=1', '/?demo=1&id=sample-doppler', '/practice', '/privacy', '/visual-notes']) {
     await page.goto(route);
     await page.evaluate(() => { document.documentElement.style.fontSize = '32px'; });
     await expect(page.locator('h1')).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth), route).toBeLessThanOrEqual(1);
+    const progressLabel = page.locator('.progress-stamp span');
+    if (await progressLabel.count()) {
+      const box = await progressLabel.boundingBox();
+      expect(box?.x, `${route} progress label starts inside the viewport`).toBeGreaterThanOrEqual(0);
+      expect((box?.x ?? 0) + (box?.width ?? 0), `${route} progress label ends inside the viewport`).toBeLessThanOrEqual(390);
+    }
   }
 });
 
