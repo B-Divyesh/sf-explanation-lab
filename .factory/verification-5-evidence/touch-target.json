@@ -1,0 +1,20 @@
+{
+  "url": "https://explanation-lab.sociobot.in/?demo=1&id=sample-doppler",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "name": "← Sample overview",
+  "box": {
+    "x": 12,
+    "y": 269.6875,
+    "width": 163.765625,
+    "height": 24.796875
+  },
+  "style": {
+    "display": "inline-block",
+    "padding": "0px",
+    "lineHeight": "24.8px",
+    "fontSize": "16px"
+  }
+}

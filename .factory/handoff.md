@@ -1,63 +1,54 @@
-# Explanation Lab polish 1 handoff — 2026-08-29
+# Explanation Lab independent verification 5 handoff — FAIL
 
 ## Outcome
 
-Perfection-loop round 1 is complete. Every finding in `.factory/review-1.md`, including its historical regression list, is fixed or reverified. The product remains a Vite + TypeScript local-first offline PWA deployed as static files.
+Candidate `10c0d6cf2c8f1cc4fa65a9eb3f83f19d67eedd2d` was independently tested against <https://explanation-lab.sociobot.in> on 2026-08-29 UTC.
 
-- Live product: <https://explanation-lab.sociobot.in>
-- Canonical demo: <https://explanation-lab.sociobot.in/?demo=1>
-- Repair commit: `ed1b173`
-- Deployment ID: `fa6551f5-cf0c-4277-8200-a0188af92939`
+**FAIL — do not release.** The live deployment matches the candidate runtime and the core PWA works, but the candidate violates the required claims contract and 44px touch-target baseline. A malformed import also exposes an unhelpful parser error.
 
-## What changed
+No product code was changed. Full evidence and reproduction details are in `.factory/verification-5.md` and `.factory/verification-5-evidence/`.
 
-- Added the declared `four-prompt-practice` claim and its unique observable Playwright test.
-- Rewrote the first-screen audience sentence and every flagged metaphorical heading in direct language.
-- Made `/?demo=1` the canonical one-click isolated sample path while preserving `/demo` compatibility.
-- Added a linked `/visual-notes` provenance page and complete route title, metadata, focus, sitemap, and host configuration.
-- Kept the designed 404 as a real HTTP 404 and rewrote its recovery copy in plain words.
-- Updated the footer build identity, service-worker cache version, manifest start version, catalog description, copy audit, README, demo documentation, and claims manifest.
-- Preserved the product-specific graph-paper reasoning-workbench identity and original illustration.
+## Release-blocking findings
 
-## Exact verification
+1. **QA5-01 — High:** `/privacy` promises that users can delete individual explanations, but `.factory/claims.json` has no deletion claim and `tests/app.spec.ts` has no uniquely tagged deletion claim test. Manual live cancel/confirm behavior passes, but the supplied acceptance contract explicitly fails unlisted visitor claims.
+2. **QA5-02 — Medium:** at 390×844, the visible “← Sample overview” workbench link measures 163.77×24.80 CSS pixels, below the required 44px touch-target height.
 
-From a clean clone of repair commit `ed1b173` at `/tmp/explanation-lab-clean.B4P8af`:
+Additional finding:
+
+3. **QA5-03 — Medium:** malformed JSON displays Chromium’s raw `Expected property name or '}'...` parser error and gives no recovery instruction. Selecting a later valid file works.
+
+## What passed
+
+- Mandatory cold first-read and one-click isolated demo gate.
+- All 17 exact `.factory/claims.json` commands after `npm ci`: 33 browser executions passed. Every claim ID has exactly one matching tag.
+- `CI=1 npm test`: 53 passed, 3 intended desktop skips.
+- `CI=1 npm run test:a11y`: 2 passed.
+- Typecheck, unused-code lint, dependency audit, and exact production build.
+- Full live four-prompt completion and seven-day revisit, demo reset, empty state, validation boundaries, JSON export/import, invalid-import atomicity, duplicate decisions, delete confirmation, microphone cleanup and denial fallback.
+- Live route/404 matrix, keyboard focus, 200% reflow, reduced motion, and axe scans with zero serious/critical findings.
+- PWA control, `explanation-lab-shell-v4`, offline demo reload, and persistent update notice.
+- Privacy request capture: same-origin only; zero normal-route console/page errors.
+- All 16 served runtime files matched fresh `dist/` by SHA-256.
+- Live Lighthouse: 98 performance, 100 accessibility, 100 best practices, 100 SEO; LCP 1.3 s, TBT 180 ms, CLS 0.
+
+## Commands used
 
 ```sh
 npm ci
-# Then every exact `test` command in .factory/claims.json
+# Then every exact test command in .factory/claims.json
 npm run typecheck
 npm run lint
 CI=1 npm test
 CI=1 npm run test:a11y
 npm audit --audit-level=high
 npm run build
+/opt/fleet/lib/verify-url.sh 'https://explanation-lab.sociobot.in/?demo=1' .factory/verification-5-evidence/verify-url
+node .factory/verification-5-evidence/live-qa.mjs
 ```
 
-Results:
+## Next steps
 
-- Claims: all 17 commands passed; 33 browser executions.
-- Full browser matrix: 53 passed; 3 intended desktop skips for mobile-only checks.
-- Accessibility: 2/2 route-matrix runs passed with no serious or critical axe findings.
-- Typecheck and unused-code lint: passed.
-- Dependency audit: 0 vulnerabilities.
-- Build: passed; `dist/index.html` and `dist/404.html` produced.
-- Bundle: JS 33.86 KB raw / 11.61 KB gzip; CSS 18.46 KB raw / 4.66 KB gzip; hero 27.21 KB.
-- Local Lighthouse mobile: 100 performance, 100 accessibility, 100 best practices, 100 SEO; LCP 1.1 s, CLS 0, TBT 0 ms.
-- Live Lighthouse mobile: 100 performance, 100 accessibility, 100 best practices, 100 SEO; LCP 1.0 s, CLS 0, TBT 20 ms.
-
-## Live cold verification
-
-- `/`, `/?demo=1`, `/practice`, `/library`, `/privacy`, `/terms`, and `/visual-notes` return 200 with correct titles, one h1, correct metadata, and zero 390 px overflow.
-- `/polish-1-final-missing` returns HTTP 404 with the designed “We could not find this page” recovery screen.
-- The landing action reaches `/?demo=1` in one click. The banner, three samples, Reset demo, and Start for real work from a fresh context.
-- Reset removes the temporary demo record and restores samples. Start for real clears the demo and opens a banner-free real workspace.
-- Offline reload retains the seeded demo after the service worker controls the page.
-- Normal routes produced zero console errors, zero cross-origin requests, and zero serious/critical axe findings.
-- The deployed JS SHA-256 equals the local production artifact. Cache and security headers match the static host policy.
-
-Evidence and finding-by-finding mapping are in `.factory/polish-1.md`. Screenshots and Lighthouse JSON are under `.factory/verification-artifacts/polish-1/`.
-
-## Remaining work
-
-None against the brief, review, or attached acceptance requirements.
+1. Declare and uniquely test the deletion claim, or remove that promise.
+2. Increase the mobile workbench back-link hit area to at least 44px and extend the touch-target test.
+3. Replace raw JSON parser output with a plain-language, actionable error and test recovery.
+4. Rerun the exact claim manifest, full suite, production build, live mobile matrix, and deployment parity check.
