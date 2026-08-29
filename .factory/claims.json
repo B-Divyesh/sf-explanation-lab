@@ -117,5 +117,12 @@
     "where": "privacy page, README",
     "test": "npm test -- --grep @claim:site-data-clear",
     "sandbox": "fresh browser context entered at /?demo=1; create real work; delete the real IndexedDB database; reload and assert the record is gone"
+  },
+  {
+    "id": "individual-delete",
+    "claim": "Delete individual explanations from the Library page",
+    "where": "privacy page",
+    "test": "npm test -- --grep @claim:individual-delete",
+    "sandbox": "fresh browser context entered at /?demo=1; dismiss deletion for one named sample and assert it remains, then confirm deletion and assert only that sample is removed"
   }
 ]

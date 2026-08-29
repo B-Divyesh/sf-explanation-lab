@@ -131,7 +131,12 @@ function validString(value: unknown): value is string {
 }
 
 export function parseImport(text: string): Explanation[] {
-  const file: unknown = JSON.parse(text);
+  let file: unknown;
+  try {
+    file = JSON.parse(text);
+  } catch {
+    throw new Error('This file is not valid JSON. Choose an Explanation Lab JSON backup and try again.');
+  }
   if (!file || typeof file !== 'object' || !('product' in file) || file.product !== 'explanation-lab' || !('explanations' in file) || !Array.isArray(file.explanations)) {
     throw new Error('This is not an Explanation Lab export. Choose a JSON file exported by this app.');
   }

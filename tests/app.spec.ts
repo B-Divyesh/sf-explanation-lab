@@ -141,6 +141,8 @@ test('imports a valid Explanation Lab JSON backup @claim:json-import', async ({p
       responses: {mechanism: {text: 'The hash maps a key to a bucket index.'}, boundary: {text: ''}, example: {text: ''}, counterexample: {text: ''}}
     }]
   };
+  await page.locator('#import-file').setInputFiles({name: 'not-json.json', mimeType: 'application/json', buffer: Buffer.from('{bad')});
+  await expect(page.getByRole('status')).toHaveText('This file is not valid JSON. Choose an Explanation Lab JSON backup and try again.');
   await page.locator('#import-file').setInputFiles({name: 'backup.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(backup))});
   await expect(page.getByRole('link', {name: 'How a hash table finds a bucket'})).toBeVisible();
 });
@@ -304,6 +306,34 @@ test('repeated mobile navigation and footer targets are at least 44 CSS pixels',
     expect(box?.width).toBeGreaterThanOrEqual(44);
     expect(box?.height).toBeGreaterThanOrEqual(44);
   }
+  await page.goto('/?demo=1&id=sample-doppler');
+  const sampleOverview = page.getByRole('link', {name: '← Sample overview'});
+  const sampleOverviewBox = await sampleOverview.boundingBox();
+  expect(sampleOverviewBox?.height).toBeGreaterThanOrEqual(44);
+  expect(sampleOverviewBox?.width).toBeGreaterThanOrEqual(44);
+});
+
+test('individual deletion keeps a cancelled record and removes only the confirmed record @claim:individual-delete', async ({page}) => {
+  await page.goto('/?demo=1');
+  const preserved = page.getByRole('link', {name: 'Why a passing siren changes pitch'});
+  const deleted = page.getByRole('link', {name: 'Why binary search needs sorted data'});
+  await expect(preserved).toBeVisible();
+  await expect(deleted).toBeVisible();
+
+  page.once('dialog', async (dialog) => {
+    expect(dialog.message()).toContain('Why a passing siren changes pitch');
+    await dialog.dismiss();
+  });
+  await page.getByRole('button', {name: 'Delete Why a passing siren changes pitch'}).click();
+  await expect(preserved).toBeVisible();
+
+  page.once('dialog', async (dialog) => {
+    expect(dialog.message()).toContain('Why binary search needs sorted data');
+    await dialog.accept();
+  });
+  await page.getByRole('button', {name: 'Delete Why binary search needs sorted data'}).click();
+  await expect(deleted).toHaveCount(0);
+  await expect(preserved).toBeVisible();
 });
 
 test('the focus outline has at least 3 to 1 contrast on product surfaces', async ({page}) => {

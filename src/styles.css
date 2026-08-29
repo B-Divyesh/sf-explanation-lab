@@ -117,7 +117,7 @@ textarea::placeholder { color: #6e685d; }
 .workbench-main { width: min(calc(100% - 32px), var(--max)); min-height: calc(100vh - 104px); margin: auto; padding-block: 56px 96px; }
 .workbench-top { display: flex; justify-content: space-between; gap: 32px; align-items: end; margin-bottom: 40px; }
 .workbench-top h1 { max-width: 17ch; margin-bottom: 0; font-size: clamp(2.2rem, 5vw, 4rem); }
-.back-link { display: inline-block; margin-bottom: 28px; color: var(--ink); font-weight: 700; }
+.back-link { min-height: 44px; display: inline-flex; align-items: center; margin-bottom: 28px; color: var(--ink); font-weight: 700; }
 .progress-stamp { width: 145px; flex: 0 0 145px; padding: 12px; border: var(--line); background: var(--orange); box-shadow: 5px 5px var(--ink); transform: rotate(1deg); }
 .progress-stamp b { display: block; font: 2.2rem/1 "Arial Black", Arial, sans-serif; }
 .progress-stamp span { font-size: .75rem; }
