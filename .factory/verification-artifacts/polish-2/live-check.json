@@ -1,0 +1,26 @@
+{
+  "errors": [],
+  "axeSeriousOrCritical": 0,
+  "checkedAt": "2026-08-29T09:35:43.948Z",
+  "routes": [
+    [
+      "/privacy",
+      "Privacy — Explanation Lab"
+    ],
+    [
+      "/terms",
+      "Terms — Explanation Lab"
+    ],
+    [
+      "/visual-notes",
+      "Visual notes — Explanation Lab"
+    ]
+  ],
+  "notFoundStatus": 404,
+  "mobileOverflow": {
+    "landing": 0,
+    "demo": 0
+  },
+  "demoResetAndExit": true,
+  "liveErrors": []
+}
