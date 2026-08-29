@@ -33,6 +33,7 @@ const pageDetails: Record<string, {title: string; description: string}> = {
   '/library': {title: 'Your explanations — Explanation Lab', description: 'Revisit, export, or import explanations saved in this browser.'},
   '/privacy': {title: 'Privacy — Explanation Lab', description: 'How Explanation Lab stores your work in this browser.'},
   '/terms': {title: 'Terms — Explanation Lab', description: 'Terms for using the free Explanation Lab utility.'},
+  '/visual-notes': {title: 'Visual notes — Explanation Lab', description: 'See how the original Explanation Lab illustration was made.'},
   '/404': {title: 'Page not found — Explanation Lab', description: 'Return to Explanation Lab.'}
 };
 
@@ -57,15 +58,27 @@ function completionCount(item: Explanation): number {
 
 function pagePath(): string {
   const path = location.pathname.replace(/\/+$/, '') || '/';
-  if (['/', '/demo', '/practice', '/library', '/privacy', '/terms'].includes(path)) return path;
+  if (path === '/' && new URLSearchParams(location.search).get('demo') === '1') return '/demo';
+  if (['/', '/demo', '/practice', '/library', '/privacy', '/terms', '/visual-notes'].includes(path)) return path;
   return '/404';
 }
 
 function applyMeta(path: string): void {
   const details = pageDetails[path] ?? pageDetails['/404'];
+  const canonicalPath = path === '/demo' ? '/?demo=1' : path === '/404' ? location.pathname : path;
+  const canonicalUrl = `https://explanation-lab.sociobot.in${canonicalPath}`;
   document.title = details.title;
   document.querySelector<HTMLMetaElement>('meta[name="description"]')?.setAttribute('content', details.description);
-  document.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.setAttribute('href', `https://explanation-lab.sociobot.in${path === '/404' ? location.pathname : path}`);
+  document.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.setAttribute('href', canonicalUrl);
+  document.querySelector<HTMLMetaElement>('meta[property="og:title"]')?.setAttribute('content', details.title);
+  document.querySelector<HTMLMetaElement>('meta[property="og:description"]')?.setAttribute('content', details.description);
+  document.querySelector<HTMLMetaElement>('meta[property="og:url"]')?.setAttribute('content', canonicalUrl);
+  document.querySelector<HTMLMetaElement>('meta[name="twitter:title"]')?.setAttribute('content', details.title);
+  document.querySelector<HTMLMetaElement>('meta[name="twitter:description"]')?.setAttribute('content', details.description);
+}
+
+function demoHref(parameters = ''): string {
+  return `/?demo=1${parameters ? `&${parameters}` : ''}`;
 }
 
 function header(demo: boolean): string {
@@ -74,7 +87,7 @@ function header(demo: boolean): string {
     <header class="site-header">
       <a class="wordmark route-link" href="/" aria-label="Explanation Lab home"><span aria-hidden="true" class="wordmark-grid"><i></i><i></i><i></i><i></i></span><span>Explanation<br>Lab</span></a>
       <nav aria-label="Main navigation">
-        <a class="route-link" href="/demo">Demo</a>
+        <a class="route-link" href="/?demo=1">Demo</a>
         <a class="route-link" href="/practice">Practice</a>
         <a class="route-link" href="/library">Library</a>
         <a class="route-link nav-secondary" href="/privacy">Privacy</a>
@@ -83,7 +96,7 @@ function header(demo: boolean): string {
 }
 
 function footer(): string {
-  return `<footer class="site-footer"><p><strong>Explanation Lab</strong> makes you test an idea four ways.</p><div><a class="route-link" href="/privacy">Privacy</a><a class="route-link" href="/terms">Terms</a><a href="https://sociobot.in" rel="external">Built by Param Factory <span class="sr-only">(external site)</span></a></div><p class="build">v1.0 · build repair-4 · Generated illustration disclosed in the visual notes</p></footer>`;
+  return `<footer class="site-footer"><p><strong>Explanation Lab</strong> uses four prompts for each explanation.</p><div><a class="route-link" href="/privacy">Privacy</a><a class="route-link" href="/terms">Terms</a><a class="route-link" href="/visual-notes">Visual notes</a><a href="https://sociobot.in" rel="external">Built by Param Factory <span class="sr-only">(external site)</span></a></div><p class="build">v1.0 · build polish-1</p></footer>`;
 }
 
 function shell(content: string, demo = false): string {
@@ -103,11 +116,11 @@ function landing(): string {
   return shell(`<main id="main">
     <section class="hero section-shell" aria-labelledby="page-title">
       <div class="hero-copy">
-        <p class="eyebrow">A four-part reasoning practice</p>
+        <p class="eyebrow">Four prompts to practise an idea</p>
         <h1 id="page-title" tabindex="-1">Explain hard ideas in your own words</h1>
-        <p class="lede">For STEM and programming learners who want to find gaps before those gaps find them.</p>
+        <p class="lede">For STEM and programming learners who want to find gaps in their understanding.</p>
         <div class="hero-actions">
-          <div><a class="button button-primary route-link" href="/demo">Try it with sample data</a><small>Opens a due explanation and two recent examples.</small></div>
+          <div><a class="button button-primary route-link" href="/?demo=1">Try it with sample data</a><small>Opens a due explanation and two recent examples.</small></div>
           <div><a class="button button-secondary route-link" href="/practice">Start a blank explanation</a><small>Choose a topic, then answer four prompts.</small></div>
         </div>
         <ul class="plain-facts" aria-label="Product facts">
@@ -122,9 +135,9 @@ function landing(): string {
       </figure>
     </section>
     <section class="tool-preview section-shell" aria-labelledby="preview-title">
-      <div class="section-kicker">The workbench</div>
+      <div class="section-kicker">Four prompts in each explanation</div>
       <div class="preview-grid">
-        <div><h2 id="preview-title">A blank page with useful pressure</h2><p>Each prompt asks for a different kind of proof. Type your answer or keep a local audio note.</p></div>
+        <div><h2 id="preview-title">Write a mechanism, boundary, example, and counterexample</h2><p>Each prompt asks you to test the idea in a different way. Type your answer or keep a local audio note.</p></div>
         <ol class="mini-steps">
           <li><b>01</b><span>Explain the mechanism</span></li>
           <li><b>02</b><span>Draw the boundary</span></li>
@@ -134,7 +147,7 @@ function landing(): string {
       </div>
     </section>
     <section class="how section-shell" aria-labelledby="how-title">
-      <p class="section-kicker">How it works</p><h2 id="how-title">Build, test, then revisit</h2>
+      <p class="section-kicker">How it works</p><h2 id="how-title">Three steps to practise and revisit</h2>
       <ol class="how-list">
         <li><b>1</b><div><h3>Name one hard idea</h3><p>Pick something you almost understand. A narrow topic gives you a sharper test.</p></div></li>
         <li><b>2</b><div><h3>Answer all four prompts</h3><p>Write, record, or use both. Your wording matters more than polish.</p></div></li>
@@ -142,7 +155,7 @@ function landing(): string {
       </ol>
     </section>
     <section class="limits section-shell" aria-labelledby="limits-title">
-      <div><p class="section-kicker">Honest limits</p><h2 id="limits-title">You do the thinking</h2></div>
+      <div><p class="section-kicker">Limits</p><h2 id="limits-title">What Explanation Lab does not do</h2></div>
       <div class="limit-copy"><p>Explanation Lab does not grade answers or generate explanations.</p><p>It does not create an account or sync devices.</p><p>Export a JSON backup when you want to move your work.</p></div>
     </section>
   </main>`);
@@ -172,9 +185,9 @@ function workbench(item: Explanation, demo: boolean): string {
   const detail = STEP_DETAILS[activeStep];
   const part = item.responses[activeStep];
   const count = completionCount(item);
-  const route = demo ? '/demo' : '/practice';
+  const route = demo ? demoHref() : '/practice';
   return shell(`<main id="main" class="workbench-main">
-    <div class="workbench-top"><div><a class="back-link route-link" href="${demo ? '/demo' : '/library'}">← ${demo ? 'Sample overview' : 'Your explanations'}</a><p class="eyebrow">${item.status === 'complete' ? 'Completed explanation' : 'Draft explanation'}</p><h1 id="page-title" tabindex="-1">${escapeHtml(item.topic)}</h1></div><div class="progress-stamp"><b>${count}/4</b><span>prompts answered</span></div></div>
+    <div class="workbench-top"><div><a class="back-link route-link" href="${demo ? demoHref() : '/library'}">← ${demo ? 'Sample overview' : 'Your explanations'}</a><p class="eyebrow">${item.status === 'complete' ? 'Completed explanation' : 'Draft explanation'}</p><h1 id="page-title" tabindex="-1">${escapeHtml(item.topic)}</h1></div><div class="progress-stamp"><b>${count}/4</b><span>prompts answered</span></div></div>
     <section class="workbench" aria-labelledby="prompt-title">
       ${stepNavigation(item)}
       <div class="writing-sheet">
@@ -194,15 +207,16 @@ function workbench(item: Explanation, demo: boolean): string {
       </div>
     </section>
     <aside class="practice-note"><b>Do not check a source yet.</b><span>Finish your attempt first. The gaps are useful evidence.</span></aside>
-    <a class="sr-only route-link" href="${route}?id=${encodeURIComponent(item.id)}">Reload this explanation</a>
+    <a class="sr-only route-link" href="${route}${demo ? '&' : '?'}id=${encodeURIComponent(item.id)}">Reload this explanation</a>
   </main>`, demo);
 }
 
 function explanationRows(items: Explanation[], demo: boolean): string {
-  const route = demo ? '/demo' : '/practice';
+  const route = demo ? demoHref() : '/practice';
+  const separator = demo ? '&' : '?';
   return items.map((item) => `<li class="explanation-row ${isDue(item) ? 'due' : ''}">
-    <div class="row-main"><span class="status-label">${isDue(item) ? 'Due now' : item.status === 'draft' ? 'Draft' : `Revisit ${dateLabel(item.revisitAt)}`}</span><h3><a class="route-link" href="${route}?id=${encodeURIComponent(item.id)}">${escapeHtml(item.topic)}</a></h3><p>${completionCount(item)}/4 prompts answered · Updated ${dateLabel(item.updatedAt)}</p></div>
-    <div class="row-actions"><a class="button button-small route-link" href="${route}?id=${encodeURIComponent(item.id)}">${isDue(item) ? 'Revisit now' : item.status === 'draft' ? 'Keep writing' : 'Read or edit'}</a><button class="icon-button" data-action="delete" data-id="${item.id}" data-demo="${String(demo)}" aria-label="Delete ${escapeHtml(item.topic)}">×</button></div>
+    <div class="row-main"><span class="status-label">${isDue(item) ? 'Due now' : item.status === 'draft' ? 'Draft' : `Revisit ${dateLabel(item.revisitAt)}`}</span><h3><a class="route-link" href="${route}${separator}id=${encodeURIComponent(item.id)}">${escapeHtml(item.topic)}</a></h3><p>${completionCount(item)}/4 prompts answered · Updated ${dateLabel(item.updatedAt)}</p></div>
+    <div class="row-actions"><a class="button button-small route-link" href="${route}${separator}id=${encodeURIComponent(item.id)}">${isDue(item) ? 'Revisit now' : item.status === 'draft' ? 'Keep writing' : 'Read or edit'}</a><button class="icon-button" data-action="delete" data-id="${item.id}" data-demo="${String(demo)}" aria-label="Delete ${escapeHtml(item.topic)}">×</button></div>
   </li>`).join('');
 }
 
@@ -214,7 +228,7 @@ async function dashboard(demo: boolean): Promise<string> {
   const completed = items.filter((item) => item.status === 'complete');
   const title = demo ? 'Practice with sample explanations' : 'Your explanations';
   return shell(`<main id="main" class="page-main library-page">
-    <section class="library-head"><div><p class="eyebrow">${demo ? 'Isolated demo workspace' : 'Local practice library'}</p><h1 id="page-title" tabindex="-1">${title}</h1><p>${demo ? 'Open the due siren explanation or continue the closure draft.' : 'Return to completed ideas after seven days, or continue a draft.'}</p></div><a class="button button-primary route-link" href="${demo ? '/demo?new=1' : '/practice'}">Start another explanation</a></section>
+    <section class="library-head"><div><p class="eyebrow">${demo ? 'Isolated demo workspace' : 'Local practice library'}</p><h1 id="page-title" tabindex="-1">${title}</h1><p>${demo ? 'Open the due siren explanation or continue the closure draft.' : 'Return to completed ideas after seven days, or continue a draft.'}</p></div><a class="button button-primary route-link" href="${demo ? demoHref('new=1') : '/practice'}">Start another explanation</a></section>
     <section class="stats-strip" aria-label="Practice summary"><div><b>${items.length}</b><span>Total</span></div><div><b>${completed.length}</b><span>Completed</span></div><div><b>${due.length}</b><span>Due now</span></div><div><b>${drafts.length}</b><span>Drafts</span></div></section>
     <section class="queue" aria-labelledby="queue-title"><div class="queue-heading"><div><p class="section-kicker">Revisit queue</p><h2 id="queue-title">${due.length ? `${due.length} explanation${due.length === 1 ? '' : 's'} ready` : 'Nothing is due today'}</h2></div></div>
       ${items.length ? `<ul class="explanation-list">${explanationRows([...due, ...items.filter((item) => !isDue(item))], demo)}</ul>` : `<div class="empty-state"><b>Your explanations will appear here.</b><p>Start one topic and answer the four prompts to fill this list.</p><a class="button button-primary route-link" href="/practice">Start an explanation</a></div>`}
@@ -230,8 +244,16 @@ function legalPage(kind: 'privacy' | 'terms'): string {
   </article></main>`);
 }
 
+function visualNotesPage(): string {
+  return shell(`<main id="main" class="page-main legal-page"><article><p class="eyebrow">Asset provenance</p><h1 id="page-title" tabindex="-1">How the Explanation Lab illustration was made</h1>
+    <h2>Original illustration</h2><p>The tabletop explanation apparatus was generated for this product on 28 August 2026. It does not depict a real device or person.</p>
+    <h2>Art direction</h2><p>The prompt specified cream graph paper, cobalt blocks, orange correction tabs, wooden ramps, steel balls, and hard studio light.</p>
+    <h2>Production record</h2><p>The source image and exact prompt are stored with the project. The shipped WebP files are optimized crops of that source.</p>
+  </article></main>`);
+}
+
 function notFound(): string {
-  return shell(`<main id="main" class="page-main not-found"><div class="error-code" aria-hidden="true">4<span>0</span>4</div><div><p class="eyebrow">Wrong turn</p><h1 id="page-title" tabindex="-1">This page is outside the boundary</h1><p>The address does not match an Explanation Lab page.</p><a class="button button-primary route-link" href="/">Return to the workbench</a></div></main>`);
+  return shell(`<main id="main" class="page-main not-found"><div class="error-code" aria-hidden="true">4<span>0</span>4</div><div><p class="eyebrow">Page not found</p><h1 id="page-title" tabindex="-1">We could not find this page</h1><p>The address does not match an Explanation Lab page.</p><a class="button button-primary route-link" href="/">Return home</a></div></main>`);
 }
 
 async function render(focus = false): Promise<void> {
@@ -247,6 +269,7 @@ async function render(focus = false): Promise<void> {
   try {
     if (path === '/') app.innerHTML = landing();
     else if (path === '/privacy' || path === '/terms') app.innerHTML = legalPage(path.slice(1) as 'privacy' | 'terms');
+    else if (path === '/visual-notes') app.innerHTML = visualNotesPage();
     else if (path === '/library') app.innerHTML = await dashboard(false);
     else if (path === '/demo') {
       await seedDemo();
@@ -333,7 +356,7 @@ async function finishExplanation(item: Explanation, demo: boolean): Promise<void
   item.revisitAt = new Date(now.getTime() + 7 * 86_400_000).toISOString();
   item.updatedAt = now.toISOString();
   await saveExplanation(demo, item);
-  navigate(demo ? '/demo' : '/library');
+  navigate(demo ? demoHref() : '/library');
   showToast('Explanation complete. It will return in seven days.');
 }
 
@@ -418,7 +441,7 @@ function attachForms(): void {
     }
     const demo = topicForm.dataset.demo === 'true';
     const item = emptyExplanation(topic);
-    void saveExplanation(demo, item).then(() => navigate(`${demo ? '/demo' : '/practice'}?id=${encodeURIComponent(item.id)}`));
+    void saveExplanation(demo, item).then(() => navigate(demo ? demoHref(`id=${encodeURIComponent(item.id)}`) : `/practice?id=${encodeURIComponent(item.id)}`));
   });
 
   const responseForm = document.querySelector<HTMLFormElement>('#response-form');
@@ -466,7 +489,7 @@ document.addEventListener('click', (event) => {
     void clearExplanations(true).finally(() => navigate('/practice'));
   }
   if (action === 'reset-demo') {
-    void seedDemo(true).then(() => { navigate('/demo'); showToast('Sample data reset.'); });
+    void seedDemo(true).then(() => { navigate(demoHref()); showToast('Sample data reset.'); });
   }
   if (action === 'step' && button.dataset.step) {
     activeStep = button.dataset.step as StepKey; void render();

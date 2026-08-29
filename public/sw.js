@@ -1,4 +1,4 @@
-const CACHE = 'explanation-lab-shell-v3';
+const CACHE = 'explanation-lab-shell-v4';
 const SHELL = [
   '/', '/index.html', '/offline.html', '/manifest.webmanifest', '/favicon.svg',
   '/assets/hero-640.webp', '/assets/hero-1024.webp', '/assets/social-card.webp',

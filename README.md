@@ -1,14 +1,14 @@
 # Explanation Lab
 
-Practice explaining hard ideas with a mechanism, boundary, example, and counterexample.
+Practise hard ideas with four focused prompts.
 
-Explanation Lab is for students learning abstract STEM or programming concepts. It turns free-form study notes into a repeatable four-prompt practice. Completed explanations return to a revisit queue after seven days.
+Explanation Lab is for students learning abstract STEM or programming concepts. Each explanation uses a mechanism, boundary, example, and counterexample. Completed explanations return after seven days.
 
-The app is free and needs no account. Text and audio notes stay in IndexedDB in the current browser. It works offline after the first visit. JSON import and export let learners move or back up their work.
+The app is free and needs no account. Text and audio notes stay in this browser's local storage. It works offline after the first visit. JSON import and export let learners move or back up their work.
 
 Live site: <https://explanation-lab.sociobot.in>
 
-One-click sandbox: <https://explanation-lab.sociobot.in/demo>
+One-click sandbox: <https://explanation-lab.sociobot.in/?demo=1>
 
 ## Run locally
 
@@ -19,7 +19,7 @@ npm ci
 npm run dev
 ```
 
-Open the local URL printed by Vite. `/demo` loads isolated sample data.
+Open the local URL printed by Vite. `/?demo=1` loads isolated sample data.
 
 ## Test and build
 
@@ -33,22 +33,22 @@ npm run build
 
 The exact deployment build command is `npm run build`. It writes the static site to `dist/`, with `dist/index.html` at its root.
 
-The Playwright suite checks the full four-prompt flow, demo isolation, local audio, JSON import and export, offline reload, 200% text reflow, keyboard use, the 390px layout, and serious accessibility issues. Chromium for Playwright is required; the work order pins Playwright 1.58.2.
+The Playwright suite checks the demo, backups, offline use, keyboard use, mobile layout, and serious accessibility errors. It also checks 200% text resize. Chromium for Playwright is required; the work order pins Playwright 1.58.2.
 
 ## Data and privacy
 
-- Real work uses the `explanation-lab` IndexedDB database.
-- Demo work uses the separate `demo:explanation-lab` database.
+- Real work stays in the browser database named `explanation-lab`.
+- Demo work stays in the separate browser database named `demo:explanation-lab`.
 - Resetting or leaving the demo clears only demo data.
 - The app makes no cross-origin runtime requests.
 - Clearing this site's browser data removes saved work.
 - Imports are validated before one atomic write. Matching IDs ask whether to replace or skip the saved explanation.
 
-Read the in-app `/privacy` and `/terms` pages for user-facing details.
+Read the in-app `/privacy` and `/terms` pages for user-facing details. The `/visual-notes` page records illustration provenance.
 
 ## Deploy
 
-Deploy the contents of `dist/` as a static site. Keep `staticwebapp.config.json` at the deployment root so deep links fall back to `index.html` and security headers are applied. The service worker caches the app shell and visited build assets.
+Deploy the contents of `dist/` as a static site. Keep `staticwebapp.config.json` at the deployment root so product routes open `index.html` and unknown routes return the designed 404 page. The same file applies security headers. The service worker caches the app shell and visited build assets.
 
 ## Visual assets
 

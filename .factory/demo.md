@@ -2,10 +2,10 @@
 
 ## Entry point
 
-- Production: `https://explanation-lab.sociobot.in/demo`
-- Local: `http://127.0.0.1:4173/demo`
+- Production: `https://explanation-lab.sociobot.in/?demo=1`
+- Local: `http://127.0.0.1:4173/?demo=1`
 
-The landing page action “Try it with sample data” opens this route in one click.
+The landing page action “Try it with sample data” opens this query route in one click. `/demo` remains a compatible deep link.
 
 ## Sample data
 
