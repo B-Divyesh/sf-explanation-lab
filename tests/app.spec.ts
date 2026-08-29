@@ -24,6 +24,10 @@ async function enterRealWorkspace(page: Page) {
 test('landing page states the job and opens a seeded demo @claim:one-click-demo', async ({page}) => {
   await page.goto('/');
   await expect(page.getByRole('heading', {level: 1, name: 'Explain hard ideas in your own words'})).toBeVisible();
+  await expect(page.getByText('For STEM and programming learners who want to find gaps in their understanding.')).toBeVisible();
+  await expect(page.getByRole('heading', {level: 2, name: 'Write a mechanism, boundary, example, and counterexample'})).toBeVisible();
+  await expect(page.getByRole('heading', {level: 2, name: 'What Explanation Lab does not do'})).toBeVisible();
+  await expect(page.getByText(/before those gaps find them|blank page with useful pressure|You do the thinking/)).toHaveCount(0);
   await page.getByRole('link', {name: 'Try it with sample data'}).click();
   await expect(page).toHaveURL(/\?demo=1$/);
   await expect(page.getByText('Demo — sample data, nothing is saved to your work')).toBeVisible();
