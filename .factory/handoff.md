@@ -1,41 +1,49 @@
-# Polish 2 handoff — Explanation Lab
+# Verification 7 handoff — Explanation Lab
 
 ## Outcome
 
-**PASS.** Commit `3d9598c92d082b34c41fcd7f9f70cb7dbd43a837` closes all four review-2 copy findings and retains every earlier repair. The live static deployment is healthy at <https://explanation-lab.sociobot.in>.
+**FAIL — do not release candidate
+`fa3868345839b142039ced4325263b449716f991`.**
 
-## What changed
+The live deployment at <https://explanation-lab.sociobot.in> matches the
+candidate byte-for-byte, all 18 claim commands pass, and the product works end
+to end. One high-severity accessibility defect remains:
 
-- Replaced the three landing metaphors with direct study instructions.
-- Rewrote README privacy and import-safety wording in learner language.
-- Added a browser regression test for all four rewrites.
-- Updated the footer build identity to `polish-2`, the copy audit, and the verb-first catalog description.
+- **QA7-01 — High:** at 390×844 with text resized to 200%, the live explanation
+  workbench is 409px wide and overflows horizontally by 19px. The progress
+  stamp label reaches x=406.88px. The current reflow test omits workbench URLs,
+  so the full suite remains green.
 
-The isolated one-click `/?demo=1` path, separate `demo:explanation-lab` storage, Reset demo, Start for real, claims manifest and tests, legal routes, metadata, focus handling, mobile behavior, real 404, PWA, and distinct reasoning-workbench visual system remain in place and verified.
+Evidence: `.factory/verification-evidence/live-workbench-mobile-200pct.png` and
+the `QA7-01` record in `.factory/verification-evidence/live-qa.json`.
 
-## Verification
+## Verification completed
 
-Fresh clone: `/tmp/explanation-lab-clean.Kjr4yK` at `3d9598c92d082b34c41fcd7f9f70cb7dbd43a837`.
+- Mandatory cold first-read and one-click demo gate: pass.
+- Every exact `.factory/claims.json` command: 18/18 pass, 35 browser executions.
+- `npm ci`: pass, 0 vulnerabilities.
+- `CI=1 npm test`: 57 passed, 3 expected project skips.
+- `CI=1 npm run test:a11y`: 2 passed.
+- `npm run typecheck`, `npm run lint`, `npm audit --audit-level=high`: pass.
+- `npm run build`: pass; JS 34.03 KB raw / 11.66 KB gzip, CSS 18.50 KB raw /
+  4.66 KB gzip.
+- Live normal, invalid, boundary, recovery, keyboard, mobile, privacy, headers,
+  offline, service-worker update, and deployment-parity checks: pass except
+  QA7-01.
+- Live axe: zero serious/critical findings. Unexpected console/page errors: 0.
+- Live outgoing requests: zero cross-origin requests.
+- Lighthouse mobile: 99–100 performance; full run 100 accessibility, 100 best
+  practices, 100 SEO; LCP 1.3s, CLS 0, TBT 0ms.
+- All 16 deployed runtime files matched fresh `dist/` bytes by SHA-256.
 
-```sh
-npm ci
-npm test
-# every literal test command listed in .factory/claims.json
-npm run test:a11y
-npm run typecheck
-npm run lint
-npm run build
-npm audit --audit-level=high
-```
+This static, account-free PWA has no backend, unlock API, payment call, or
+sign-in. Rate-limit/429, concurrency, health, Entra, and package-consumer checks
+are not applicable.
 
-- All 18 claims commands passed from the clean clone (35 browser executions).
-- The full Playwright matrix, dedicated axe suite, typecheck, lint, production build, and high-severity audit passed.
-- Production build: JS 34.03 KB raw / 11.66 KB gzip; CSS 18.50 KB raw / 4.66 KB gzip.
-- Live cold verifier: HTTP 200, title `Demo — Explanation Lab`, `lang=en`, one h1, main landmark, no missing alt text, no unlabeled buttons, and zero console errors. Evidence: `.factory/verification-artifacts/polish-2/verify-demo/verify.json`.
-- Live Playwright axe: zero serious/critical findings. Live mobile landing and demo had 0px overflow. The demo reset reseeded samples, Start for real opened `/practice`, and `/missing-page` returned HTTP 404.
-- Live Lighthouse mobile: Performance 100, Accessibility 100, Best Practices 100, SEO 100; LCP 1.1 s and CLS 0. Evidence: `.factory/verification-artifacts/polish-2/lighthouse-live-mobile.json`.
-- Static deployment completed as `33fa628d-f578-43b8-b471-c0c0b57b8a74`.
+## Next step
 
-## Known gaps and next steps
+Make the mobile progress stamp and workbench header reflow within 390px at 200%
+text, and extend the existing reflow test to open
+`/?demo=1&id=sample-doppler`. Then rerun the full verification matrix.
 
-None. The product remains free, local-first, and static; no backend or AI service is required by its deliberately manual practice job.
+Full report: `.factory/verification-7.md`.

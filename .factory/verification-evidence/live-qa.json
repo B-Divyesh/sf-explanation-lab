@@ -1,0 +1,1550 @@
+{
+  "startedAt": "2026-08-29T10:58:07.695Z",
+  "checks": {
+    "firstRead": {
+      "title": "Explanation Lab — Practice explaining hard ideas",
+      "h1": [
+        "Explain hard ideas in your own words"
+      ],
+      "intro": "For STEM and programming learners who want to find gaps in their understanding.",
+      "primary": "Try it with sample data",
+      "primaryNote": "Opens a due explanation and two recent examples.",
+      "facts": [
+        "↘ Work stays in this browser",
+        "↘ Works offline after the first visit",
+        "↘ Free, with no account"
+      ],
+      "overflow": 0
+    },
+    "oneClickDemo": {
+      "url": "https://explanation-lab.sociobot.in/?demo=1",
+      "rows": 3
+    },
+    "normalAndRecoveryFlow": {
+      "topic": "How induction creates current",
+      "rowText": "Revisit Sep 5, 2026How induction creates current4/4 prompts answered · Updated Aug 29, 2026",
+      "expectedRevisit": "Sep 5, 2026",
+      "topicLimit": 100,
+      "responseLimit": 6000
+    },
+    "microphoneRecording": {
+      "audioControls": 1
+    },
+    "demoResetIsolation": true,
+    "exportImportDeleteRecovery": {
+      "product": "explanation-lab",
+      "version": 1,
+      "explanations": 1,
+      "malformedRejected": true,
+      "invalidDateAtomic": true,
+      "duplicateSkipAndReplace": true,
+      "deleteCancelAndConfirm": true
+    },
+    "serviceWorkerOfflineAndUpdate": {
+      "sw": {
+        "controlled": true,
+        "scope": "https://explanation-lab.sociobot.in/",
+        "caches": [
+          "explanation-lab-shell-v4"
+        ]
+      },
+      "updateNoticePersistent": true,
+      "offline": {
+        "title": "Demo — Explanation Lab",
+        "url": "https://explanation-lab.sociobot.in/?demo=1",
+        "rows": 3
+      }
+    },
+    "keyboardOnly": {
+      "url": "https://explanation-lab.sociobot.in/?demo=1",
+      "focusStyle": {
+        "outlineStyle": "solid",
+        "outlineWidth": "4px",
+        "outlineColor": "rgb(21, 21, 21)"
+      },
+      "completedFourPrompts": true
+    },
+    "activeMicrophoneStopsOnNavigation": true,
+    "microphoneDeniedRecovery": true,
+    "mobileTargets": {
+      "count": 20,
+      "undersized": []
+    },
+    "reducedMotion": {
+      "animationName": "none",
+      "animationDuration": "1e-05s",
+      "transitionDuration": "1e-05s",
+      "scrollBehavior": "auto"
+    }
+  },
+  "requests": [
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/",
+      "type": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "type": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "type": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/assets/hero-1024.webp",
+      "type": "image"
+    },
+    {
+      "method": "GET",
+      "url": "blob:https://explanation-lab.sociobot.in/daa4807b-6757-47ec-bc55-8c2ce947d6da",
+      "type": "media"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/library",
+      "type": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "type": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "type": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/practice",
+      "type": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "type": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "type": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/library",
+      "type": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "type": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "type": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/",
+      "type": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "type": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "type": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/assets/hero-1024.webp",
+      "type": "image"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/?demo=1",
+      "type": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "type": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "type": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/demo",
+      "type": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "type": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "type": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/practice",
+      "type": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "type": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "type": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/library",
+      "type": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "type": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "type": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/privacy",
+      "type": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "type": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "type": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/terms",
+      "type": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "type": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "type": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/visual-notes",
+      "type": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "type": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "type": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/missing-verification-route",
+      "type": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "type": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "type": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/?demo=1",
+      "type": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "type": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "type": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/?demo=1",
+      "type": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "type": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "type": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/?demo=1",
+      "type": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "type": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "type": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/?demo=1",
+      "type": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "type": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "type": "stylesheet"
+    }
+  ],
+  "responses": [
+    {
+      "url": "https://explanation-lab.sociobot.in/",
+      "status": 200,
+      "headers": {
+        "cache-control": "public, must-revalidate, max-age=30",
+        "content-encoding": "br",
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "content-type": "text/html",
+        "cross-origin-opener-policy": "same-origin",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "etag": "\"19012767\"",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=10886400; includeSubDomains; preload",
+        "vary": "Accept-Encoding",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-xss-protection": "1; mode=block"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "status": 200,
+      "headers": {
+        "cache-control": "public, max-age=31536000, immutable",
+        "content-encoding": "br",
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "content-type": "text/css",
+        "cross-origin-opener-policy": "same-origin",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "etag": "\"19012767\"",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=10886400; includeSubDomains; preload",
+        "vary": "Accept-Encoding",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-xss-protection": "1; mode=block"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "status": 200,
+      "headers": {
+        "cache-control": "public, max-age=31536000, immutable",
+        "content-encoding": "br",
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "content-type": "text/javascript",
+        "cross-origin-opener-policy": "same-origin",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "etag": "\"19012767\"",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=10886400; includeSubDomains; preload",
+        "vary": "Accept-Encoding",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-xss-protection": "1; mode=block"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/library",
+      "status": 200,
+      "headers": {
+        "cache-control": "public, must-revalidate, max-age=30",
+        "content-encoding": "br",
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "content-type": "text/html",
+        "cross-origin-opener-policy": "same-origin",
+        "date": "Sat, 29 Aug 2026 10:58:17 GMT",
+        "etag": "\"19012767\"",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=10886400; includeSubDomains; preload",
+        "vary": "Accept-Encoding",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-xss-protection": "1; mode=block"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/javascript",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/css",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/practice",
+      "status": 200,
+      "headers": {
+        "cache-control": "public, must-revalidate, max-age=30",
+        "content-encoding": "br",
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "content-type": "text/html",
+        "cross-origin-opener-policy": "same-origin",
+        "date": "Sat, 29 Aug 2026 10:58:18 GMT",
+        "etag": "\"19012767\"",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=10886400; includeSubDomains; preload",
+        "vary": "Accept-Encoding",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-xss-protection": "1; mode=block"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/javascript",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/css",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/library",
+      "status": 200,
+      "headers": {
+        "cache-control": "public, must-revalidate, max-age=30",
+        "content-encoding": "br",
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "content-type": "text/html",
+        "cross-origin-opener-policy": "same-origin",
+        "date": "Sat, 29 Aug 2026 10:58:17 GMT",
+        "etag": "\"19012767\"",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "vary": "Accept-Encoding",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-xss-protection": "1; mode=block"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/javascript",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/css",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/",
+      "status": 200,
+      "headers": {
+        "cache-control": "public, must-revalidate, max-age=30",
+        "content-encoding": "br",
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "content-type": "text/html",
+        "cross-origin-opener-policy": "same-origin",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "etag": "\"19012767\"",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "vary": "Accept-Encoding",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-xss-protection": "1; mode=block"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/javascript",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/css",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/?demo=1",
+      "status": 200,
+      "headers": {
+        "cache-control": "public, must-revalidate, max-age=30",
+        "content-encoding": "br",
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "content-type": "text/html",
+        "cross-origin-opener-policy": "same-origin",
+        "date": "Sat, 29 Aug 2026 10:58:21 GMT",
+        "etag": "\"19012767\"",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=10886400; includeSubDomains; preload",
+        "vary": "Accept-Encoding",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-xss-protection": "1; mode=block"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/javascript",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/css",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/demo",
+      "status": 200,
+      "headers": {
+        "cache-control": "public, must-revalidate, max-age=30",
+        "content-encoding": "br",
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "content-type": "text/html",
+        "cross-origin-opener-policy": "same-origin",
+        "date": "Sat, 29 Aug 2026 10:58:22 GMT",
+        "etag": "\"19012767\"",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=10886400; includeSubDomains; preload",
+        "vary": "Accept-Encoding",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-xss-protection": "1; mode=block"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/javascript",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/css",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/practice",
+      "status": 200,
+      "headers": {
+        "cache-control": "public, must-revalidate, max-age=30",
+        "content-encoding": "br",
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "content-type": "text/html",
+        "cross-origin-opener-policy": "same-origin",
+        "date": "Sat, 29 Aug 2026 10:58:18 GMT",
+        "etag": "\"19012767\"",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "vary": "Accept-Encoding",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-xss-protection": "1; mode=block"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/javascript",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/css",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/library",
+      "status": 200,
+      "headers": {
+        "cache-control": "public, must-revalidate, max-age=30",
+        "content-encoding": "br",
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "content-type": "text/html",
+        "cross-origin-opener-policy": "same-origin",
+        "date": "Sat, 29 Aug 2026 10:58:17 GMT",
+        "etag": "\"19012767\"",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "vary": "Accept-Encoding",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-xss-protection": "1; mode=block"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/javascript",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/css",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/privacy",
+      "status": 200,
+      "headers": {
+        "cache-control": "public, must-revalidate, max-age=30",
+        "content-encoding": "br",
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "content-type": "text/html",
+        "cross-origin-opener-policy": "same-origin",
+        "date": "Sat, 29 Aug 2026 10:58:25 GMT",
+        "etag": "\"19012767\"",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=10886400; includeSubDomains; preload",
+        "vary": "Accept-Encoding",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-xss-protection": "1; mode=block"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/javascript",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/css",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/terms",
+      "status": 200,
+      "headers": {
+        "cache-control": "public, must-revalidate, max-age=30",
+        "content-encoding": "br",
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "content-type": "text/html",
+        "cross-origin-opener-policy": "same-origin",
+        "date": "Sat, 29 Aug 2026 10:58:26 GMT",
+        "etag": "\"19012767\"",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=10886400; includeSubDomains; preload",
+        "vary": "Accept-Encoding",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-xss-protection": "1; mode=block"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/javascript",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/css",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/visual-notes",
+      "status": 200,
+      "headers": {
+        "cache-control": "public, must-revalidate, max-age=30",
+        "content-encoding": "br",
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "content-type": "text/html",
+        "cross-origin-opener-policy": "same-origin",
+        "date": "Sat, 29 Aug 2026 10:58:27 GMT",
+        "etag": "\"19012767\"",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=10886400; includeSubDomains; preload",
+        "vary": "Accept-Encoding",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-xss-protection": "1; mode=block"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/javascript",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/css",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/missing-verification-route",
+      "status": 404,
+      "headers": {
+        "cache-control": "public, must-revalidate, max-age=30",
+        "content-length": "2086",
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "content-type": "text/html",
+        "cross-origin-opener-policy": "same-origin",
+        "date": "Sat, 29 Aug 2026 10:58:29 GMT",
+        "etag": "\"19012767\"",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=10886400; includeSubDomains; preload",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-xss-protection": "1; mode=block"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/javascript",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/css",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/?demo=1",
+      "status": 200,
+      "headers": {
+        "cache-control": "public, must-revalidate, max-age=30",
+        "content-encoding": "br",
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "content-type": "text/html",
+        "cross-origin-opener-policy": "same-origin",
+        "date": "Sat, 29 Aug 2026 10:58:21 GMT",
+        "etag": "\"19012767\"",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "vary": "Accept-Encoding",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-xss-protection": "1; mode=block"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/javascript",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/css",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/?demo=1",
+      "status": 200,
+      "headers": {
+        "cache-control": "public, must-revalidate, max-age=30",
+        "content-encoding": "br",
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "content-type": "text/html",
+        "cross-origin-opener-policy": "same-origin",
+        "date": "Sat, 29 Aug 2026 10:58:30 GMT",
+        "etag": "\"19012767\"",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "vary": "Accept-Encoding",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-xss-protection": "1; mode=block"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/javascript",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/css",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/?demo=1",
+      "status": 200,
+      "headers": {
+        "cache-control": "public, must-revalidate, max-age=30",
+        "content-encoding": "br",
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "content-type": "text/html",
+        "cross-origin-opener-policy": "same-origin",
+        "date": "Sat, 29 Aug 2026 10:58:30 GMT",
+        "etag": "\"19012767\"",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "vary": "Accept-Encoding",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-xss-protection": "1; mode=block"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/javascript",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/css",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/?demo=1",
+      "status": 200,
+      "headers": {
+        "cache-control": "public, must-revalidate, max-age=30",
+        "content-encoding": "br",
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "content-type": "text/html",
+        "cross-origin-opener-policy": "same-origin",
+        "date": "Sat, 29 Aug 2026 10:58:30 GMT",
+        "etag": "\"19012767\"",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "vary": "Accept-Encoding",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-xss-protection": "1; mode=block"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-DmsHjzJe.js",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/javascript",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    },
+    {
+      "url": "https://explanation-lab.sociobot.in/build/main-BTGskpCH.css",
+      "status": 200,
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "cache-control": "public, max-age=31536000, immutable",
+        "x-dns-prefetch-control": "off",
+        "content-encoding": "br",
+        "cross-origin-opener-policy": "same-origin",
+        "etag": "\"19012767\"",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "x-content-type-options": "nosniff",
+        "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+        "date": "Sat, 29 Aug 2026 10:58:07 GMT",
+        "x-xss-protection": "1; mode=block",
+        "content-type": "text/css",
+        "last-modified": "Sat, 29 Aug 2026 09:39:55 GMT",
+        "vary": "Accept-Encoding"
+      }
+    }
+  ],
+  "console": [],
+  "pageErrors": [],
+  "axe": {
+    "desktop": {
+      "/": {
+        "status": 200,
+        "title": "Explanation Lab — Practice explaining hard ideas",
+        "h1": [
+          "Explain hard ideas in your own words"
+        ],
+        "main": 1,
+        "overflow": 0,
+        "seriousCritical": []
+      },
+      "/?demo=1": {
+        "status": 200,
+        "title": "Demo — Explanation Lab",
+        "h1": [
+          "Practice with sample explanations"
+        ],
+        "main": 1,
+        "overflow": 0,
+        "seriousCritical": []
+      },
+      "/demo": {
+        "status": 200,
+        "title": "Demo — Explanation Lab",
+        "h1": [
+          "Practice with sample explanations"
+        ],
+        "main": 1,
+        "overflow": 0,
+        "seriousCritical": []
+      },
+      "/practice": {
+        "status": 200,
+        "title": "Practice — Explanation Lab",
+        "h1": [
+          "Start a four-part explanation"
+        ],
+        "main": 1,
+        "overflow": 0,
+        "seriousCritical": []
+      },
+      "/library": {
+        "status": 200,
+        "title": "Your explanations — Explanation Lab",
+        "h1": [
+          "Your explanations"
+        ],
+        "main": 1,
+        "overflow": 0,
+        "seriousCritical": []
+      },
+      "/privacy": {
+        "status": 200,
+        "title": "Privacy — Explanation Lab",
+        "h1": [
+          "Your explanations stay with you"
+        ],
+        "main": 1,
+        "overflow": 0,
+        "seriousCritical": []
+      },
+      "/terms": {
+        "status": 200,
+        "title": "Terms — Explanation Lab",
+        "h1": [
+          "Terms for this free utility"
+        ],
+        "main": 1,
+        "overflow": 0,
+        "seriousCritical": []
+      },
+      "/visual-notes": {
+        "status": 200,
+        "title": "Visual notes — Explanation Lab",
+        "h1": [
+          "How the Explanation Lab illustration was made"
+        ],
+        "main": 1,
+        "overflow": 0,
+        "seriousCritical": []
+      },
+      "/missing-verification-route": {
+        "status": 404,
+        "title": "Page not found — Explanation Lab",
+        "h1": [
+          "We could not find this page"
+        ],
+        "main": 1,
+        "overflow": 0,
+        "seriousCritical": []
+      }
+    },
+    "mobile": {
+      "/": {
+        "overflow": 0,
+        "h1": 1,
+        "seriousCritical": [],
+        "overflowAt200Percent": 0
+      },
+      "/?demo=1": {
+        "overflow": 0,
+        "h1": 1,
+        "seriousCritical": [],
+        "overflowAt200Percent": 0
+      },
+      "/?demo=1&id=sample-doppler": {
+        "overflow": 0,
+        "h1": 1,
+        "seriousCritical": [],
+        "overflowAt200Percent": 19
+      },
+      "/practice": {
+        "overflow": 0,
+        "h1": 1,
+        "seriousCritical": [],
+        "overflowAt200Percent": 0
+      },
+      "/library": {
+        "overflow": 0,
+        "h1": 1,
+        "seriousCritical": [],
+        "overflowAt200Percent": 0
+      },
+      "/privacy": {
+        "overflow": 0,
+        "h1": 1,
+        "seriousCritical": [],
+        "overflowAt200Percent": 0
+      },
+      "/terms": {
+        "overflow": 0,
+        "h1": 1,
+        "seriousCritical": [],
+        "overflowAt200Percent": 0
+      },
+      "/visual-notes": {
+        "overflow": 0,
+        "h1": 1,
+        "seriousCritical": [],
+        "overflowAt200Percent": 0
+      }
+    }
+  },
+  "findings": [
+    {
+      "severity": "high",
+      "id": "QA7-01",
+      "route": "/?demo=1&id=sample-doppler",
+      "finding": "200% text causes 19px horizontal overflow at 390px"
+    }
+  ],
+  "expectedConsole": [
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 ()"
+    }
+  ],
+  "finishedAt": "2026-08-29T10:58:52.893Z",
+  "summary": {
+    "crossOriginRequests": [],
+    "consoleErrors": [],
+    "pageErrors": []
+  }
+}
