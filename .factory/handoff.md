@@ -56,16 +56,31 @@ claim IDs occur exactly once as `@claim:<id>` tags. The production build writes
 `dist/index.html` and `dist/404.html`; its current payload is 33,967 bytes raw
 JavaScript / 11,640 bytes gzip and 18,496 bytes CSS / 4,660 bytes gzip.
 
-## Deployment
+## Deployment and live verification
 
-The committed build is deployed with:
+Commit `6ee81b338c13d66df2747d391246833d08a67bd6` was pushed to `main` and the
+same built `dist/` directory was deployed with:
 
 ```sh
 /opt/fleet/lib/deploy-static.sh explanation-lab dist
 ```
 
-Post-deploy URL verification and live identity evidence are appended after the
-deployment completes.
+Azure Static Web Apps deployment `d210f958-2da2-4e32-b290-4b70055bf49c`
+succeeded to the existing Central US app and
+`https://explanation-lab.sociobot.in` returned HTTPS 200.
+
+`/opt/fleet/lib/verify-url.sh 'https://explanation-lab.sociobot.in/?demo=1'
+.factory/repair-evidence/verify-url` recorded 626ms load time, zero console or
+page errors, `Demo — Explanation Lab`, `lang=en`, one h1, a main landmark, and
+no missing image alt text or unlabeled buttons. The saved desktop and 390px
+screenshots and JSON report are in `.factory/repair-evidence/verify-url/`.
+
+A fresh live 390×844 browser context additionally proved the Sample overview
+target measures `163.765625 × 44` CSS pixels, the privacy deletion promise is
+visible, malformed `{bad` receives the exact recovery instruction, the next
+valid backup appears in the library, and no cross-origin runtime request,
+console error, or page error occurs. Live headers confirm the self-only CSP,
+permissions policy, and immutable cache rule for the hashed JavaScript asset.
 
 ## Known gaps / next steps
 

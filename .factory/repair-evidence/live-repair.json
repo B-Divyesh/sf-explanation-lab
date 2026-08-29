@@ -1,0 +1,10 @@
+{
+  "url": "https://explanation-lab.sociobot.in",
+  "viewport": {"width": 390, "height": 844},
+  "sampleOverviewTarget": {"width": 163.765625, "height": 44},
+  "deletionPromiseVisible": true,
+  "malformedJsonRecovery": "This file is not valid JSON. Choose an Explanation Lab JSON backup and try again.",
+  "validRetryRecovered": true,
+  "crossOriginRequests": [],
+  "consoleOrPageErrors": []
+}
