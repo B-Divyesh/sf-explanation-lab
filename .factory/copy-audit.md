@@ -11,7 +11,7 @@ Audited 2026-08-29. Counts treat hyphenated terms and number ranges as one word.
 | Privacy | 1 | Pass |
 | Four prompts to practise an idea | 6 | Pass |
 | Explain hard ideas in your own words | 7 | Pass |
-| For STEM and programming learners who want to find gaps in their understanding. | 12 | Pass |
+| For STEM and programming learners who want to find gaps in their understanding. | 13 | Pass |
 | Try it with sample data | 5 | Pass |
 | Opens a due explanation and two recent examples. | 8 | Pass |
 | Start a blank explanation | 4 | Pass |
@@ -25,7 +25,7 @@ Audited 2026-08-29. Counts treat hyphenated terms and number ranges as one word.
 | Each prompt asks you to test the idea in a different way. | 12 | Pass |
 | Type your answer or keep a local audio note. | 9 | Pass |
 | Explain the mechanism | 3 | Pass |
-| Draw the boundary | 3 | Pass |
+| State where the idea applies | 6 | Pass |
 | Give an example | 3 | Pass |
 | Find a counterexample | 3 | Pass |
 | How it works | 3 | Pass |
@@ -48,7 +48,7 @@ Audited 2026-08-29. Counts treat hyphenated terms and number ranges as one word.
 | Terms | 1 | Pass |
 | Visual notes | 2 | Pass |
 | Built by Param Factory | 4 | Pass |
-| v1.0 · build polish-2 | 4 | Pass |
+| v1.0 · build polish-3 | 4 | Pass |
 
 No line exceeds 22 words. No line contains a banned marketing word.
 
@@ -71,6 +71,6 @@ No line exceeds 22 words. No line contains a banned marketing word.
 
 ## Catalog description
 
-Practise hard ideas with four prompts, then revisit them after seven days.
+Practise hard ideas with four prompts and revisit them after seven days.
 
-The description is 74 characters, starts with a verb, and contains no banned marketing term.
+The description is 73 characters, starts with a verb, and contains no banned marketing term.

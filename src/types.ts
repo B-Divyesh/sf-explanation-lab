@@ -40,7 +40,7 @@ export const STEP_DETAILS: Record<StepKey, {number: string; short: string; title
     hint: 'Name the parts. Then connect each cause to its effect.'
   },
   boundary: {
-    number: '02', short: 'Boundary', title: 'Draw the boundary',
+    number: '02', short: 'Boundary', title: 'State where the idea applies',
     prompt: 'What must be true? Where does this idea stop applying?',
     hint: 'List one assumption and one case outside the boundary.'
   },

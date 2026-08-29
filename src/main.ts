@@ -90,13 +90,13 @@ function header(demo: boolean): string {
         <a class="route-link" href="/?demo=1">Demo</a>
         <a class="route-link" href="/practice">Practice</a>
         <a class="route-link" href="/library">Library</a>
-        <a class="route-link nav-secondary" href="/privacy">Privacy</a>
+        <a class="route-link" href="/privacy">Privacy</a>
       </nav>
     </header>`;
 }
 
 function footer(): string {
-  return `<footer class="site-footer"><p><strong>Explanation Lab</strong> uses four prompts for each explanation.</p><div><a class="route-link" href="/privacy">Privacy</a><a class="route-link" href="/terms">Terms</a><a class="route-link" href="/visual-notes">Visual notes</a><a href="https://sociobot.in" rel="external">Built by Param Factory <span class="sr-only">(external site)</span></a></div><p class="build">v1.0 · build polish-2</p></footer>`;
+  return `<footer class="site-footer"><p><strong>Explanation Lab</strong> uses four prompts for each explanation.</p><div><a class="route-link" href="/privacy">Privacy</a><a class="route-link" href="/terms">Terms</a><a class="route-link" href="/visual-notes">Visual notes</a><a href="https://sociobot.in" rel="external">Built by Param Factory <span class="sr-only">(external site)</span></a></div><p class="build">v1.0 · build polish-3</p></footer>`;
 }
 
 function shell(content: string, demo = false): string {
@@ -140,7 +140,7 @@ function landing(): string {
         <div><h2 id="preview-title">Write a mechanism, boundary, example, and counterexample</h2><p>Each prompt asks you to test the idea in a different way. Type your answer or keep a local audio note.</p></div>
         <ol class="mini-steps">
           <li><b>01</b><span>Explain the mechanism</span></li>
-          <li><b>02</b><span>Draw the boundary</span></li>
+          <li><b>02</b><span>State where the idea applies</span></li>
           <li><b>03</b><span>Give an example</span></li>
           <li><b>04</b><span>Find a counterexample</span></li>
         </ol>

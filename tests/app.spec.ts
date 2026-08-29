@@ -27,7 +27,8 @@ test('landing page states the job and opens a seeded demo @claim:one-click-demo'
   await expect(page.getByText('For STEM and programming learners who want to find gaps in their understanding.')).toBeVisible();
   await expect(page.getByRole('heading', {level: 2, name: 'Write a mechanism, boundary, example, and counterexample'})).toBeVisible();
   await expect(page.getByRole('heading', {level: 2, name: 'What Explanation Lab does not do'})).toBeVisible();
-  await expect(page.getByText(/before those gaps find them|blank page with useful pressure|You do the thinking/)).toHaveCount(0);
+  await expect(page.getByText('State where the idea applies')).toBeVisible();
+  await expect(page.getByText(/before those gaps find them|blank page with useful pressure|You do the thinking|Draw the boundary/)).toHaveCount(0);
   await page.getByRole('link', {name: 'Try it with sample data'}).click();
   await expect(page).toHaveURL(/\?demo=1$/);
   await expect(page.getByText('Demo — sample data, nothing is saved to your work')).toBeVisible();
@@ -53,7 +54,7 @@ test('sample practice presents four distinct prompts @claim:four-prompt-practice
   await page.goto('/?demo=1&id=sample-doppler');
   const prompts = [
     ['Explain', 'Explain the mechanism'],
-    ['Boundary', 'Draw the boundary'],
+    ['Boundary', 'State where the idea applies'],
     ['Example', 'Give an example'],
     ['Counter', 'Find a counterexample']
   ] as const;
@@ -84,7 +85,7 @@ test('a learner can complete all four prompts and get a seven-day revisit @claim
     'Factorial of three calls factorial of two, then one. One returns, and the earlier calls multiply the results.',
     'If factorial calls itself with the same number, it never reaches one. The mechanism fails to stop.'
   ];
-  const promptTitles = ['Explain the mechanism', 'Draw the boundary', 'Give an example', 'Find a counterexample'];
+  const promptTitles = ['Explain the mechanism', 'State where the idea applies', 'Give an example', 'Find a counterexample'];
   for (let index = 0; index < answers.length; index += 1) {
     await expect(page.getByRole('heading', {level: 2, name: promptTitles[index]})).toBeVisible();
     await page.getByLabel('Your explanation').fill(answers[index]);
@@ -235,6 +236,14 @@ test('the 390px layout keeps primary controls inside the viewport @claim:mobile-
   test.skip(testInfo.project.name !== 'mobile', 'Mobile-only layout check');
   await page.goto('/');
   await expect(page.getByRole('link', {name: 'Try it with sample data'})).toBeInViewport();
+  const privacy = page.getByRole('navigation').getByRole('link', {name: 'Privacy'});
+  await expect(privacy).toBeVisible();
+  const privacyBox = await privacy.boundingBox();
+  expect(privacyBox?.width).toBeGreaterThanOrEqual(44);
+  expect(privacyBox?.height).toBeGreaterThanOrEqual(44);
+  await privacy.click();
+  await expect(page).toHaveURL(/\/privacy$/);
+  await page.goto('/');
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(1);
   await page.goto('/?demo=1&id=sample-doppler');
@@ -405,7 +414,7 @@ test('routes set titles, canonical metadata, focus, and working legal links', as
 
 test('the footer exposes the release build identity and linked visual disclosure', async ({page}) => {
   await page.goto('/');
-  await expect(page.locator('.build')).toContainText('build polish-2');
+  await expect(page.locator('.build')).toContainText('build polish-3');
   await page.getByRole('link', {name: 'Visual notes'}).click();
   await expect(page).toHaveTitle('Visual notes — Explanation Lab');
   await expect(page.getByRole('heading', {level: 1, name: 'How the Explanation Lab illustration was made'})).toBeFocused();
