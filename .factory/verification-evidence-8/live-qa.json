@@ -1,0 +1,473 @@
+{
+  "checkedAt": "2026-08-29T12:21:07.810Z",
+  "base": "https://explanation-lab.sociobot.in",
+  "firstRead": {
+    "heading": "Explain hard ideas in your own words",
+    "audience": "For STEM and programming learners who want to find gaps in their understanding.",
+    "primary": "Try it with sample data",
+    "primaryHelp": "Opens a due explanation and two recent examples.",
+    "status": 200
+  },
+  "flow": {
+    "rootHeaders": {
+      "cache-control": "public, must-revalidate, max-age=30",
+      "content-encoding": "br",
+      "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+      "content-type": "text/html",
+      "cross-origin-opener-policy": "same-origin",
+      "date": "Sat, 29 Aug 2026 12:21:07 GMT",
+      "etag": "\"86411631\"",
+      "last-modified": "Sat, 29 Aug 2026 11:42:37 GMT",
+      "permissions-policy": "camera=(), geolocation=(), microphone=(self)",
+      "referrer-policy": "strict-origin-when-cross-origin",
+      "strict-transport-security": "max-age=10886400; includeSubDomains; preload",
+      "vary": "Accept-Encoding",
+      "x-content-type-options": "nosniff",
+      "x-dns-prefetch-control": "off",
+      "x-xss-protection": "1; mode=block"
+    },
+    "demoSeedCount": 3,
+    "demoBanner": "Demo — sample data, nothing is saved to your work\nReset demo\nStart for real",
+    "emptyTopicInvalid": true,
+    "topicLengthAfterBoundaryInput": 100,
+    "responseLengthAfterBoundaryInput": 6000,
+    "incompleteFinishMessage": "Answer “Explain the mechanism” with text or audio before finishing.",
+    "completedDemoCount": 4,
+    "demoIsolation": true,
+    "invalidImportMessage": "This is not an Explanation Lab export. Choose a JSON file exported by this app.",
+    "microphoneRecovery": "The microphone did not start. Allow microphone access or type your response.",
+    "realPersistence": true
+  },
+  "requests": [
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/",
+      "resourceType": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-BmoWEMDj.js",
+      "resourceType": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-B7hkUfXk.css",
+      "resourceType": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/assets/hero-1024.webp",
+      "resourceType": "image"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/library",
+      "resourceType": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-BmoWEMDj.js",
+      "resourceType": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-B7hkUfXk.css",
+      "resourceType": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/practice",
+      "resourceType": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-BmoWEMDj.js",
+      "resourceType": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-B7hkUfXk.css",
+      "resourceType": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/practice?id=63429473-f1bf-4323-b7ed-ab11e2d4c6cf",
+      "resourceType": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-BmoWEMDj.js",
+      "resourceType": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-B7hkUfXk.css",
+      "resourceType": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/",
+      "resourceType": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-BmoWEMDj.js",
+      "resourceType": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-B7hkUfXk.css",
+      "resourceType": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/assets/hero-1024.webp",
+      "resourceType": "image"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/?demo=1",
+      "resourceType": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-BmoWEMDj.js",
+      "resourceType": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-B7hkUfXk.css",
+      "resourceType": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/demo",
+      "resourceType": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-BmoWEMDj.js",
+      "resourceType": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-B7hkUfXk.css",
+      "resourceType": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/practice",
+      "resourceType": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-BmoWEMDj.js",
+      "resourceType": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-B7hkUfXk.css",
+      "resourceType": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/library",
+      "resourceType": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-BmoWEMDj.js",
+      "resourceType": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-B7hkUfXk.css",
+      "resourceType": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/privacy",
+      "resourceType": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-BmoWEMDj.js",
+      "resourceType": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-B7hkUfXk.css",
+      "resourceType": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/terms",
+      "resourceType": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-BmoWEMDj.js",
+      "resourceType": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-B7hkUfXk.css",
+      "resourceType": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/visual-notes",
+      "resourceType": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-BmoWEMDj.js",
+      "resourceType": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-B7hkUfXk.css",
+      "resourceType": "stylesheet"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/missing-qa8",
+      "resourceType": "document"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-BmoWEMDj.js",
+      "resourceType": "script"
+    },
+    {
+      "method": "GET",
+      "url": "https://explanation-lab.sociobot.in/build/main-B7hkUfXk.css",
+      "resourceType": "stylesheet"
+    }
+  ],
+  "errors": [
+    {
+      "url": "https://explanation-lab.sociobot.in/missing-qa8",
+      "source": "console",
+      "text": "Failed to load resource: the server responded with a status of 404 ()"
+    }
+  ],
+  "routes": [
+    {
+      "route": "/",
+      "status": 200,
+      "title": "Explanation Lab — Practice explaining hard ideas",
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "missingAlt": 0,
+      "seriousCriticalAxe": 0
+    },
+    {
+      "route": "/?demo=1",
+      "status": 200,
+      "title": "Demo — Explanation Lab",
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "missingAlt": 0,
+      "seriousCriticalAxe": 0
+    },
+    {
+      "route": "/demo",
+      "status": 200,
+      "title": "Demo — Explanation Lab",
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "missingAlt": 0,
+      "seriousCriticalAxe": 0
+    },
+    {
+      "route": "/practice",
+      "status": 200,
+      "title": "Practice — Explanation Lab",
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "missingAlt": 0,
+      "seriousCriticalAxe": 0
+    },
+    {
+      "route": "/library",
+      "status": 200,
+      "title": "Your explanations — Explanation Lab",
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "missingAlt": 0,
+      "seriousCriticalAxe": 0
+    },
+    {
+      "route": "/privacy",
+      "status": 200,
+      "title": "Privacy — Explanation Lab",
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "missingAlt": 0,
+      "seriousCriticalAxe": 0
+    },
+    {
+      "route": "/terms",
+      "status": 200,
+      "title": "Terms — Explanation Lab",
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "missingAlt": 0,
+      "seriousCriticalAxe": 0
+    },
+    {
+      "route": "/visual-notes",
+      "status": 200,
+      "title": "Visual notes — Explanation Lab",
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "missingAlt": 0,
+      "seriousCriticalAxe": 0
+    },
+    {
+      "route": "/missing-qa8",
+      "status": 404,
+      "title": "Page not found — Explanation Lab",
+      "lang": "en",
+      "h1": 1,
+      "main": 1,
+      "missingAlt": 0,
+      "seriousCriticalAxe": 0
+    }
+  ],
+  "mobile": [
+    {
+      "route": "/",
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "smallTargets": [],
+      "h1Visible": true
+    },
+    {
+      "route": "/?demo=1",
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "smallTargets": [],
+      "h1Visible": true
+    },
+    {
+      "route": "/?demo=1&id=sample-doppler",
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "smallTargets": [],
+      "h1Visible": true
+    },
+    {
+      "route": "/practice",
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "smallTargets": [],
+      "h1Visible": true
+    },
+    {
+      "route": "/library",
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "smallTargets": [],
+      "h1Visible": true
+    },
+    {
+      "route": "/privacy",
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "smallTargets": [],
+      "h1Visible": true
+    },
+    {
+      "route": "/terms",
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "smallTargets": [],
+      "h1Visible": true
+    },
+    {
+      "route": "/visual-notes",
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "smallTargets": [],
+      "h1Visible": true
+    }
+  ],
+  "pwa": {
+    "coldFirstVisitOffline": {
+      "cacheBeforeOffline": {
+        "names": [
+          "explanation-lab-shell-v4"
+        ],
+        "entries": [
+          "/",
+          "/assets/apple-touch-icon.png",
+          "/assets/hero-1024.webp",
+          "/assets/hero-640.webp",
+          "/assets/icon-192.png",
+          "/assets/icon-512.png",
+          "/assets/social-card.webp",
+          "/favicon.svg",
+          "/index.html",
+          "/manifest.webmanifest",
+          "/offline.html"
+        ]
+      },
+      "heading": "Practice with sample explanations",
+      "samples": 3,
+      "styleSheets": 1,
+      "requestFailures": [],
+      "errors": [],
+      "passed": true
+    },
+    "beforeOffline": {
+      "controlled": true,
+      "activeScript": "https://explanation-lab.sociobot.in/sw.js",
+      "waiting": false,
+      "cacheNames": [
+        "explanation-lab-shell-v4"
+      ],
+      "shellEntries": [
+        "/",
+        "/assets/apple-touch-icon.png",
+        "/assets/hero-1024.webp",
+        "/assets/hero-640.webp",
+        "/assets/icon-192.png",
+        "/assets/icon-512.png",
+        "/assets/social-card.webp",
+        "/build/main-B7hkUfXk.css",
+        "/build/main-BmoWEMDj.js",
+        "/favicon.svg",
+        "/index.html",
+        "/manifest.webmanifest",
+        "/offline.html"
+      ]
+    },
+    "updateNoticePersists": true,
+    "offline": {
+      "heading": "Practice with sample explanations",
+      "samples": 3,
+      "controlled": true
+    },
+    "errors": []
+  },
+  "requestOrigins": [
+    "https://explanation-lab.sociobot.in"
+  ],
+  "normalRouteErrors": [],
+  "mobileErrors": [],
+  "reducedMotion": {
+    "mediaMatches": true,
+    "writingAnimation": "none",
+    "scrollBehavior": "auto"
+  }
+}
